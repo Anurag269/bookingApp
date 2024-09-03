@@ -1,0 +1,221 @@
+<div class="popup" *ngIf="isVisible">
+    <div class="popup-row popup-header" style="background-color: blue; display: flex;
+    justify-content: space-between;"><span style=''>properites</span>
+   <button (click)="closePopup()" style="color: white;">X</button> 
+    </div>
+    <div class="max-vh-50" style="padding:0px 20px 0px 20px">
+    <table class="table" >
+      <tbody>
+        <tr>
+          <th>Booth</th>
+          <td>{{ seatBooth.booth }}</td>
+        </tr>
+        <tr>
+          <th>Category</th>
+          <td>{{ seatBooth.category }}</td>
+        </tr>
+        <tr>
+          <th>Shape</th>
+          <td>{{ seatBooth.shape || 'Rectangle' }}</td>
+        </tr>
+        <tr>
+          <th>Size</th>
+          <td>{{ seatBooth.size }}</td>
+        </tr>
+        <tr>
+          <th>Bare Rate</th>
+          <td>{{ seatBooth.rate }}</td>
+        </tr>
+        <tr>
+          <th>Status</th>
+          <td>{{ seatBooth.status || 'Available' }}</td>
+        </tr>
+        <tr>
+          <th>Blocked by</th>
+          <td>{{ seatBooth.blockedBy || 'N/A' }}</td>
+        </tr>
+        
+      </tbody>
+    </table>
+    </div>
+    <div class="popup-row"  >
+      <button class="close-button" (click)="onBook()">Book</button>
+    </div>
+</div> 
+
+<!-- <div class="popup-overlay" *ngIf="isVisible">
+  <div class="popup-content">
+    <div class="popup-header">
+      <h2>Properties</h2>
+      <button class="close-popup-button" (click)="closePopup()">X</button>
+    </div>
+    <div class="popup-body">
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>Booth</th>
+            <td>{{ seatBooth.booth }}</td>
+          </tr>
+          <tr>
+            <th>Category</th>
+            <td>{{ seatBooth.category }}</td>
+          </tr>
+          <tr>
+            <th>Shape</th>
+            <td>{{ seatBooth.shape || 'Rectangle' }}</td>
+          </tr>
+          <tr>
+            <th>Size</th>
+            <td>{{ seatBooth.size }}</td>
+          </tr>
+          <tr>
+            <th>Bare Rate</th>
+            <td>{{ seatBooth.rate | currency }}</td>
+          </tr>
+          <tr>
+            <th>Status</th>
+            <td>{{ seatBooth.status || 'Available' }}</td>
+          </tr>
+          <tr>
+            <th>Blocked by</th>
+            <td>{{ seatBooth.blockedBy || 'N/A' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> -->
+
+
+
+
+
+  <div class="modal" *ngIf="isShowBookingView">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>New Booth Booking</h2>
+        <span class="close-button" (click)="bookclose()">&times;</span>
+      </div>
+      <div style="padding:10px;">
+       
+      <div class="modal-tabs"  style="border: 1px solid black;">
+        <button class="tab-button" [ngClass]="{active: activeTab === 'customerDetails'}" (click)="setActiveTab('customerDetails')">Customer Details</button>
+        <button class="tab-button" [ngClass]="{active: activeTab === 'productDetails'}" (click)="setActiveTab('productDetails')">Product Details</button>
+      </div>
+      <div style="padding:30px; border: #e9ecef 1px solid;">
+      <form  #bookingForm="ngForm" (ngSubmit)="onSubmit(bookingForm)">
+      <div id="customerDetails" class="tab-content" *ngIf="activeTab === 'customerDetails'">
+       
+          <div class="form-container">
+          <div class="form-row">
+            <div class="form-column">
+              <label for="floatingInputcompany"></label>
+              <input type="text" id="companyName" name="companyName" class="form-control" [(ngModel)]="formData. company_name" #companyName="ngModel" placeholder="Company Name (As per GST)" required>
+              <div *ngIf="companyName.invalid && companyName.touched" class="error-message">
+                Company Name is required.
+              </div>
+            </div>
+            <div class="form-column">
+              <label for="contactPerson"></label>
+              <input type="text" id="contactPerson" name="contactPerson"  placeholder="Contact Person Name"  class="form-control" [(ngModel)]="formData.contact_person_name" #contactPerson="ngModel" required>
+              <div *ngIf="contactPerson.invalid && contactPerson.touched" class="error-message">
+                Contact Person Name is required.
+              </div>
+            </div>
+          </div>
+        
+          <div class="form-row">
+            <div class="form-column">
+              <label for="emailAddress"></label>
+              <input type="email" id="emailAddress" name="emailAddress" class="form-control" [(ngModel)]="formData.email" #emailAddress="ngModel" placeholder="E-Mail Address" required email>
+              <div *ngIf="emailAddress.invalid && emailAddress.touched" class="error-message">
+                Please enter a valid email address.
+              </div>
+            </div>
+            <div class="form-column">
+              <label for="contactNumber"></label>
+              <input type="text" id="contactNumber" name="contactNumber" class="form-control" [(ngModel)]="formData.contact_number" #contactNumber="ngModel" placeholder="Contact Number" required pattern="^\d{10}$">
+              <div *ngIf="contactNumber.invalid && contactNumber.touched" class="error-message">
+                Contact Number must be a 10-digit number.
+              </div>
+            </div>
+          </div>
+        
+          <div class="form-row">
+            <div class="form-column">
+              <label for="gstin"></label>
+              <input type="text" id="gstin" name="gstin" class="form-control" [(ngModel)]="formData.gstin" #gstin="ngModel" required placeholder=" GSTIN or PAN " minlength="10">
+              <div *ngIf="gstin.invalid && gstin.touched" class="error-message">
+                GSTIN or PAN is required and must be at least 10 characters long.
+              </div>
+            </div>
+            <div class="form-column">
+              <label for="billingAddress"></label>
+              <input type="text" id="billingAddress" name="billingAddress" class="form-control" [(ngModel)]="formData.billingAddress" placeholder="Billing Address" #billingAddress="ngModel" required>
+              <div *ngIf="billingAddress.invalid && billingAddress.touched" class="error-message">
+                Billing Address is required.
+              </div>
+            </div>
+          </div>
+        
+          <p>For Any Query Please Call Us at: +91 81066 95186 Or +91 73861 94449</p>
+          </div>
+        <!-- </form> -->
+        
+  
+        <div class="form-navigation" style="float: right;margin: 10px;">
+          <button class="nav-button next-button" (click)="onSubmit(bookingForm)">Next</button>
+        </div>
+      </div>
+      <div id="productDetails" class="tab-content" *ngIf="activeTab === 'productDetails'">
+          <div class="form-container">
+            <div class="form-row">
+              <div class="form-column">
+                <label for="booths">Booths <span>*</span></label>
+           
+                <select id="boothSelect" class="dropdown dropdown-scroll" [(ngModel)]="formData.booth_ids" placeholder="Select Booths"  [ngModelOptions]="{standalone: true}">
+                  <!-- <option value="seatBooth.booth" >Select Booths</option> -->
+                  <option *ngFor="let booth of allSeat" [value]="booth" (change)="toggleSelection(booth,$event)"
+                  ><span class="select2 select2-container select2-container--default select2-container--below" dir="ltr" data-select2-id="select2-data-1-fpai" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-disabled="false"><ul class="select2-selection__rendered" id="select2-inputBooths-container"><li class="select2-selection__choice" title="E5" data-select2-id="select2-data-186-i6hy"><button type="button" class="select2-selection__choice__remove" tabindex="-1" title="Remove item" aria-label="Remove item" aria-describedby="select2-inputBooths-container-choice-xjcc-7"><span aria-hidden="true">×</span></button><span class="select2-selection__choice__display" id="select2-inputBooths-container-choice-xjcc-7">{{booth}}</span></li></ul><span class="select2-search select2-search--inline"><textarea class="select2-search__field" type="search" tabindex="0" autocorrect="off" autocapitalize="none" spellcheck="false" role="searchbox" aria-autocomplete="list" autocomplete="off" aria-label="Search" aria-describedby="select2-inputBooths-container" placeholder="" style="width: 0.75em;"></textarea></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span></option>
+                </select>
+                <p>Selected Booths: {{ formData.booth_ids | json }}</p>
+              </div>
+            </div>
+    
+            <div class="form-row">
+              <div class="form-column">
+                <label for="categoryName">Category Name</label>
+                <input type="text"  style="background-color:#e9ecef;" id="categoryName" name="categoryName" class="form-control" value="{{seatBooth.category}}" readonly>
+              </div>
+              <div class="form-column">
+                <label for="boothText">Booth Text</label>
+                <input type="text"  style="background-color:#e9ecef;" id="boothText" name="boothText" class="form-control" value="{{seatBooth.booth}}" readonly>
+              </div>
+              <div class="form-column">
+                <label for="boothRate">Booth Rate</label>
+                <input type="text" id="boothRate" name="boothRate" class="form-control"value="{{seatBooth.rate}}" readonly>
+              </div>
+            </div>
+    
+            <div class="form-row">
+              <div  style="display: flex;">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms" style="margin-left: 8px;">I agree with the <a href="#">terms and conditions</a><span>*</span></label>
+              </div>
+            </div>
+    
+            <p>For Any  Please Call Us at: +91 81066 95186 Or +91 73861 94449</p>
+          
+            <div   style="float: right; ">
+            <div class="form-navigation">
+              <button class="nav-button submit-button">Previous</button>
+              <button type="submit" (click)="onSubmit(bookingForm)" class="nav-button submit-button gap">Submit</button>
+              <button type="submit" (click)="onPay(bookingForm)" id="pay-button" class="nav-button submit-button gap">Book</button>
+            </div>
+          </div>
+    </div>
+  </div>
+  </form>
+</div>
+</div>
+  </div>

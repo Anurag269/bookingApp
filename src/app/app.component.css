@@ -1,0 +1,179 @@
+
+/* Optional: Center the row if needed */
+/* Fixed row container */
+
+/* Style for the container */
+.container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Default content style */
+.content {
+  padding: 20px;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Highlighted state style */
+.highlighted {
+  border: 2px solid #007bff; /* Highlight border color */
+  box-shadow: 0 0 10px #007bff; /* Optional glowing effect */
+}
+
+/* Style for the highlight button */
+.highlight-button {
+  cursor: pointer;
+  margin-bottom: 10px;
+  background-color: #f8f9fa;
+  border: 1px solid #007bff;
+  color: #007bff;
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.highlight-button:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+
+.fixed-container {
+  width: 1300px; /* Fixed width for the container */
+  margin: 0 auto; /* Center the container */
+  overflow: hidden; /* Prevent any scrolling within the container */
+}
+
+.fixed-row {
+  height: 1000px;
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+
+
+.fixed-width-left {
+  width: 40px; /* Fixed width for the left column */
+}
+
+.fixed-width-middle {
+  width: 1000px; /* Fixed width for the middle column */
+}
+
+.fixed-width-right {
+  width: 80px; /* Fixed width for the right column */
+}
+
+
+.box {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    text-align: center;
+  }
+
+  .custom-toolbar {
+    background-color: white;
+    height: 100px; /* Adjust the height as needed */
+  }
+  
+  .logo {
+    height: 60px; /* Adjust the logo height as needed */
+    margin-right: 16px;
+  }
+  
+  mat-toolbar-row {
+    height: 100%;
+  }
+  
+  .marAll{
+    margin: 15PX 10PX 15PX 10PX;
+    background-color: white;
+  }
+ 
+  .drag-root {
+    transition: transform 0.001s ease-out;
+  }
+  .rounded-container {
+    border-radius: 6PX; /* Adjust the radius as needed */
+    overflow: hidden;    /* Ensure content stays within the rounded borders */
+  }
+
+
+  .container-fullscreen {
+    display: flex;
+    align-items: center; /* Center align vertically */
+  }
+  
+  .zoom-controls {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .zoom-content {
+    flex: 1;
+  }
+  .container-fullscreen {
+    height:95%;
+    width:98.5%;
+    background-color:white;
+    margin: 8px;
+  }
+.box-middel{
+    background-color: #f8f9fa;
+    padding: 20px;
+    border: 1px solid #dee2e6;
+}
+.zoom-controls {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Space between buttons */
+  z-index: 1000;
+}
+
+.zoom-controls button {
+  background-color: #f5f8fa;
+  color: black;
+  border: none;
+  padding: 10px;
+  /* border-radius: 5px; */
+  cursor: pointer;
+}
+
+.zoom-controls button:hover {
+/* color: #6a6d6f; */
+}
+.inbutton{
+  width:40px;
+  border-radius: 5px 5px 0px 0px;
+}
+.outbutton{
+  width:40px;
+
+}
+.drag-button {
+  cursor: grab;
+
+}
+.newdrag{
+  width:40px;
+  border-radius: 0px 0px 5px 5px;
+}
+.drag-button:active {
+  cursor: grabbing;
+}
+
+.zoom-content {
+  position: relative;
+  transition: transform 0.1s ease;
+}
+
+.container-fullscreen {
+  position: relative; /* Ensure the zoom controls are positioned relative to the container */
+}
+
+  

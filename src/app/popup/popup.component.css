@@ -1,0 +1,490 @@
+.form-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 columns */
+/* space between columns and rows */
+}
+
+.form-row {
+  display: contents; /* Allows the grid to treat form-columns as direct children of form-container */
+}
+
+.form-column {
+  display: flex;
+  flex-direction: column;
+ 
+}
+
+.dropdown-container {
+  display: flex;
+  flex-direction: column;
+  /* margin: 20px 0; */
+}
+
+.dropdown-container label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.dropdown {
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  height: 40px; /* Adjust the height of the select box */
+}
+
+.dropdown option {
+  padding: 10px;
+}
+
+.dropdown-scroll {
+  max-height: 150px; /* Adjust this height based on your preference */
+  overflow-y: auto;
+}
+
+.dropdown {
+  /* padding: 10px; */
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  height: 40px;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 16px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown option {
+  padding: 10px;
+}
+
+.dropdown-scroll {
+  max-height: 150px; /* Adjust this height based on your preference */
+  overflow-y: auto;
+}
+
+.dropdown:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.dropdown option {
+  padding: 10px;
+}
+
+
+/* Style for popup overlay */
+/* .popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Style for popup content */
+.popup-content {
+  background:aliceblue;;
+  border-radius: 8px;
+  padding: 20px;
+  width: 300px;
+  max-width: 80%;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Popup header */
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Style for the close button */
+.close-popup-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+} */
+
+/* Table styles */
+.table {
+  width: 100%;
+  margin-top: 15px;
+  border-collapse: collapse;
+  caption-side: bottom;
+  border-collapse: collapse;
+}
+.form-control{
+display: block;
+width: 100%;
+padding: .375rem .75rem;
+font-size: 1rem;
+font-weight: 400;
+line-height: 1.5;
+color: #212529;
+background-color: #fff;
+background-clip: padding-box;
+border: 1px solid #ced4da;
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+border-radius: .25rem;
+transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+.input:focus ~ label,
+input:not(:placeholder-shown) ~ label {
+  top: -10px;
+  left: 5px;
+  font-size: 12px;
+  color: #3f51b5;
+}
+.floatingInputcompany{
+  position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 1rem .75rem;
+    pointer-events: none;
+    border: 1px solid transparent;
+    transform-origin: 0 0;
+    transition: opacity .1s ease-in-out, transform .1s ease-in-out;
+}
+.table th, .table td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  text-align: left;
+  padding-left: 10px;
+}
+
+.table td {
+  text-align: start;
+}
+
+/* Button to open popup */
+.open-popup-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.contactPerson{
+  display: block;
+  width: 100%;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+}
+.error-message{
+  color: red;
+}
+
+
+
+.popup {
+    position: fixed;
+    right: 20px; /* Position the popup to the right */
+    top: 50%; /* Center the popup vertically */
+    transform: translateY(-50%);
+    width: 300px;
+    background-color:aliceblue;;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border-radius: 4px;
+  }
+  
+  .popup-row {
+    padding: 10px 0 10px 0px; /* Add padding for spacing */
+    border-bottom: 1px solid #ccc; /* Add a light gray line after each row */
+    align-content: center;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .popup-row:last-child {
+    border-bottom: none; /* Remove the border from the last row */
+  }
+  
+  .popup-header {
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    border-radius: 4px 4px 0 0; /* Optional: rounded corners on the header */
+    margin-bottom: 10px;
+    height:60px
+  }
+  
+  .popup button {
+    margin-top: 10px;
+    display: block;
+    width: 30%;
+    background-color: blue;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .popup button:hover {
+    background-color: blue;
+  }
+  .modal {
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+
+    position: fixed;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    position: absolute;
+    top: 5%; /* Adjust this value to control how far from the top the modal should be */
+    left: 50%;
+    transform: translateX(-50%); /* Center the modal horizontally */
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    width: 85%;
+    height: 70%;
+    /* max-width: 800px; */
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .drag-handle {
+    cursor: grab;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .modal-header {
+    background-color: #007bff;
+    color: white;
+    padding: 16px;
+    display: flex;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .close-button {
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  
+  .modal-tabs {
+    display: flex;
+    background-color: #f1f1f1;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .tab-button {
+    flex: 1;
+    padding: 12px;
+    background-color: #f1f1f1;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    color: #007bff;
+  }
+  
+  .tab-button.active {
+    background-color: white;
+    font-weight: bold;
+    border-bottom: 3px solid #007bff;
+  }
+  
+  .tab-content {
+    /* display: none; */
+    padding: 16px;
+  }
+  
+  .tab-content.active {
+    display: block;
+  }
+  
+  /* .form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+  }
+  
+  .form-row label {
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .form-row input {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+   */
+
+   .tab-button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: #f0f0f0;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-align: center;
+}
+
+.tab-button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-row {
+    margin-bottom: 16px;
+}
+
+.form-query {
+    font-size: 12px;
+    margin-bottom: 16px;
+    text-align: center;
+    color: #555;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #565e64;
+}
+   .form-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  .gap{
+    margin-left: 8px;
+  }
+  .nav-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .nav-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .nav-button.previous-button {
+    background-color: #6c757d;
+  }
+  
+  .nav-button.previous-button:hover {
+    background-color: #5a6268;
+  }
+  
+  .form-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .form-row {
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .form-column {
+    flex: 2;
+    padding-right: 10px;
+  }
+  
+  .form-column:last-child {
+    padding-right: 0;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="text"],
+  input[type="email"] {
+    width: 100%;
+    padding: 28px;
+    box-sizing: border-box;
+  }
+  

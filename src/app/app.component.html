@@ -1,0 +1,36 @@
+<mat-toolbar class="custom-toolbar">
+  <mat-toolbar-row>
+    <img src="../assets/images/icon.jpeg" alt="Logo" style="height: 60px;width:80px; margin-right: 16px;">
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="container-fullscreen rounded-container" style="display: flex;">
+  <!-- Zoom Controls -->
+  <div class="zoom-controls" style="margin-right: 20px;">
+    <button class="inbutton" (click)="zoomIn()">+</button>
+    <button class="outbutton" (click)="zoomOut()">-</button>
+    <button class="drag-button newdrag" (click)="zoomdrDag()"cdkDrag>
+<i class="fas fa-fw fa-arrows-alt"></i>
+    </button>
+  </div>
+
+  <!-- Image and Content -->
+  <div style="flex: 2;">
+    <div cdkDrag class="drag-root drag-button">
+      <div class="zoom-content" [style.transform]="zoomTransform">
+        <div class="row" style="background-image: url('../assets/images/layout-fix.jpg'); background-size: cover; height: 1000px; width: 1300px;">
+          <div class="fixed-width-left" style="width:225px"></div>
+          <div class="fixed-width-middle" style="width:618px">
+            <app-booking-layout></app-booking-layout>
+          </div>
+          <div class="col-md-4 col-4 fixed-width-right"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-popup [isVisible]="isPopupVisible" [seatBooth]="selectedSeatBooth" (close)="closePopup()"></app-popup>
+<!-- </div> -->
+
+
