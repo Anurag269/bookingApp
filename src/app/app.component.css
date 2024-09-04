@@ -42,7 +42,6 @@
 .fixed-container {
   width: 1300px; /* Fixed width for the container */
   margin: 0 auto; /* Center the container */
-  overflow: hidden; /* Prevent any scrolling within the container */
 }
 
 .fixed-row {
@@ -77,21 +76,21 @@
     background-color: white;
     height: 100px; /* Adjust the height as needed */
   }
-  
+
   .logo {
     height: 60px; /* Adjust the logo height as needed */
     margin-right: 16px;
   }
-  
+
   mat-toolbar-row {
     height: 100%;
   }
-  
+
   .marAll{
     margin: 15PX 10PX 15PX 10PX;
     background-color: white;
   }
- 
+
   .drag-root {
     transition: transform 0.001s ease-out;
   }
@@ -105,14 +104,16 @@
     display: flex;
     align-items: center; /* Center align vertically */
   }
-  
+
   .zoom-controls {
     display: flex;
     flex-direction: column;
   }
-  
+
   .zoom-content {
     flex: 1;
+    overflow: hidden;
+    transition: transform 0.2s ease-out;
   }
   .container-fullscreen {
     height:95%;
@@ -169,11 +170,35 @@
 
 .zoom-content {
   position: relative;
-  transition: transform 0.1s ease;
+  transition: transform 0s ease;
 }
 
 .container-fullscreen {
   position: relative; /* Ensure the zoom controls are positioned relative to the container */
 }
+.sticky-footer {
+  position: fixed;
+  bottom: 20px; /* Adjust as needed */
+  right: 20px; /* Adjust as needed */
+  z-index: 1000; /* Ensure it is above other content */
+}
 
-  
+.sticky-footer .btn {
+  background: #0069b5;
+  color: #ffffff;
+}
+
+.tableBtn i {
+  font-size: 24px; /* Adjust icon size if needed */
+  color: #ffffff; /* Adjust icon color if needed */
+}
+
+.text-end {
+  text-align: right !important;
+}
+
+.mx-1 {
+  margin-right: .25rem !important;
+  margin-left: .25rem !important;
+  float: right;
+}

@@ -1,7 +1,7 @@
-<div *ngIf="popoverVisible" 
-class="popover" 
+<div *ngIf="popoverVisible"
+class="popover"
 [ngStyle]="{ 'top.px': popoverPosition.top, 'left.px': popoverPosition.left }">
-<p>{{ popoverData.size }}| {{popoverData.booth}} |{{popoverData.booth}} | {{popoverData.category}}|{{popoverData.booking}}   </p>
+<p>{{ popoverData?.size }}| {{popoverData?.booth}} |{{popoverData?.booth}} | {{popoverData?.category}}|{{popoverData?.booking}}   </p>
 </div>
 <!-- Left Grid --><div>
   <div class="row" style="margin:10px 10px 20px 10px; ">
@@ -14,7 +14,7 @@ class="popover"
       {{ seat.booth }}
     </button>
   </div>
-  
+
 </div>
 
 <div class="row"  style="margin: 10px 30px 10px 25px;">
@@ -27,9 +27,9 @@ class="popover"
         <button class="rightrowseat" *ngFor="let seat of Secseats">{{ seat.label }}</button>
       </div>
     </div>
-  
+
     <!-- Right Grid with 3 Columns and Even Spacing -->
-    <div class="right-row" style="margin-right: 50px; margin-top:-15px"> 
+    <div class="right-row" style="margin-right: 50px; margin-top:-15px">
       <div class=" seat-grid-seq  small-grid-virtic">
         <button class="rightrowseat" #boothButton [ngClass]="getBoothClass(getBoothByBoothNumber('K29'))" (mouseenter)="showPopover(getBoothByBoothNumber('K29'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K29'))">K29</button>
         <button class="rightrowseat" #boothButton [ngClass]="getBoothClass(getBoothByBoothNumber('K28'))"(mouseenter)="showPopover(getBoothByBoothNumber('K28'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K28'))">K28</button>
@@ -73,7 +73,7 @@ class="popover"
     </div>
   </div>
 
- 
+
   <div class="row"  style="margin:20px 0px 20px 10px; ">
     <!-- Left Grid -->
     <div class="center-wrapper">
@@ -109,17 +109,17 @@ class="popover"
   <div class="row" style="margin: 10px 10px 10px 10px;">
     <!-- Left Grid -->
     <div class="center-wrapper">
-  
+
       <div class="thirdRow-seat-grid-left">
         <button class="seat" *ngFor="let seat of  seatsthird">{{ seat.label }}</button>
       </div>
-  
-  
+
+
         <div class="bbox green-box">
         {{ text }}
         </div>
     <!-- Right Grid -->
-  
+
     <div class="thirdRow-seat-grid-left" style="margin-right: 90px">
       <button class="seat" [ngClass]="getBoothClass(getBoothByBoothNumber('E11'))"  #boothButton (mouseenter)="showPopover(getBoothByBoothNumber('E11'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E11'))">E11</button>
       <button class="seat" [ngClass]="getBoothClass(getBoothByBoothNumber('E12'))"  #boothButton (mouseenter)="showPopover(getBoothByBoothNumber('E12'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E12'))">E12</button>
@@ -133,7 +133,7 @@ class="popover"
       <button class="seat"   [ngClass]="getBoothClass(getBoothByBoothNumber('E7'))" #boothButton (mouseenter)="showPopover(getBoothByBoothNumber('E7'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E7'))">E7</button>
       <button class="seat"  [ngClass]="getBoothClass(getBoothByBoothNumber('E6'))"  #boothButton (mouseenter)="showPopover(getBoothByBoothNumber('E6'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E6'))">E6</button>
       <button class="seat"  [ngClass]="getBoothClass(getBoothByBoothNumber('E5'))"  #boothButton (mouseenter)="showPopover(getBoothByBoothNumber('E5'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E5'))">E5</button>
-      
+
     </div>
   </div>
   </div>
@@ -141,7 +141,7 @@ class="popover"
   <div class="row"style="margin: 20px 10px 10px 10px;">
     <!-- Left Grid -->
     <div class="center-wrapper">
-    
+
       <div class="mixed">
         <div class="bbox merron-box">
           {{ text }}
@@ -150,13 +150,13 @@ class="popover"
         <button class="seat" *ngFor="let seat of   thiseats">{{ seat.label }}</button>
       </div>
   </div>
-  
-      
+
+
     <!-- Right Grid -->
-  
+
     <div class="fourRow-seat-grid-left" style="margin-right: 90px">
         <!-- <button class="seat" [ngClass]="{'booked-seat': seat.booking !== null, 'available-seat': seat.booking === null}"  *ngFor="let seat of  newCombinedInE">{{ seat.booth }}</button> -->
-        <button class="seat"  #boothButton   [ngClass]="getBoothClass(getBoothByBoothNumber('E3'))"  (mouseenter)="showPopover(getBoothByBoothNumber('E3'), $event)" 
+        <button class="seat"  #boothButton   [ngClass]="getBoothClass(getBoothByBoothNumber('E3'))"  (mouseenter)="showPopover(getBoothByBoothNumber('E3'), $event)"
         (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E3'))">E3</button>
         <button class="seat"  #boothButton [ngClass]="getBoothClass(getBoothByBoothNumber('E4'))"  (mouseenter)="showPopover(getBoothByBoothNumber('E4'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E4'))">E4</button>
         <button class="seat"  #boothButton [ngClass]="getBoothClass(getBoothByBoothNumber('IN7'))"   (mouseenter)="showPopover(getBoothByBoothNumber('IN7'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('IN7'))">IN7</button>
@@ -179,29 +179,29 @@ class="popover"
   <div class="row " style="margin: 20px 10px 10px 10px;">
     <!-- Left Grid -->
     <div class="center-wrapper">
-  
+
         <div class="grid-container">
             <!-- First Column (Single Box) -->
             <div class= "gridbox box-1">Box 1</div>
-          
+
             <!-- Second Column (Two Boxes) -->
             <div class="gridbox box-2">Box 2</div>
             <div class="gridbox box-3">Box 3</div>
-          
+
           </div>
-  
+
         <div class="bbox green-box" >
         {{ text }}
-        </div> 
+        </div>
     <!-- Right Grid -->
-  
+
     <div class="fiveRow-seat-grid-left"  style="margin-right: 70px">
       <button class="newseatnew" #boothButton [ngClass]="getBoothClass(getBoothByBoothNumber('CP3'))" (mouseenter)="showPopover(getBoothByBoothNumber('CP3'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('CP3'))">CP3</button>
       <button class="newseatnew" #boothButton [ngClass]="getBoothClass(getBoothByBoothNumber('CP4'))" (mouseenter)="showPopover(getBoothByBoothNumber('CP4'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('CP4'))">CP4</button>
       <button class="newseatnew" #boothButton [ngClass]="getBoothClass(getBoothByBoothNumber('CP5'))" (mouseenter)="showPopover(getBoothByBoothNumber('CP5'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('CP5'))">CP5</button>
       <button class="newseatnew" #boothButton [ngClass]="getBoothClass(getBoothByBoothNumber('CP2'))"(mouseenter)="showPopover(getBoothByBoothNumber('CP2'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('CP2'))">CP2</button>
       <button class="newseatnew" #boothButton [ngClass]="getBoothClass(getBoothByBoothNumber('CP1'))"(mouseenter)="showPopover(getBoothByBoothNumber('CP1'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('CP1'))" >CP1</button>
-      
+
     </div>
     </div>
     </div>
@@ -235,7 +235,7 @@ class="popover"
           <div class="lastonegrid">Item 1</div>
           <div class="lastonegrid">Item 1</div>
       </div>
-        
+
         <div >
         <div class="lastonegrid-container-middel">
           <div class="grid-item" style="background-color: pink;">s7</div>
@@ -243,7 +243,7 @@ class="popover"
           <div class="grid-item" style="background-color: pink;">s9</div>
           <div class="grid-item" style="background-color: pink;">s10</div>
         </div>
-        
+
         <div class="lastonegrid-container-last" >
           <div class="grid-item" style="background-color: blueviolet;">Item 1</div>
           <div class="grid-item" style="background-color: blueviolet;">Item 2</div>
@@ -264,11 +264,10 @@ class="popover"
           <button class="grid-item  lastseats" style=" background-color: pink;"  #boothButton [ngClass]="getBoothClass(getBoothByBoothNumber('B2'))" (mouseenter)="showPopover(getBoothByBoothNumber('B2'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('B2'))">B2</button>
           <button class="grid-item  lastseats" style=" background-color: pink;"  #boothButton  [ngClass]="getBoothClass(getBoothByBoothNumber('B1'))" (mouseenter)="showPopover(getBoothByBoothNumber('1'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('B1'))">B1</button>
         </div>
-        
+
       <div class="lastonegrid-container-last" style="margin-right: 45px;">
         <button class="grid-item  lastseats" style="background-color: blueviolet;"  #boothButton [ngClass]="getBoothClass(getBoothByBoothNumber('G2'))" (mouseenter)="showPopover(getBoothByBoothNumber('G2'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('G2'))">G2</button>
         <button class="grid-item  lastseats" style="background-color: blueviolet;"  #boothButton [ngClass]="getBoothClass(getBoothByBoothNumber('G1'))" (mouseenter)="showPopover(getBoothByBoothNumber('G1'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('G1'))">G1</button>
         <!-- <button class="grid-item" style="background-color: blueviolet;">G1</button> -->
       </div>
         </div>
-  

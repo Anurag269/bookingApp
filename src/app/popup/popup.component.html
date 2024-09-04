@@ -1,7 +1,7 @@
 <div class="popup" *ngIf="isVisible">
     <div class="popup-row popup-header" style="background-color: blue; display: flex;
-    justify-content: space-between;"><span style=''>properites</span>
-   <button (click)="closePopup()" style="color: white;">X</button> 
+    justify-content: space-between;"><span style=''>Properties</span>
+      <i class="fas fa-fw fa-times" (click)="closePopup()" ></i>
     </div>
     <div class="max-vh-50" style="padding:0px 20px 0px 20px">
     <table class="table" >
@@ -34,14 +34,14 @@
           <th>Blocked by</th>
           <td>{{ seatBooth.blockedBy || 'N/A' }}</td>
         </tr>
-        
+
       </tbody>
     </table>
     </div>
     <div class="popup-row"  >
-      <button class="close-button" (click)="onBook()">Book</button>
+      <button class="close-button" (click)="onBook()">Book Here</button>
     </div>
-</div> 
+</div>
 
 <!-- <div class="popup-overlay" *ngIf="isVisible">
   <div class="popup-content">
@@ -91,21 +91,21 @@
 
 
   <div class="modal" *ngIf="isShowBookingView">
-    <div class="modal-content">
+    <div class="modal-content" style="height: auto !important;">
       <div class="modal-header">
         <h2>New Booth Booking</h2>
-        <span class="close-button" (click)="bookclose()">&times;</span>
+        <i class="fas fa-fw fa-times" (click)="bookclose()" ></i>
       </div>
       <div style="padding:10px;">
-       
-      <div class="modal-tabs"  style="border: 1px solid black;">
+
+      <div class="modal-tabs">
         <button class="tab-button" [ngClass]="{active: activeTab === 'customerDetails'}" (click)="setActiveTab('customerDetails')">Customer Details</button>
         <button class="tab-button" [ngClass]="{active: activeTab === 'productDetails'}" (click)="setActiveTab('productDetails')">Product Details</button>
       </div>
-      <div style="padding:30px; border: #e9ecef 1px solid;">
+      <div style="padding:30px; padding-bottom: 40px; border: #e9ecef 1px solid;">
       <form  #bookingForm="ngForm" (ngSubmit)="onSubmit(bookingForm)">
       <div id="customerDetails" class="tab-content" *ngIf="activeTab === 'customerDetails'">
-       
+
           <div class="form-container">
           <div class="form-row">
             <div class="form-column">
@@ -123,7 +123,7 @@
               </div>
             </div>
           </div>
-        
+
           <div class="form-row">
             <div class="form-column">
               <label for="emailAddress"></label>
@@ -140,7 +140,7 @@
               </div>
             </div>
           </div>
-        
+
           <div class="form-row">
             <div class="form-column">
               <label for="gstin"></label>
@@ -157,13 +157,13 @@
               </div>
             </div>
           </div>
-        
+
           <p>For Any Query Please Call Us at: +91 81066 95186 Or +91 73861 94449</p>
           </div>
         <!-- </form> -->
-        
-  
-        <div class="form-navigation" style="float: right;margin: 10px;">
+
+
+        <div class="form-navigation" style="float: right;margin: 10px;padding-bottom: 10px">
           <button class="nav-button next-button" (click)="onSubmitnext(bookingForm)">Next</button>
         </div>
       </div>
@@ -173,7 +173,7 @@
             <div class="form-row">
               <div class="form-column">
                 <label for="booths">Booths <span>*</span></label>
-           
+
                 <select id="boothSelect" class="dropdown dropdown-scroll" [(ngModel)]="formData.booth_ids" placeholder="Select Booths"  [ngModelOptions]="{standalone: true}">
                   <!-- <option value="seatBooth.booth" >Select Booths</option> -->
                   <option *ngFor="let booth of allSeat" [value]="booth" (change)="toggleSelection(booth,$event)"
@@ -182,7 +182,7 @@
                 <p>Selected Booths: {{ formData.booth_ids | json }}</p>
               </div>
             </div>
-    
+
             <div class="form-row">
               <div class="form-column">
                 <label for="categoryName">Category Name</label>
@@ -197,16 +197,16 @@
                 <input type="text" id="boothRate" name="boothRate" class="form-control"value="{{seatBooth.rate}}" readonly>
               </div>
             </div>
-    
+
             <div class="form-row">
               <div  style="display: flex;">
                 <input type="checkbox" id="terms" name="terms" required>
                 <label for="terms" style="margin-left: 8px;">I agree with the <a href="#">terms and conditions</a><span>*</span></label>
               </div>
             </div>
-    
+
             <p>For Any  Please Call Us at: +91 81066 95186 Or +91 73861 94449</p>
-          
+
             <div   style="float: right; ">
             <div class="form-navigation">
               <button class="nav-button submit-button">Previous</button>

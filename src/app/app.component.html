@@ -17,7 +17,7 @@
   <!-- Image and Content -->
   <div style="flex: 2;">
     <div cdkDrag class="drag-root drag-button">
-      <div class="zoom-content" [style.transform]="zoomTransform">
+      <div class="zoom-content" [ngStyle]="{'transform': 'scale(' + zoomLevel + ')'}">
         <div class="row" style="background-image: url('../assets/images/layout-fix.jpg'); background-size: cover; height: 1000px; width: 1300px;">
           <div class="fixed-width-left" style="width:225px"></div>
           <div class="fixed-width-middle" style="width:618px">
@@ -29,6 +29,56 @@
     </div>
   </div>
 </div>
+<div class="sticky-footer">
+  <ng-container *ngIf="!showSummaryTable; else showDetails">
+    <button type="button" class="btn mx-1 btn-sm no_focus tableBtn" (click)="showSummaryTableDetails()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708z"/>
+        <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+      </svg>
+    </button>
+  </ng-container>
+  <ng-template #showDetails>
+    <button type="button" class="btn mx-1 btn-sm no_focus tableBtn" (click)="minimizeSummaryTableDetails()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+        <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+      </svg>
+    </button>
+    <div>
+      <table class="table table-bordered table-hover table-sm" id="categoryTable">
+            <thead class="table-dark">
+            <tr class="text-center">
+              <th>Category</th>
+              <th>Booked</th>
+
+              <th>Available</th>
+              <th>Total</th>
+            </tr>
+            </thead>
+            <tbody id="categoryTableLegndsBody"><tr class="category_name_row" style="background-color:white" data-category_name="Country Pavilion"><td class="text-center" title="Country Pavilion">Country Pavilion</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">0</td><td class="text-center" style="color:#000000;background-color:#ee018d;font-weight:500">5</td><td class="text-center" style="font-weight:500">5</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Powered By"><td class="text-center" title="Powered By">Powered By</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">1</td><td class="text-center" style="color:#000000;background-color:#2bb673;font-weight:500">0</td><td class="text-center" style="font-weight:500">1</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Platinum"><td class="text-center" title="Platinum">Platinum</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">1</td><td class="text-center" style="color:#000000;background-color:#f7941d;font-weight:500">0</td><td class="text-center" style="font-weight:500">1</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Diamond"><td class="text-center" title="Diamond">Diamond</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">1</td><td class="text-center" style="color:#000000;background-color:#c4996c;font-weight:500">0</td><td class="text-center" style="font-weight:500">1</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Gold"><td class="text-center" title="Gold">Gold</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">0</td><td class="text-center" style="color:#000000;background-color:#922791;font-weight:500">2</td><td class="text-center" style="font-weight:500">2</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Silver Sponsor"><td class="text-center" title="Silver Sponsor">Silver Sponsor</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">3</td><td class="text-center" style="color:#000000;background-color:#02aef0;font-weight:500">3</td><td class="text-center" style="font-weight:500">6</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Exhibitor"><td class="text-center" title="Exhibitor">Exhibitor</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">28</td><td class="text-center" style="color:#000000;background-color:#ffff00;font-weight:500">55</td><td class="text-center" style="font-weight:500">83</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Associate Sponsor"><td class="text-center" title="Associate Sponsor">Associate Sponsor</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">0</td><td class="text-center" style="color:#000000;background-color:#e7b4d5;font-weight:500">15</td><td class="text-center" style="font-weight:500">15</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Test"><td class="text-center" title="Test">Test</td><td class="text-center" style="color:#fcfcfc;background-color:#000000;font-weight:500">0</td><td class="text-center" style="color:#fcfcfc;background-color:#1e663a;font-weight:500">1</td><td class="text-center" style="font-weight:500">1</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Bronze Sponsor"><td class="text-center" title="Bronze Sponsor">Bronze Sponsor</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">0</td><td class="text-center" style="color:#000000;background-color:#f9b4a4;font-weight:500">4</td><td class="text-center" style="font-weight:500">4</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Indie Zone"><td class="text-center" title="Indie Zone">Indie Zone</td><td class="text-center" style="color:#000000;background-color:#ee0000;font-weight:500">0</td><td class="text-center" style="color:#000000;background-color:#ee1c25;font-weight:500">45</td><td class="text-center" style="font-weight:500">45</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Indiajoy stalls"><td class="text-center" title="Indiajoy stalls">Indiajoy stalls</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">0</td><td class="text-center" style="color:#000000;background-color:#7d321e;font-weight:500">16</td><td class="text-center" style="font-weight:500">16</td></tr></tbody>
+          </table>
+    </div>
+  </ng-template>
+</div>
+
+<!--<div class="table-responsive" id="categoryTableLegnds">-->
+<!--  <div class="text-end">-->
+<!--    <button type="button" class="btn btn-darkcyan mx-1 btn-sm no_focus tableBtn"><i class="bi bi-chevron-double-up"></i></button>-->
+<!--  </div>-->
+<!--  <table class="table table-bordered table-hover table-sm" id="categoryTable" style="display: none;">-->
+<!--    <thead class="table-dark">-->
+<!--    <tr class="text-center">-->
+<!--      <th>Category</th>-->
+<!--      <th>Booked</th>-->
+
+<!--      <th>Available</th>-->
+<!--      <th>Total</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody id="categoryTableLegndsBody"><tr class="category_name_row" style="background-color:white" data-category_name="Country Pavilion"><td class="text-center" title="Country Pavilion">Country Pavilion</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">0</td><td class="text-center" style="color:#000000;background-color:#ee018d;font-weight:500">5</td><td class="text-center" style="font-weight:500">5</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Powered By"><td class="text-center" title="Powered By">Powered By</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">1</td><td class="text-center" style="color:#000000;background-color:#2bb673;font-weight:500">0</td><td class="text-center" style="font-weight:500">1</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Platinum"><td class="text-center" title="Platinum">Platinum</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">1</td><td class="text-center" style="color:#000000;background-color:#f7941d;font-weight:500">0</td><td class="text-center" style="font-weight:500">1</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Diamond"><td class="text-center" title="Diamond">Diamond</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">1</td><td class="text-center" style="color:#000000;background-color:#c4996c;font-weight:500">0</td><td class="text-center" style="font-weight:500">1</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Gold"><td class="text-center" title="Gold">Gold</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">0</td><td class="text-center" style="color:#000000;background-color:#922791;font-weight:500">2</td><td class="text-center" style="font-weight:500">2</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Silver Sponsor"><td class="text-center" title="Silver Sponsor">Silver Sponsor</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">3</td><td class="text-center" style="color:#000000;background-color:#02aef0;font-weight:500">3</td><td class="text-center" style="font-weight:500">6</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Exhibitor"><td class="text-center" title="Exhibitor">Exhibitor</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">28</td><td class="text-center" style="color:#000000;background-color:#ffff00;font-weight:500">55</td><td class="text-center" style="font-weight:500">83</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Associate Sponsor"><td class="text-center" title="Associate Sponsor">Associate Sponsor</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">0</td><td class="text-center" style="color:#000000;background-color:#e7b4d5;font-weight:500">15</td><td class="text-center" style="font-weight:500">15</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Test"><td class="text-center" title="Test">Test</td><td class="text-center" style="color:#fcfcfc;background-color:#000000;font-weight:500">0</td><td class="text-center" style="color:#fcfcfc;background-color:#1e663a;font-weight:500">1</td><td class="text-center" style="font-weight:500">1</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Bronze Sponsor"><td class="text-center" title="Bronze Sponsor">Bronze Sponsor</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">0</td><td class="text-center" style="color:#000000;background-color:#f9b4a4;font-weight:500">4</td><td class="text-center" style="font-weight:500">4</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Indie Zone"><td class="text-center" title="Indie Zone">Indie Zone</td><td class="text-center" style="color:#000000;background-color:#ee0000;font-weight:500">0</td><td class="text-center" style="color:#000000;background-color:#ee1c25;font-weight:500">45</td><td class="text-center" style="font-weight:500">45</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Indiajoy stalls"><td class="text-center" title="Indiajoy stalls">Indiajoy stalls</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">0</td><td class="text-center" style="color:#000000;background-color:#7d321e;font-weight:500">16</td><td class="text-center" style="font-weight:500">16</td></tr></tbody>-->
+<!--  </table>-->
+<!--</div>-->
 
 <app-popup [isVisible]="isPopupVisible" [seatBooth]="selectedSeatBooth" (close)="closePopup()"></app-popup>
 <!-- </div> -->

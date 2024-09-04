@@ -9,11 +9,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { ModelComponent } from './model/model.component';
 import { PopupComponent } from './popup/popup.component';
 import { PopupService } from './popup.service';
+import {Subject, debounceTime, switchMap, timer, interval} from "rxjs";
+import {CommonModule, NgStyle} from "@angular/common";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,BookingLayoutComponent, MatToolbarModule,
-    MatIconModule, DragDropModule,HttpClientModule,ModelComponent,PopupComponent,MatIconModule],
+  imports: [RouterOutlet, BookingLayoutComponent, MatToolbarModule, CommonModule,
+    MatIconModule, DragDropModule, HttpClientModule, ModelComponent, PopupComponent, MatIconModule, NgStyle],
     providers: [DataserviceService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -24,6 +26,7 @@ export class AppComponent implements OnInit{
   isDragging: boolean = false;
   startX: number = 0;
   isHighlighted: boolean = false;
+  showSummaryTable: boolean = false;
   startY: number = 0;
   offsetX: number = 0;
   offsetY: number = 0;
@@ -32,6 +35,7 @@ export class AppComponent implements OnInit{
   selectedSeatBooth!: string;
   zoomTimeout: any;
   private isInitialized = false;
+  private zoomSubject = new Subject<number>();
   constructor(private popupService: PopupService) {}
 
   ngOnInit() {
@@ -41,9 +45,23 @@ export class AppComponent implements OnInit{
         this.isPopupVisible = true;
       }
     });
-
     // Mark the initialization as complete
     this.isInitialized = true;
+    this.zoomSubject.pipe(
+      debounceTime(0.1),  // Adjust the debounce time as needed
+      switchMap(zoomLevel => {
+        return timer(0, 0.1).pipe(
+          switchMap(() => {
+            if (this.zoomLevel !== zoomLevel) {
+              this.zoomLevel = zoomLevel;
+              return interval(0);
+            } else {
+              return [];
+            }
+          })
+        );
+      })
+    ).subscribe();
   }
 
   get zoomTransform(): string {
@@ -51,27 +69,18 @@ export class AppComponent implements OnInit{
   }
 
   zoomIn(): void {
-    if (this.zoomTimeout) {
-      clearTimeout(this.zoomTimeout);
-    }
-
-    this.zoomTimeout = setTimeout(() => {
-      if (this.zoomLevel < 2) {  // You can set a maximum zoom level if needed
-        this.zoomLevel = Math.min(this.zoomLevel + 0.1, 2);
-      }
-    }, 100);  // Throttle the zoom actions by 100ms
+    this.zoomSubject.next(Math.min(this.zoomLevel + 0.1, 2));
   }
 
   zoomOut(): void {
-    if (this.zoomTimeout) {
-      clearTimeout(this.zoomTimeout);
-    }
+    this.zoomSubject.next(Math.max(this.zoomLevel - 0.1, 0.1));
+  }
 
-    this.zoomTimeout = setTimeout(() => {
-      if (this.zoomLevel > 0.1) {  // You can set a minimum zoom level if needed
-        this.zoomLevel = Math.max(this.zoomLevel - 0.1, 0.1);
-      }
-    }, 100);  // Throttle the zoom actions by 100ms
+  @HostListener('wheel', ['$event'])
+  onMouseWheel(event: WheelEvent): void {
+    event.preventDefault();
+    const zoomAmount = event.deltaY > 0 ? -0.1 : 0.1;
+    this.zoomSubject.next(Math.max(0.1, Math.min(this.zoomLevel + zoomAmount, 2)));
   }
 
   startDrag(event: MouseEvent): void {
@@ -108,7 +117,7 @@ export class AppComponent implements OnInit{
     this.isPopupVisible = false;
   }
   zoomdrDag(){
-    this.zoomLevel =0.5
+    this.zoomSubject.next(0.5);
   }
   @HostListener('document:mousemove', ['$event'])
   onMouseMove(event: MouseEvent): void {
@@ -123,6 +132,14 @@ export class AppComponent implements OnInit{
   @HostListener('document:mouseup')
   onMouseUp(): void {
     this.isDragging = false;
+  }
+
+  showSummaryTableDetails(): void {
+    this.showSummaryTable = true;
+  }
+
+  minimizeSummaryTableDetails(): void {
+    this.showSummaryTable = false;
   }
 }
 

@@ -56,7 +56,7 @@ export class BookingLayoutComponent  implements OnInit{
 
 
 
-  
+
   @ViewChildren('boothButton') buttons!: QueryList<ElementRef>;
   filteredBoothNumbers: string[] = [];
 @Input() seatData:any
@@ -68,14 +68,14 @@ export class BookingLayoutComponent  implements OnInit{
     { label: 'A2', columnStart: 2, rowStart: 1 },
     { label: 'A3', columnStart: 3, rowStart: 1 },
     { label: 'B1', columnStart: 1, rowStart: 2 },
-    { label: 'B2', columnStart: 3, rowStart: 2 }, 
+    { label: 'B2', columnStart: 3, rowStart: 2 },
     { label: 'A1', columnStart: 1, rowStart: 1 },
     { label: 'A2', columnStart: 2, rowStart: 1 },
     { label: 'A3', columnStart: 3, rowStart: 1 },
     { label: 'B1', columnStart: 1, rowStart: 2 },
-    { label: 'B2', columnStart: 3, rowStart: 2 },   
+    { label: 'B2', columnStart: 3, rowStart: 2 },
     { label: 'B1', columnStart: 1, rowStart: 2 },
-    { label: 'B2', columnStart: 3, rowStart: 2 }, 
+    { label: 'B2', columnStart: 3, rowStart: 2 },
     // Add more seats here with their grid positions
   ];
   text='8X8'
@@ -84,12 +84,12 @@ export class BookingLayoutComponent  implements OnInit{
     { label: 'A2', columnStart: 2, rowStart: 1 },
     { label: 'A3', columnStart: 3, rowStart: 1 },
     { label: 'B1', columnStart: 1, rowStart: 2 },
-    { label: 'B2', columnStart: 3, rowStart: 2 }, 
+    { label: 'B2', columnStart: 3, rowStart: 2 },
     { label: 'A1', columnStart: 1, rowStart: 1 },
     { label: 'A2', columnStart: 2, rowStart: 1 },
     { label: 'A3', columnStart: 3, rowStart: 1 },
     { label: 'B1', columnStart: 1, rowStart: 2 },
-    { label: 'B2', columnStart: 3, rowStart: 2 },   
+    { label: 'B2', columnStart: 3, rowStart: 2 },
     // Add more seats here with their grid positions
   ];
 
@@ -102,13 +102,13 @@ export class BookingLayoutComponent  implements OnInit{
     { label: 'A2', columnStart: 2, rowStart: 1 },
     { label: 'A3', columnStart: 3, rowStart: 1 },
     { label: 'B1', columnStart: 1, rowStart: 2 },
-    { label: 'B2', columnStart: 3, rowStart: 2 },  
+    { label: 'B2', columnStart: 3, rowStart: 2 },
     // Add more seats here with their grid positions
   ];
   Secseats = [
     { label: 'A1', columnStart: 1, rowStart: 1 },
     { label: 'A2', columnStart: 2, rowStart: 1 },
-  
+
     // Add more seats here with their grid positions
   ];
   thiseats = [
@@ -116,7 +116,7 @@ export class BookingLayoutComponent  implements OnInit{
     { label: 'A2', columnStart: 2, rowStart: 1 },
     { label: 'A3', columnStart: 3, rowStart: 1 },
     { label: 'B1', columnStart: 1, rowStart: 2 },
-    { label: 'B2', columnStart: 3, rowStart: 2 },  
+    { label: 'B2', columnStart: 3, rowStart: 2 },
     { label: 'A1', columnStart: 1, rowStart: 1 },
     { label: 'A2', columnStart: 2, rowStart: 1 },
     { label: 'A3', columnStart: 3, rowStart: 1 },
@@ -131,7 +131,7 @@ this.dataService.getSeatsData().subscribe((data)=>{
   this.filteredBoothNumbers = this.extractAndReverseBoothNumbers(this.BookingData);
   this.extractWithEIn(this.BookingData);
 
-  this.greenSeatrow 
+  this.greenSeatrow
   console.log(this.BookingData)
 })
   }
@@ -139,7 +139,7 @@ this.dataService.getSeatsData().subscribe((data)=>{
 
   ngAfterViewInit() {
     this.BookingData.forEach((booth:any) => {
-      const button = this.buttons.find(btn => btn.nativeElement.innerText === booth.booth);
+      const button = this.buttons?.find(btn => btn.nativeElement.innerText === booth.booth);
       if (button) {
         button.nativeElement.textContent = `${booth.booth}`;
         button.nativeElement.setAttribute('data-id', booth.id);
@@ -151,9 +151,9 @@ this.dataService.getSeatsData().subscribe((data)=>{
 
   getBoothClass(booth: any): { [klass: string]: boolean } {
     return {
-      'booked-by-admin': booth.booking && booth.booking.admin,
-      'booked-by-user': booth.booking && !booth.booking.admin,
-      'not-booked': !booth.booking
+      'booked-by-admin': booth?.booking?.admin,
+      'booked-by-user': booth?.booking && !booth.booking.admin,
+      'not-booked': !booth?.booking
     };
   }
   selectSeat(seat: Seat): void {
@@ -172,7 +172,7 @@ this.dataService.getSeatsData().subscribe((data)=>{
   }
 
   getBoothByBoothNumber(boothNumber:any): any {
-    const booth = this.BookingData.find((booth:any) => booth.booth === boothNumber);
+    const booth = this.BookingData?.find((booth:any) => booth.booth === boothNumber);
     if (!booth) {
         console.error('Booth not found for booth number:', boothNumber);
     }
@@ -210,15 +210,15 @@ this.dataService.getSeatsData().subscribe((data)=>{
     console.log(this.boothsStartingWithG ,'CHECK THE BOOTH NUMBER WITH ALL G');
     this.splitBooths(boothsStartingWithK.reverse())
     return boothsStartingWithK.reverse();
-  
+
   }
 
   extractWithEIn(apiData: any[]){
     const boothsStartingWithE = apiData.filter(booth => booth.booth.startsWith('E'));
-  
+
     // Filter items starting with 'IN'
     const boothsStartingWithIN = apiData.filter(booth => booth.booth.startsWith('IN'));
-    
+
     console.log(boothsStartingWithE, 'Booths starting with E');
     console.log(boothsStartingWithIN, 'Booths starting with IN');
     // Combine arrays if needed or handle them separately
@@ -261,7 +261,7 @@ this.dataService.getSeatsData().subscribe((data)=>{
   splitBooths(apiData: any[]) {
     // Split the data into two parts
     this.firstRowBooths = apiData.slice(0, 13).reverse(); // First 10 objects
-    this.secondRowBooths = apiData.slice(13,21)   
+    this.secondRowBooths = apiData.slice(13,21)
     this.thirdRowBooth =   apiData.slice(21,29)
     this.forthRowBooth =    apiData.slice(29,37)
     this.fifthRowBooth =  apiData.slice(37,45)
@@ -277,11 +277,11 @@ this.dataService.getSeatsData().subscribe((data)=>{
     // Combine the reversed halves into one array
     this.combinedArray = reversedFirstHalf.concat(reversedSecondHalf);
 
-    console.log(this.combinedArray);  
+    console.log(this.combinedArray);
     console.log(    this.firstRowBooths ,// First 10 objects
-    this.secondRowBooths ,   
+    this.secondRowBooths ,
     this.thirdRowBooth ,this.forthRowBooth,
     this.fifthRowBooth );
-    
+
   }
 }

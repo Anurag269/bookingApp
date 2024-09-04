@@ -49,7 +49,7 @@
   grid-template-columns: repeat(5, 28px); /* Fixed width for each column */
   grid-auto-rows: 20px; /* Fixed height for each row */
 /* Spacing between grid items */
-  width: calc(5 * 10px + 4 * 10px); /* Total width of the grid */
+  width: calc(5 * 10px + 4 * 10px);
 }
 
 .seat-gridsec {
@@ -62,7 +62,7 @@
 }
 .seat-grid-seq {
   display: grid;
-  flex-direction: column-reverse; 
+  flex-direction: column-reverse;
 /* Fixed width for each column */
   margin-right: 20px;
 }
@@ -78,7 +78,7 @@ button.seat, button.rightrowseat {
 
 /* .seat-gridsec{
   display: grid;
-  grid-template-columns: repeat(13,minmax(10px, 0.7fr)); 
+  grid-template-columns: repeat(13,minmax(10px, 0.7fr));
   grid-template-rows: repeat(1,minmax(10px, 0.6fr));
 } */
 .left-row {
@@ -91,7 +91,7 @@ button.seat, button.rightrowseat {
 .seven-left-row {
   height:90px;
   display: grid;
-  grid-template-columns: repeat(2, 4fr); 
+  grid-template-columns: repeat(2, 4fr);
   grid-template-rows: repeat(2,4fr);/* 2 columns in the row */
   justify-content: space-around;
 }
@@ -130,7 +130,7 @@ button.seat, button.rightrowseat {
   background-color:  #6c757d;/* Example color for admin booked seats */
 }
 .thirdrownew-seat-grid-left{
-  display: grid;   
+  display: grid;
   grid-template-columns: repeat(6,28px); /* Increased column width from 1fr to 2fr */
   grid-template-rows: repeat(2,minmax(20px, 0.8fr));
 }
@@ -139,18 +139,20 @@ button.seat, button.rightrowseat {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;font-size: 5px;
+  border: 0.5px solid transparent; /* Set to transparent */
+  box-shadow: 0 0 0 0.5px black;
+  font-size: 5px;
 }
 .regular-booked-seat {
   background-color: #ccffcc; /* Example color for regular booked seats */
 }
 .thirdrownew-seat-grid-right{
-  display: grid;   
+  display: grid;
   grid-template-columns: repeat(5,28px); /* Increased column width from 1fr to 2fr */
   grid-template-rows: repeat(2,minmax(20px, 0.8fr));
 }
 .thirdRow-seat-grid-left{
-  display: grid;   
+  display: grid;
   grid-template-columns: repeat(6,28px); /* Increased column width from 1fr to 2fr */
   grid-template-rows: repeat(2,minmax(20px, 0.8fr));
 
@@ -169,25 +171,25 @@ height: 40px;
   grid-template-rows: repeat(4, minmax(80px, 2fr));
 }
 .thirRow-seat-grid-left{
-  display: grid;   
+  display: grid;
   grid-template-columns: repeat(4,28px); /* Increased column width from 1fr to 2fr */
   grid-template-rows: repeat(2,minmax(20px, 0.8fr));
 
 }
 .fourRow-seat-grid-left{
-  display: grid;   
+  display: grid;
   grid-template-columns: repeat(7,28px); /* Increased column width from 1fr to 2fr */
   grid-template-rows: repeat(2,minmax(20px, 0.8fr));
 }
 .fourthRow-seat-grid-left{
-  display: grid;   
+  display: grid;
   grid-template-columns: repeat(7, minmax(20px, 1fr)); /* Increased column width from 1fr to 2fr */
   grid-template-rows: repeat(2,minmax(30px, 1fr));
 }
 .left-third-row{
   display: grid;
   grid-template-columns: repeat(6, 1fr); /* Each group has 2 columns */
-  grid-template-rows: repeat(2, 1fr); 
+  grid-template-rows: repeat(2, 1fr);
 }
 .seat {
   background-color:#fff307;
@@ -195,19 +197,23 @@ height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;font-size: 5px;
+  border: 0.5px solid transparent; /* Set to transparent */
+  box-shadow: 0 0 0 0.5px black;
+  font-size: 5px;
 }
 .lastseats{
   color: black;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;font-size: 10px;
+  border: 0.5px solid transparent; /* Set to transparent */
+  box-shadow: 0 0 0 0.5px black;
+  font-size: 10px;
 }
 .right-third-row{
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* Each group has 2 columns */
-  grid-template-rows: repeat(2, 1fr); 
+  grid-template-rows: repeat(2, 1fr);
 }
 
 .rightrowseat{
@@ -217,14 +223,16 @@ height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
-  
+  border: 0.5px solid transparent; /* Set to transparent */
+  box-shadow: 0 0 0 0.5px black;
+
 }
 .green-box {
   width:60px; /* Adjust the width as needed */
   height: 60px; /* Adjust the height as needed */
   background-color: green;
-  border: 1px solid black;
+  border: 0.5px solid transparent; /* Set to transparent */
+  box-shadow: 0 0 0 0.5px black;
   margin-top: -20px;
 }
 .sixRow-seat-grid-right{
@@ -244,7 +252,7 @@ grid-template-rows: repeat(1,3fr);
   /* Set the height for the entire grid */
 }
 .fiveRow-seat-grid-left{
-  display: grid;   
+  display: grid;
   grid-template-columns: repeat(3, 2fr);
   grid-template-rows: repeat(2, 2fr);
 }
@@ -296,13 +304,15 @@ grid-template-rows: repeat(1,3fr);
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  border: 0.5px solid transparent; /* Set to transparent */
+  box-shadow: 0 0 0 0.5px black;
 
   color: white;
 }
 .gridbox{
   display: flex;
-  border: 1px solid black;
+  border: 0.5px solid transparent; /* Set to transparent */
+  box-shadow: 0 0 0 0.5px black;
   justify-content: center;
   align-items: center;
   color: white;
@@ -311,7 +321,8 @@ grid-template-rows: repeat(1,3fr);
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  border: 0.5px solid transparent; /* Set to transparent */
+  box-shadow: 0 0 0 0.5px black;
   color:black;
 }
 
@@ -325,7 +336,8 @@ grid-template-rows: repeat(1,3fr);
   grid-template-columns: repeat(2,28px );
   grid-template-rows: repeat(1,10px);
   background-color: #58230a;
-  border:1px solid;
+  border: 0.5px solid transparent; /* Set to transparent */
+  box-shadow: 0 0 0 0.5px black;
 }
 
 .fiveRow-seat-grid-left{
@@ -334,12 +346,14 @@ grid-template-rows: repeat(1,3fr);
   grid-template-rows: 1fr 1fr;
   width: 185px;
   height: 55px;
-/* Optional: Space between grid items */
+  gap: 0;
 }
 .newseatnew{
   background-color:#bc0e82;
   font-size: 5px;
-  color:#000
+  color:#000;
+  border: 0.5px solid transparent; /* Transparent border to avoid visual overlap */
+  box-shadow: 0 0 0 0.5px black;
 }
 .newseatnew:nth-child(3n+1) {
   grid-column: 1; /* First column */
@@ -409,7 +423,8 @@ grid-template-rows: repeat(1,3fr);
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
+  border: 0.5px solid transparent; /* Set to transparent */
+  box-shadow: 0 0 0 0.5px black;
   height: 100%;
   width: 100%;
 }
@@ -421,7 +436,8 @@ grid-template-rows: repeat(1,3fr);
   align-items: center;
   justify-content: center;
   font-size: 11px;
-  border: 1px solid black;
+  border: 0.5px solid transparent; /* Set to transparent */
+  box-shadow: 0 0 0 0.5px black;
 }
 
 .booked-seat {
@@ -434,13 +450,13 @@ grid-template-rows: repeat(1,3fr);
 .onegrid-container{
   display: grid;
   grid-template-columns: repeat(1,55px); /* Two columns, each occupying 2fr */
-  grid-template-rows: repeat(1,55px) ; 
+  grid-template-rows: repeat(1,55px) ;
 }
 .lastonegrid-container{
   display: grid;
   grid-template-columns: repeat(2,75px); /* Two columns, each occupying 2fr */
-  grid-template-rows: repeat(1,55px) ; 
- 
+  grid-template-rows: repeat(1,55px) ;
+
 
 
 }
@@ -491,20 +507,21 @@ grid-template-rows: repeat(1,3fr);
 .lastonegrid-container-middel{
   display: grid;
   grid-template-columns: repeat(4,40px); /* Two columns, each occupying 2fr */
-  grid-template-rows: repeat(1,30px) ; 
+  grid-template-rows: repeat(1,30px) ;
   margin-top: 22px;
   /* align-content: last baseline; */
 }
 .lastonegrid-container-last{
   display: grid;
   grid-template-columns: repeat(2,75px); /* Two columns, each occupying 2fr */
-  grid-template-rows: repeat(1,30px) ; 
+  grid-template-rows: repeat(1,30px) ;
   margin-top: 22px;
 
 }
 .lastonegrid{
-  background-color:rgb(94, 28, 237); 
-  border: 1px solid #000; /* Example border */
+  background-color:rgb(94, 28, 237);
+  border: 0.5px solid transparent; /* Set to transparent */
+  box-shadow: 0 0 0 0.5px black; /* Example border */
   text-align: center;
 }
 .newgrid-container {
@@ -516,7 +533,8 @@ grid-template-rows: repeat(1,3fr);
 
 .grid-item {
   background-color:lightblue; /* Example background color */
-  border: 1px solid #000; /* Example border */
+  border: 0.5px solid transparent; /* Set to transparent */
+  box-shadow: 0 0 0 0.5px black; /* Example border */
   padding: 10px;
   text-align: center;
   display: flex;
@@ -543,7 +561,8 @@ grid-template-rows: repeat(1,3fr);
 }
 .newgrid-item{
   background-color:rgb(237, 105, 28); /* Example background color */
-  border: 1px solid #000; /* Example border */
+  border: 0.5px solid transparent; /* Set to transparent */
+  box-shadow: 0 0 0 0.5px black; /* Example border */
   padding: 20px;
   text-align: center;
   display: flex;
@@ -572,7 +591,8 @@ align-self:end;
 }
 .nthgrid-item {
   background-color: #ccc; /* Example background color */
-  border: 1px solid #000; /* Example border */
+  border: 0.5px solid transparent; /* Set to transparent */
+  box-shadow: 0 0 0 0.5px black; /* Example border */
   padding: 20px;
   text-align: center;
 }

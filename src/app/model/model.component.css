@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: center;
   }
-  
+
   .modal-content {
     background-color: white;
     padding: 20px;
@@ -17,7 +17,7 @@
     max-width: 500px;
     width: 100%;
   }
-  
+
   .modal-header {
     background-color: #007bff;
     color: white;
@@ -27,8 +27,7 @@
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .modal-body {
     padding: 20px;
   }
-  

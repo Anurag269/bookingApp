@@ -9,6 +9,7 @@ import { ModelComponent } from './model/model.component';
 import { MatSelectModule } from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatChipsModule} from '@angular/material/chips'
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [],
@@ -19,7 +20,8 @@ import {MatChipsModule} from '@angular/material/chips'
     MatButtonModule,
     ModelComponent,
     MatSelectModule,
-    MatFormFieldModule,MatChipsModule
+    MatFormFieldModule,MatChipsModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [],
