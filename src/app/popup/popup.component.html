@@ -164,9 +164,10 @@
         
   
         <div class="form-navigation" style="float: right;margin: 10px;">
-          <button class="nav-button next-button" (click)="onSubmit(bookingForm)">Next</button>
+          <button class="nav-button next-button" (click)="onSubmitnext(bookingForm)">Next</button>
         </div>
       </div>
+      <div *ngIf="showProductDetailes" >
       <div id="productDetails" class="tab-content" *ngIf="activeTab === 'productDetails'">
           <div class="form-container">
             <div class="form-row">
@@ -215,6 +216,7 @@
           </div>
     </div>
   </div>
+</div>
   </form>
 </div>
 </div>

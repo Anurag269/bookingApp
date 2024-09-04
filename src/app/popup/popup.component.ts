@@ -31,7 +31,8 @@ export class PopupComponent implements OnInit{
   booths = ['E4', 'E5', 'E6', 'E7', 'E8', 'E11','E4', 'E5', 'E6', 'E7', 'E8', 'E11',];
   selectedBooth: string = '';
   selectedBoothId:any
-  allSeat :any
+  allSeat :any;
+  showProductDetailes:boolean=false
 constructor(private dataService:DataserviceService,private paymentService:PaymentService){
   
 }
@@ -69,39 +70,13 @@ console.log(this.allSeat,'check all the ')
 isBoothDisabled(booth: string): boolean {
   return this.selectedBooths.length >= 2 && !this.selectedBooths.includes(booth);
 }
-// onSubmit(form: NgForm) {
-//   if (form.valid) {
-//     // if (!Array.isArray(this.formData.booth_ids)) {
-//     //   this.formData.booth_ids = [this.formData.booth_ids];
-//     // }
-//     console.log('FormData Before Mapping:', this.formData.booth_ids);  // Check initial values
 
-//     // Ensure booth_ids is an array
-//     if (!Array.isArray(this.formData.booth_ids)) {
-//       this.formData.booth_ids = [];  // Reset to an empty array if it's not an array
-//     }
-
-//     // Convert booth numbers to booth IDs
-//     this.formData.booth_ids = this.formData.booth_ids.map(boothNumber => {
-//       const booth = this.selectedboothids.find((b:any) => b.booth === boothNumber);
-//       return booth ? booth.id : null;  // Map to ID or null if not found
-//     }).filter(id => id !== null) as number[];
-//     this.formData.booth_ids = this.formData.booth_ids.map((id:any) => Number(id));
-//     console.log('Form Submitted!', this.formData);
-//     this.isShowBookingView =true;
-//     console.log(this.formData,'check form data')
-//     const postData = {
-//       ...this.formData, 
-//       booth_ids:this.formData.booth_ids
-//       // Spread the existing form data  // Extract the id from the selected booth object
-//       // Add other necessary fields if required
-//     };
-//     console.log(postData,'check my postData')
-//     console.log(this.selectedOptions)
-    
-//   }
-// }
-
+onSubmitnext(bookingForm:any){
+ if (bookingForm.valid) {
+  this.showProductDetailes =true
+  this.activeTab ='productDetails'
+}
+}
 onSubmit(form: NgForm) {
   if (form.valid) {
     if (!Array.isArray(this.formData.booth_ids)) {
@@ -203,7 +178,12 @@ this.isShowBookingView =false;
 
 
   setActiveTab(tabName: string) {
-    this.activeTab = tabName;
+  debugger
+    if( this.activeTab ==='productDetails' && this.showProductDetailes==true){
+      this.activeTab = tabName;
+    }else{
+      this.activeTab = tabName;
+    }
   }
 
   prevTab() {

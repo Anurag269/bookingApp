@@ -1,23 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environments.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataserviceService {
 
-  // private jsonUrl = 'assets/json/dev.json'; // Replace this with your actual URL
-  private jsonUrl  ='https://events.indiajoy.in/api/booth-details'
-  private apiUrl ='https://events.indiajoy.in/booth-details';
   constructor(private http: HttpClient) { }
 
   getSeatsData(): Observable<any> {
-    return this.http.get<any>(this.jsonUrl);
+    return this.http.get<any>(environment.boothUiDetailes);
   }
 
   postBoothDetails(formData: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, formData);
+    return this.http.post<any>(environment.boothpostDetailes, formData);
   }
   
 }
