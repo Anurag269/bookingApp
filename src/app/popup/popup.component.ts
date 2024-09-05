@@ -188,7 +188,6 @@ this.isShowBookingView =false;
 
 
   setActiveTab(tabName: string) {
-  debugger
     if( this.activeTab ==='productDetails' && this.showProductDetailes==true){
       this.activeTab = tabName;
     }else{

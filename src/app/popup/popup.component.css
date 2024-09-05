@@ -265,7 +265,7 @@ input:not(:placeholder-shown) ~ label {
     display: flex;
     justify-content: center;
     background-color: white;
-    width: 85%;
+    width: 60%;
     height: 70%;
     /* max-width: 800px; */
     overflow: hidden;

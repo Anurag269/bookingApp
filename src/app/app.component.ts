@@ -24,6 +24,7 @@ export class AppComponent implements OnInit{
   title = 'bookinglayout';
   zoomLevel: number = 0.5;
   isDragging: boolean = false;
+  summeryItems:any
   startX: number = 0;
   isHighlighted: boolean = false;
   showSummaryTable: boolean = false;
@@ -36,7 +37,7 @@ export class AppComponent implements OnInit{
   zoomTimeout: any;
   private isInitialized = false;
   private zoomSubject = new Subject<number>();
-  constructor(private popupService: PopupService) {}
+  constructor(private popupService: PopupService,private dataService:DataserviceService) {}
 
   ngOnInit() {
     this.popupService.popupVisibility$.subscribe(seatBooth => {
@@ -45,6 +46,10 @@ export class AppComponent implements OnInit{
         this.isPopupVisible = true;
       }
     });
+    this.dataService.getSummeryData().subscribe((data:any)=>{
+      console.log(data);
+     this.summeryItems=data
+    })
     // Mark the initialization as complete
     this.isInitialized = true;
     this.zoomSubject.pipe(
