@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { BoothBooking } from '../boothBooking';
 import { DataserviceService } from '../dataservice.service';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -9,13 +8,13 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatChipsModule} from '@angular/material/chips';
 import { PaymentService } from '../payment.service';
 import { HttpClientModule } from '@angular/common/http';
-import { NgSelectModule } from '@ng-select/ng-select';
-declare var Razorpay: any;  
+import {NgSelectComponent, NgSelectModule} from '@ng-select/ng-select';
+declare var Razorpay: any;
 @Component({
   selector: 'app-popup',
   standalone: true,
-  imports: [CommonModule,FormsModule,
-    MatIconModule,MatSelectModule,MatChipsModule,MatFormFieldModule,MatChipsModule,HttpClientModule],
+  imports: [CommonModule, FormsModule,
+    MatIconModule, MatSelectModule, MatChipsModule, MatFormFieldModule, MatChipsModule, HttpClientModule, NgSelectComponent],
     providers:[DataserviceService,PaymentService,   NgSelectModule,],
   templateUrl: './popup.component.html',
   styleUrl: './popup.component.css'
@@ -34,7 +33,7 @@ export class PopupComponent implements OnInit{
   allSeat :any;
   showProductDetailes:boolean=false
 constructor(private dataService:DataserviceService,private paymentService:PaymentService){
-  
+  this.formData?.booth_ids.push(this.seatBooth?.booth);
 }
 
 formData = {
@@ -45,22 +44,25 @@ formData = {
   booth_ids:[] as number[],
   gstin: '',
   billingAddress: '',
-  // selectedBooth: this.allSeat.
+  selectedBooth: []
 };
+  boothDetails: any = [];
+  selectedBOptions: number[] = [];
 
 selectedBooths: string[] = [];
 
-selectedboothids:any
+selectedboothids:any;
 
 ngOnInit(): void {
   // this.formateRate =[...this.seatBooth]
   this.dataService.getSeatsData().subscribe(
     (data)=>{
 this.allSeat = data.data.filter((item:any) => item.booking === null)
-      .map((item:any) => item.booth ); 
-      const newArray =data.data.find((item:any)=>item.booth === this.formData.booth_ids)
+      .map((item:any) => item.booth );
+      const newArray =data.data.find((item:any)=>item.booth === this.formData?.booth_ids)
       console.log(newArray)
-      this.selectedboothids=data.data
+      this.selectedboothids=data.data;
+      this.updateBooths();
 // this.allSeat = data.data.filter((item: any) => item.booking === null);
 console.log(this.allSeat,'check all the ')
     }
@@ -73,34 +75,36 @@ isBoothDisabled(booth: string): boolean {
 
 onSubmitnext(bookingForm:any){
  if (bookingForm.valid) {
-  this.showProductDetailes =true
-  this.activeTab ='productDetails'
+  this.showProductDetailes =true;
+  this.activeTab ='productDetails';
+  this.formData.booth_ids=[this.seatBooth?.booth];
+  this.updateBooths();
 }
 }
 onSubmit(form: NgForm) {
   if (form.valid) {
-    if (!Array.isArray(this.formData.booth_ids)) {
-      this.formData.booth_ids = [this.formData.booth_ids];  // Initialize as an empty array if not already an array
+    if (!Array.isArray(this.formData?.booth_ids)) {
+      this.formData.booth_ids= [this.formData?.booth_ids];  // Initialize as an empty array if not already an array
     }
-    this.formData.booth_ids = this.formData.booth_ids.map(boothNumber => {
+    this.formData.booth_ids = this.formData?.booth_ids.map(boothNumber => {
       const booth = this.selectedboothids.find((b: any) => b.booth === boothNumber);
       return booth ? booth.id : null;  // Map to ID or null if not found
     }).filter(id => id !== null) as number[];
 
     // Ensure the IDs are numbers
-    this.formData.booth_ids = this.formData.booth_ids.map(id => Number(id));
+    this.formData.booth_ids = this.formData?.booth_ids.map(id => Number(id));
 
     // Debugging: Check the final state of booth_ids
-    console.log('FormData After Mapping:', this.formData.booth_ids);
+    console.log('FormData After Mapping:', this.formData?.booth_ids);
 
     // Proceed with form submission
     this.isShowBookingView = true;
 
     const postData = {
-      ...this.formData, 
-      booth_ids: this.formData.booth_ids  // Send the number[] array here
+      ...this.formData,
+      booth_ids: this.formData?.booth_ids  // Send the number[] array here
     };
-  
+
 this.dataService.postBoothDetails(postData).subscribe((data)=>{
   console.log(data)
   this.onPay(postData.booth_ids)
@@ -109,6 +113,12 @@ this.dataService.postBoothDetails(postData).subscribe((data)=>{
     console.log('PostData:', postData);
   }
 }
+
+  updateBooths(): void {
+    this.boothDetails = this.selectedboothids.filter((b: any) => {
+      return this.formData?.booth_ids.find((boothNumber: any) => b.booth === boothNumber);
+    });
+  }
 
 remove(option: string): void {
   const index = this.selectedOptions.indexOf(option);

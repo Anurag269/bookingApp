@@ -6,3 +6,41 @@ body { margin: 0;  background-color: #dbe0e5; font-family: Roboto, "Helvetica Ne
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.ng-select-container {
+  cursor: default;
+  display: flex;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  width: 45%;
+}
+.ng-select {
+  width: 45%;
+}
+
+.ng-select .ng-select-container .ng-value-container {
+  display: flex;
+  flex: 1;
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.ng-value {
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 2px;
+  background-color: lightgrey;
+  margin: 2px;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-color: grey;
+  padding: 5px;
+}
