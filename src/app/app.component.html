@@ -57,7 +57,16 @@
             </tr>
             </thead>
             <tbody id="categoryTableLegndsBody" >
-              <ng-container  *ngFor="let item of summeryItems">
+              <ng-container *ngFor="let item of summeryItems">
+                <tr>
+                  <td>{{ item.category }}</td>
+                  <td>{{ item.booked }}</td>
+                  <td>{{ item.available }}</td>
+                  <td>{{ item.total }}</td>
+                  <!-- Add more columns as needed -->
+                </tr>
+              </ng-container>
+              <!-- <ng-container  *ngFor="let item of summeryItems">
               
                 <ng-container *ngIf="item.category==='Country Pavilion'">
                   <tr class="category_name_row" style="background-color:white" data-category_name="Country Pavilion">
@@ -159,7 +168,7 @@
                 <td class="text-center" style="font-weight:500">{{item.total}}</td>
               </tr>
             </ng-container>
-          </ng-container>
+              </ng-container> -->
             </tbody>
           </table>
     </div>
