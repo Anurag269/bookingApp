@@ -1,8 +1,4 @@
-.form-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* 2 columns */
-/* space between columns and rows */
-}
+
 
 .form-row {
   display: contents; /* Allows the grid to treat form-columns as direct children of form-container */
@@ -35,9 +31,23 @@
   height: 40px; /* Adjust the height of the select box */
 }
 
+::ng-deep.ng-select .ng-select-container {
+  cursor: default;
+  display: flex;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 37px;
+}
 .dropdown option {
   padding: 10px;
 }
+.table {
+  table-layout: fixed;
+  width: 100%;
+}
+
 
 .dropdown-scroll {
   max-height: 150px; /* Adjust this height based on your preference */
@@ -127,7 +137,7 @@ display: block;
 width: 100%;
 padding: .375rem .75rem;
 font-size: 1rem;
-font-weight: 400;
+font-weight: 300;
 line-height: 1.5;
 color: #212529;
 background-color: #fff;
@@ -256,7 +266,12 @@ input:not(:placeholder-shown) ~ label {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
   }
-
+  .nav-button:disabled {
+    background-color: #007bff;/* Faded background for disabled state */
+    color: white;          /* Faded text color for disabled state */
+    cursor: not-allowed;       /* Change cursor to indicate the button is not clickable */
+    opacity: 0.6;              /* Lower opacity for fade effect */
+  }
   .modal-content {
     position: absolute;
     top: 5%; /* Adjust this value to control how far from the top the modal should be */
@@ -265,7 +280,7 @@ input:not(:placeholder-shown) ~ label {
     display: flex;
     justify-content: center;
     background-color: white;
-    width: 60%;
+    width: 58%;
     height: 70%;
     /* max-width: 800px; */
     overflow: hidden;
@@ -318,9 +333,8 @@ input:not(:placeholder-shown) ~ label {
 
   .tab-content {
     /* display: none; */
-    padding: 16px;
+    padding: 8px 15px 10px 20px;
   }
-
   .tab-content.active {
     display: block;
   }
@@ -363,9 +377,7 @@ input:not(:placeholder-shown) ~ label {
     box-sizing: border-box;
 }
 
-.form-row {
-    margin-bottom: 16px;
-}
+
 
 .form-query {
     font-size: 12px;
@@ -408,7 +420,6 @@ input:not(:placeholder-shown) ~ label {
    .form-navigation {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
   }
   .gap{
     margin-left: 8px;
@@ -422,27 +433,35 @@ input:not(:placeholder-shown) ~ label {
     border-radius: 4px;
   }
 
-  .nav-button:hover {
+  /* .nav-button:hover {
     background-color: #0056b3;
-  }
+  } */
 
-  .nav-button.previous-button {
+  /* .nav-button.previous-button {
     background-color: #6c757d;
-  }
-
+  } */
+/* 
   .nav-button.previous-button:hover {
     background-color: #5a6268;
-  }
+  } */
 
   .form-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
   }
 
+  .form-row-booth{
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+    justify-content: space-between;
+  }
   .form-row {
     display: flex;
     width: 100%;
     margin-bottom: 15px;
+    gap: 10px;
   }
 
   .form-column {
@@ -462,7 +481,23 @@ input:not(:placeholder-shown) ~ label {
   input[type="text"],
   input[type="email"] {
     width: 100%;
-    padding: 28px;
+    padding: 28px 28px 28px 12px;
     box-sizing: border-box;
   }
 
+  .checkbox-container {
+    display: flex;
+    align-items: center; /* Aligns items vertically in the center */
+  }
+  
+  .checkbox-container input[type="checkbox"] {
+    margin-right: 10px; /* Adjust spacing between checkbox and label text */
+  }
+  
+  .checkbox-container label {
+    margin: 0; /* Remove any default margin from label */
+    line-height: 1.5; /* Adjust line-height for better vertical alignment */
+  }
+  
+
+  

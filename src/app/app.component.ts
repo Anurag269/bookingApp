@@ -47,10 +47,8 @@ export class AppComponent implements OnInit{
       }
     });
     this.dataService.getSummeryData().subscribe((data:any)=>{
-      console.log(data);
      this.summeryItems=data
     })
-    // Mark the initialization as complete
     this.isInitialized = true;
     this.zoomSubject.pipe(
       debounceTime(0.1),  // Adjust the debounce time as needed
@@ -114,7 +112,6 @@ export class AppComponent implements OnInit{
   }
 
 
-  // Function to toggle the highlight
   toggleHighlight(): void {
     this.isHighlighted = !this.isHighlighted;
   }

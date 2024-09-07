@@ -21,6 +21,8 @@ declare var Razorpay: any;
 })
 export class PopupComponent implements OnInit{
   @Input() isVisible!: boolean;
+  termsAccepted: boolean = false;
+  termsTouched: boolean = false;
   isShowBookingView :boolean =false
   @Input() seatBooth!: any;
   selectedOptions:any;
@@ -31,7 +33,8 @@ export class PopupComponent implements OnInit{
   selectedBooth: string = '';
   selectedBoothId:any
   allSeat :any;
-  showProductDetailes:boolean=false
+  formCompleted: boolean = false;  
+  // showProductDetailes:boolean=false
 constructor(private dataService:DataserviceService,private paymentService:PaymentService){
   this.formData?.booth_ids.push(this.seatBooth?.booth);
 }
@@ -75,36 +78,37 @@ isBoothDisabled(booth: string): boolean {
 
 onSubmitnext(bookingForm:any){
  if (bookingForm.valid) {
-  this.showProductDetailes =true;
+  // this.showProductDetailes =true;
   this.activeTab ='productDetails';
   this.formData.booth_ids=[this.seatBooth?.booth];
   this.updateBooths();
+}else{
+  console.log('errpr');
 }
 }
+
+validateForm(form: NgForm) {
+  // Manually mark controls as touched to trigger validation feedback
+  Object.keys(form.controls).forEach(controlName => {
+    form.controls[controlName].updateValueAndValidity();
+  });
+}
+
 onSubmit(form: NgForm) {
   if (form.valid) {
-    if (!Array.isArray(this.formData?.booth_ids)) {
-      this.formData.booth_ids= [this.formData?.booth_ids];  // Initialize as an empty array if not already an array
+    if (!this.termsAccepted) {
+      this.termsTouched = true; // Trigger the terms validation message
+      return;
     }
-    this.formData.booth_ids = this.formData?.booth_ids.map(boothNumber => {
-      const booth = this.selectedboothids.find((b: any) => b.booth === boothNumber);
-      return booth ? booth.id : null;  // Map to ID or null if not found
-    }).filter(id => id !== null) as number[];
-
-    // Ensure the IDs are numbers
-    this.formData.booth_ids = this.formData?.booth_ids.map(id => Number(id));
-
-    // Debugging: Check the final state of booth_ids
-    console.log('FormData After Mapping:', this.formData?.booth_ids);
-
-    // Proceed with form submission
     this.isShowBookingView = true;
-
     const postData = {
       ...this.formData,
       booth_ids: this.formData?.booth_ids  // Send the number[] array here
     };
 
+    if (form.invalid) {
+      return;
+    }
 this.dataService.postBoothDetails(postData).subscribe((data)=>{
   console.log(data)
   this.onPay(postData.booth_ids)
@@ -188,13 +192,17 @@ this.isShowBookingView =false;
 
 
   setActiveTab(tabName: string) {
-    if( this.activeTab ==='productDetails' && this.showProductDetailes==true){
-      this.activeTab = tabName;
-    }else{
-      this.activeTab = tabName;
+    if (tabName === 'customerDetails') {
+      this.activeTab = 'customerDetails';
+      return;
+    }
+    if (tabName === 'productDetails' && this.formCompleted) {
+      this.activeTab = 'productDetails';
     }
   }
 
+
+  
   prevTab() {
     // Logic to navigate to the previous tab
   }
@@ -203,6 +211,23 @@ this.isShowBookingView =false;
     // Logic to navigate to the next tab
   }
 
+
+  // validateBoothSelection() {
+  //   if (this.formData.booth_ids.length > 2) {
+  //     // Custom error for limiting the number of selections
+  //     this.boothSelect.control.setErrors({ limitExceeded: true });
+  //   } else {
+  //     this.boothSelect.control.setErrors(null); // Clear errors if the selection is valid
+  //   }
+  // }
+
+  onTermsChange() {
+    this.termsTouched = true;
+    if (!this.termsAccepted) {
+      this.termsAccepted = !this.termsAccepted;
+    }
+  }
+  
   onBook(){
 this.isShowBookingView=true
 // this.isVisible=false

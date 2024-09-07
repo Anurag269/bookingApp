@@ -63,136 +63,13 @@
                   <td>{{ item.booked }}</td>
                   <td>{{ item.available }}</td>
                   <td>{{ item.total }}</td>
-                  <!-- Add more columns as needed -->
                 </tr>
               </ng-container>
-              <!-- <ng-container  *ngFor="let item of summeryItems">
-              
-                <ng-container *ngIf="item.category==='Country Pavilion'">
-                  <tr class="category_name_row" style="background-color:white" data-category_name="Country Pavilion">
-                    <td class="text-center" title="Country Pavilion">Country Pavilion</td>
-                    <td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">{{item.available}}</td>
-                    <td class="text-center" style="color:#000000;background-color:#ee018d;font-weight:500">{{item.booked}}</td>
-                    <td class="text-center" style="font-weight:500">{{item.total}}</td>
-                  </tr>
-                </ng-container>
-           
-                <ng-container *ngIf="item.category==='Powered By'">
-              <tr class="category_name_row" style="background-color:white" data-category_name="Powered By">
-                <td class="text-center" title="Powered By">Powered By</td>
-                <td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">{{item.available}}</td>
-                <td class="text-center" style="color:#000000;background-color:#2bb673;font-weight:500">{{item.booked}}</td>
-                <td class="text-center" style="font-weight:500">{{item.total}}</td>
-              </tr>
-            </ng-container>
-            <ng-container *ngIf="item.category==='Platinum'">
-              <tr class="category_name_row" style="background-color:white" data-category_name="Platinum">
-                <td class="text-center" title="Platinum">Platinum</td>
-                <td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">{{item.available}}/td>
-                <td class="text-center" style="color:#000000;background-color:#f7941d;font-weight:500">{{item.booked}}</td>
-                <td class="text-center" style="font-weight:500">{{item.total}}</td>
-              </tr>
-              </ng-container>
-              <ng-template #noPlatinum></ng-template>
-              <ng-container *ngIf="item.category==='Dimond Sponsor';else noPlatinum">
-              <tr class="category_name_row" style="background-color:white" data-category_name="Dimond Sponsor">
-                <td class="text-center" title="Diamond">Diamond</td>
-                <td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">{{item.available}}</td>
-                <td class="text-center" style="color:#000000;background-color:#c4996c;font-weight:500">{{item.booked}}</td>
-                <td class="text-center" style="font-weight:500">{{item.total}}</td>
-              </tr>
-              </ng-container>
-              
-       
-              <ng-container *ngIf="item.category==='Gold Sponsor'">
-              <tr class="category_name_row" style="background-color:white" data-category_name="Gold">
-                <td class="text-center" title="Gold">Gold</td>
-                <td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">{{item.available}}</td>
-                <td class="text-center" style="color:#000000;background-color:#922791;font-weight:500">{{item.booked}}</td>
-                <td class="text-center" style="font-weight:500">{{item.total}}</td>
-              </tr>
-              </ng-container>
-              <ng-container *ngIf="item.category==='Silver sponsor'">
-              <tr class="category_name_row" style="background-color:white" data-category_name="Silver Sponsor">
-                <td class="text-center" title="Silver Sponsor">Silver Sponsor</td>
-                <td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">{{item.available}}</td>
-                <td class="text-center" style="color:#000000;background-color:#02aef0;font-weight:500">{{item.booked}}</td>
-                <td class="text-center" style="font-weight:500">{{item.total}}</td>
-              </tr>
-              </ng-container>
-              <ng-container *ngIf="item.category==='Exhibhitor'">
-              <tr class="category_name_row" style="background-color:white" data-category_name="Exhibitor">
-                <td class="text-center" title="Exhibitor">Exhibitor</td>
-                <td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">{{item.available}}</td>
-                <td class="text-center" style="color:#000000;background-color:#ffff00;font-weight:500">{{item.booked}}</td>
-                <td class="text-center" style="font-weight:500">{{item.total}}</td>
-              </tr>
-              </ng-container>
-              <ng-container *ngIf="item.category==='IJ Exhibhitor'">
-              <tr class="category_name_row" style="background-color:white" data-category_name="Associate Sponsor">
-                <td class="text-center" title="Associate Sponsor">Associate Sponsor</td>
-                <td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">{{item.available}}</td>
-                <td class="text-center" style="color:#000000;background-color:#e7b4d5;font-weight:500">{{item.booked}}</td>
-                <td class="text-center" style="font-weight:500">{{item.total}}</td>
-              </tr>
-              </ng-container>
-              <ng-container *ngIf="item.category==='Title'"> 
-              <tr class="category_name_row" style="background-color:white" data-category_name="Test">
-                <td class="text-center" title="Test">Test</td>
-                <td class="text-center" style="color:#fcfcfc;background-color:#000000;font-weight:500">{{item.available}}</td>
-                <td class="text-center" style="color:#fcfcfc;background-color:#1e663a;font-weight:500">{{item.booked}}</td>
-                <td class="text-center" style="font-weight:500">{{item.total}}</td>
-              </tr>
-              </ng-container>
-              <ng-container *ngIf="item.category==='Bronz Sponsor'"> 
-              <tr class="category_name_row" style="background-color:white" data-category_name="Bronze Sponsor">
-                <td class="text-center" title="Bronze Sponsor">Bronze Sponsor</td>
-                <td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">{{item.available}}</td>
-                <td class="text-center" style="color:#000000;background-color:#f9b4a4;font-weight:500">{{item.booked}}</td>
-                <td class="text-center" style="font-weight:500">{{item.total}}</td>
-              </tr>
-              </ng-container>
-              <ng-container *ngIf="item.category==='Indie'">
-              <tr class="category_name_row" style="background-color:white" data-category_name="Indie Zone">
-                <td class="text-center" title="Indie Zone">Indie Zone</td>
-                <td class="text-center" style="color:#000000;background-color:#ee0000;font-weight:500">{{item.available}}</td>
-                <td class="text-center" style="color:#000000;background-color:#ee1c25;font-weight:500">{{item.booked}}</td>
-                <td class="text-center" style="font-weight:500">{{item.total}}</td>
-              </tr>
-              </ng-container>
-              <ng-container *ngIf="item.category==='Unreal'">
-              <tr class="category_name_row" style="background-color:white" data-category_name="Indiajoy stalls">
-                <td class="text-center" title="Indiajoy stalls">Indiajoy stalls</td>
-                <td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">{{item.available}}</td>
-                <td class="text-center" style="color:#000000;background-color:#7d321e;font-weight:500">{{item.booked}}</td>
-                <td class="text-center" style="font-weight:500">{{item.total}}</td>
-              </tr>
-            </ng-container>
-              </ng-container> -->
             </tbody>
           </table>
     </div>
   </ng-template>
 </div>
-
-<!--<div class="table-responsive" id="categoryTableLegnds">-->
-<!--  <div class="text-end">-->
-<!--    <button type="button" class="btn btn-darkcyan mx-1 btn-sm no_focus tableBtn"><i class="bi bi-chevron-double-up"></i></button>-->
-<!--  </div>-->
-<!--  <table class="table table-bordered table-hover table-sm" id="categoryTable" style="display: none;">-->
-<!--    <thead class="table-dark">-->
-<!--    <tr class="text-center">-->
-<!--      <th>Category</th>-->
-<!--      <th>Booked</th>-->
-
-<!--      <th>Available</th>-->
-<!--      <th>Total</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody id="categoryTableLegndsBody"><tr class="category_name_row" style="background-color:white" data-category_name="Country Pavilion"><td class="text-center" title="Country Pavilion">Country Pavilion</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">0</td><td class="text-center" style="color:#000000;background-color:#ee018d;font-weight:500">5</td><td class="text-center" style="font-weight:500">5</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Powered By"><td class="text-center" title="Powered By">Powered By</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">1</td><td class="text-center" style="color:#000000;background-color:#2bb673;font-weight:500">0</td><td class="text-center" style="font-weight:500">1</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Platinum"><td class="text-center" title="Platinum">Platinum</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">1</td><td class="text-center" style="color:#000000;background-color:#f7941d;font-weight:500">0</td><td class="text-center" style="font-weight:500">1</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Diamond"><td class="text-center" title="Diamond">Diamond</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">1</td><td class="text-center" style="color:#000000;background-color:#c4996c;font-weight:500">0</td><td class="text-center" style="font-weight:500">1</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Gold"><td class="text-center" title="Gold">Gold</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">0</td><td class="text-center" style="color:#000000;background-color:#922791;font-weight:500">2</td><td class="text-center" style="font-weight:500">2</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Silver Sponsor"><td class="text-center" title="Silver Sponsor">Silver Sponsor</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">3</td><td class="text-center" style="color:#000000;background-color:#02aef0;font-weight:500">3</td><td class="text-center" style="font-weight:500">6</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Exhibitor"><td class="text-center" title="Exhibitor">Exhibitor</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">28</td><td class="text-center" style="color:#000000;background-color:#ffff00;font-weight:500">55</td><td class="text-center" style="font-weight:500">83</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Associate Sponsor"><td class="text-center" title="Associate Sponsor">Associate Sponsor</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">0</td><td class="text-center" style="color:#000000;background-color:#e7b4d5;font-weight:500">15</td><td class="text-center" style="font-weight:500">15</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Test"><td class="text-center" title="Test">Test</td><td class="text-center" style="color:#fcfcfc;background-color:#000000;font-weight:500">0</td><td class="text-center" style="color:#fcfcfc;background-color:#1e663a;font-weight:500">1</td><td class="text-center" style="font-weight:500">1</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Bronze Sponsor"><td class="text-center" title="Bronze Sponsor">Bronze Sponsor</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">0</td><td class="text-center" style="color:#000000;background-color:#f9b4a4;font-weight:500">4</td><td class="text-center" style="font-weight:500">4</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Indie Zone"><td class="text-center" title="Indie Zone">Indie Zone</td><td class="text-center" style="color:#000000;background-color:#ee0000;font-weight:500">0</td><td class="text-center" style="color:#000000;background-color:#ee1c25;font-weight:500">45</td><td class="text-center" style="font-weight:500">45</td></tr><tr class="category_name_row" style="background-color:white" data-category_name="Indiajoy stalls"><td class="text-center" title="Indiajoy stalls">Indiajoy stalls</td><td class="text-center" style="color:#000000;background-color:#ff0000;font-weight:500">0</td><td class="text-center" style="color:#000000;background-color:#7d321e;font-weight:500">16</td><td class="text-center" style="font-weight:500">16</td></tr></tbody>-->
-<!--  </table>-->
-<!--</div>-->
-
 <app-popup [isVisible]="isPopupVisible" [seatBooth]="selectedSeatBooth" (close)="closePopup()"></app-popup>
 <!-- </div> -->
 
