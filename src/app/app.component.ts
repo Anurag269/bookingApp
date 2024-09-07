@@ -11,10 +11,11 @@ import { PopupComponent } from './popup/popup.component';
 import { PopupService } from './popup.service';
 import {Subject, debounceTime, switchMap, timer, interval} from "rxjs";
 import {CommonModule, NgStyle} from "@angular/common";
+import {CdkDrag} from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, BookingLayoutComponent, MatToolbarModule, CommonModule,
+  imports: [RouterOutlet, BookingLayoutComponent, MatToolbarModule, CommonModule,CdkDrag,
     MatIconModule, DragDropModule, HttpClientModule, ModelComponent, PopupComponent, MatIconModule, NgStyle],
     providers: [DataserviceService],
   templateUrl: './app.component.html',
@@ -121,20 +122,20 @@ export class AppComponent implements OnInit{
   zoomdrDag(){
     this.zoomSubject.next(0.5);
   }
-  @HostListener('document:mousemove', ['$event'])
-  onMouseMove(event: MouseEvent): void {
-    if (this.isDragging) {
-      this.offsetX = event.clientX - this.startX;
-      this.offsetY = event.clientY - this.startY;
-      const container = document.querySelector('.zoom-content') as HTMLElement;
-      container.style.transform = `translate(${this.offsetX}px, ${this.offsetY}px) scale(${this.zoomLevel})`;
-    }
-  }
+  // @HostListener('document:mousemove', ['$event'])
+  // onMouseMove(event: MouseEvent): void {
+  //   if (this.isDragging) {
+  //     this.offsetX = event.clientX - this.startX;
+  //     this.offsetY = event.clientY - this.startY;
+  //     const container = document.querySelector('.zoom-content') as HTMLElement;
+  //     container.style.transform = `translate(${this.offsetX}px, ${this.offsetY}px) scale(${this.zoomLevel})`;
+  //   }
+  // }
 
-  @HostListener('document:mouseup')
-  onMouseUp(): void {
-    this.isDragging = false;
-  }
+  // @HostListener('document:mouseup')
+  // onMouseUp(): void {
+  //   this.isDragging = false;
+  // }
 
   showSummaryTableDetails(): void {
     this.showSummaryTable = true;
