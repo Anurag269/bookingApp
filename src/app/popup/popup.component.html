@@ -1,10 +1,11 @@
 <div class="popup" *ngIf="isVisible">
-    <div class="popup-row popup-header" style="background-color: blue; display: flex;
-    justify-content: space-between;"><span style=''>Properties</span>
-      <i class="fas fa-fw fa-times" (click)="closePopup()" ></i>
-    </div>
-    <div class="max-vh-50" style="padding:0px 20px 0px 20px">
-    <table class="table" >
+  <div class="popup-row popup-header" style="background-color: blue; display: flex; justify-content: space-between;">
+    <span>Properties</span>
+    <i class="fas fa-fw fa-times" (click)="closePopup()"></i>
+  </div>
+  
+  <div class="max-vh-50" style="padding: 0 20px;">
+    <table class="table">
       <tbody>
         <tr>
           <th>Booth</th>
@@ -30,17 +31,24 @@
           <th>Status</th>
           <td>{{ seatBooth.status || 'Available' }}</td>
         </tr>
-        <tr>
-          <th>Blocked by</th>
-          <td>{{ seatBooth.blockedBy || 'N/A' }}</td>
-        </tr>
-
+        
+        <ng-container *ngIf="seatBooth.booking !== null">
+          <tr>
+            <th>Blocked by</th>
+            <td>{{ seatBooth.blockedBy || 'N/A' }}</td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
-    </div>
-    <div class="popup-row"  >
+  </div>
+  
+  <!-- Booking Button -->
+  <ng-container *ngIf="seatBooth.booking === null">
+    <div class="popup-row" style="text-align: center; margin-top: 10px;">
       <button class="close-button" (click)="onBook()">Book Here</button>
     </div>
+  </ng-container>
+  
 </div>
 
 <!-- <div class="popup-overlay" *ngIf="isVisible">
@@ -98,129 +106,154 @@
       </div>
       <div style="padding:10px;">
 
-      <div class="modal-tabs">
-        <button class="tab-button" [ngClass]="{active: activeTab === 'customerDetails'}" (click)="setActiveTab('customerDetails')">Customer Details</button>
-        <button class="tab-button" [ngClass]="{active: activeTab === 'productDetails'}" (click)="setActiveTab('productDetails')">Product Details</button>
-      </div>
-      <div style="padding:30px; padding-bottom: 40px; border: #e9ecef 1px solid;">
-      <form  #bookingForm="ngForm" (ngSubmit)="onSubmit(bookingForm)">
-      <div id="customerDetails" class="tab-content" *ngIf="activeTab === 'customerDetails'">
-
-          <div class="form-container">
-          <div class="form-row">
-            <div class="form-column">
-              <label></label>
-              <input type="text" id="companyName" name="companyName" class="form-control" [(ngModel)]="formData. company_name" #companyName="ngModel" placeholder="Company Name (As per GST)" required>
-              <div *ngIf="companyName.invalid && companyName.touched" class="error-message">
-                Company Name is required.
-              </div>
-            </div>
-            <div class="form-column">
-              <label for="contactPerson"></label>
-              <input type="text" id="contactPerson" name="contactPerson"  placeholder="Contact Person Name"  class="form-control" [(ngModel)]="formData.contact_person_name" #contactPerson="ngModel" required>
-              <div *ngIf="contactPerson.invalid && contactPerson.touched" class="error-message">
-                Contact Person Name is required.
-              </div>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-column">
-              <label for="emailAddress"></label>
-              <input type="email" id="emailAddress" name="emailAddress" class="form-control" [(ngModel)]="formData.email" #emailAddress="ngModel" placeholder="E-Mail Address" required email>
-              <div *ngIf="emailAddress.invalid && emailAddress.touched" class="error-message">
-                Please enter a valid email address.
-              </div>
-            </div>
-            <div class="form-column">
-              <label for="contactNumber"></label>
-              <input type="text" id="contactNumber" name="contactNumber" class="form-control" [(ngModel)]="formData.contact_number" #contactNumber="ngModel" placeholder="Contact Number" required pattern="^\d{10}$">
-              <div *ngIf="contactNumber.invalid && contactNumber.touched" class="error-message">
-                Contact Number must be a 10-digit number.
-              </div>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-column">
-              <label for="gstin"></label>
-              <input type="text" id="gstin" name="gstin" class="form-control" [(ngModel)]="formData.gstin" #gstin="ngModel" required placeholder=" GSTIN or PAN " minlength="10">
-              <div *ngIf="gstin.invalid && gstin.touched" class="error-message">
-                GSTIN or PAN is required and must be at least 10 characters long.
-              </div>
-            </div>
-            <div class="form-column">
-              <label for="billingAddress"></label>
-              <input type="text" id="billingAddress" name="billingAddress" class="form-control" [(ngModel)]="formData.billingAddress" placeholder="Billing Address" #billingAddress="ngModel" required>
-              <div *ngIf="billingAddress.invalid && billingAddress.touched" class="error-message">
-                Billing Address is required.
-              </div>
-            </div>
-          </div>
-
-          <p>For Any Query Please Call Us at: +91 81066 95186 Or +91 73861 94449</p>
-          </div>
-        <!-- </form> -->
-
-
-        <div class="form-navigation" style="float: right;margin: 10px;padding-bottom: 10px">
-          <button class="nav-button next-button" (click)="onSubmitnext(bookingForm)">Next</button>
+        <div class="modal-tabs" style="margin: 0px 10px;">
+          <button 
+            class="tab-button" 
+            [ngClass]="{active: activeTab === 'customerDetails'}" 
+            (click)="setActiveTab('customerDetails')">Customer Details
+          </button>
+          <button 
+            class="tab-button" 
+            [ngClass]="{active: activeTab === 'productDetails', disabled: !formCompleted}" 
+            [disabled]="!formCompleted" 
+            (click)="setActiveTab('productDetails')">Product Details
+          </button>
         </div>
-      </div>
-      <div *ngIf="showProductDetailes" >
-      <div id="productDetails" class="tab-content" *ngIf="activeTab === 'productDetails'">
-          <div class="form-container">
-            <div class="form-row">
+        
+      <div style=" padding-bottom: 40px; border: #e9ecef 1px solid; margin: 0px 10px 10px 10px;">
+        <form #bookingForm="ngForm" (ngSubmit)="onSubmit(bookingForm)">
+          <div id="customerDetails" class="tab-content" *ngIf="activeTab === 'customerDetails'">
+            <div class="form-container">
+              <div class="form-row">
+                <div class="form-column">
+                  <label></label>
+                  <input type="text" id="companyName" name="companyName" class="form-control" [(ngModel)]="formData.company_name" #companyName="ngModel" placeholder="Company Name (As per GST)" required (input)="validateForm(bookingForm)">
+                  <div *ngIf="companyName.invalid && companyName.touched" class="error-message">
+                    Company Name is required.
+                  </div>
+                </div>
+                <div class="form-column">
+                  <label for="contactPerson"></label>
+                  <input type="text" id="contactPerson" name="contactPerson" placeholder="Contact Person Name" class="form-control" [(ngModel)]="formData.contact_person_name" #contactPerson="ngModel" required (input)="validateForm(bookingForm)">
+                  <div *ngIf="contactPerson.invalid && contactPerson.touched" class="error-message">
+                    Contact Person Name is required.
+                  </div>
+                </div>
+              </div>
+        
+              <div class="form-row">
+                <div class="form-column">
+                  <label for="emailAddress"></label>
+                  <input type="email" id="emailAddress" name="emailAddress" class="form-control" [(ngModel)]="formData.email" #emailAddress="ngModel" placeholder="E-Mail Address" required email (input)="validateForm(bookingForm)">
+                  <div *ngIf="emailAddress.invalid && emailAddress.touched" class="error-message">
+                    Please enter a valid email address.
+                  </div>
+                </div>
+                <div class="form-column">
+                  <label for="contactNumber"></label>
+                  <input type="text" id="contactNumber" name="contactNumber" class="form-control" [(ngModel)]="formData.contact_number" #contactNumber="ngModel" placeholder="Contact Number" required pattern="^\d{10}$" (input)="validateForm(bookingForm)">
+                  <div *ngIf="contactNumber.invalid && contactNumber.touched" class="error-message">
+                    Contact Number must be a 10-digit number.
+                  </div>
+                </div>
+              </div>
+        
+              <div class="form-row">
+                <div class="form-column">
+                  <label for="gstin"></label>
+                  <input type="text" id="gstin" name="gstin" class="form-control" [(ngModel)]="formData.gstin" #gstin="ngModel" required placeholder="GSTIN or PAN" minlength="10" (input)="validateForm(bookingForm)">
+                  <div *ngIf="gstin.invalid && gstin.touched" class="error-message">
+                    GSTIN or PAN is required and must be at least 10 characters long.
+                  </div>
+                </div>
+                <div class="form-column">
+                  <label for="billingAddress"></label>
+                  <textarea type="" id="billingAddress" name="billingAddress" class="form-control" [(ngModel)]="formData.billingAddress" placeholder="Billing Address" #billingAddress="ngModel" required (input)="validateForm(bookingForm)" style="height: 60px; line-height: 2.7;"></textarea>
+                  <div *ngIf="billingAddress.invalid && billingAddress.touched" class="error-message">
+                    Billing Address is required.
+                  </div>
+                </div>
+              </div>
               <div class="form-column">
-                <label>Booths <span>*</span></label>
-                <ng-select
-                  [items]="allSeat"
-                  bindLabel="name"
-                  placeholder="Select Category"
-                  appendTo="body"
-                  [multiple]="true"
-                  [(ngModel)]="formData.booth_ids"
-                  [ngModelOptions]="{standalone: true}"
-                  [clearable]="false"
-                (change)="updateBooths()">
-                </ng-select>
+              <p>For Any Query Please Call Us at: +91 81066 95186 Or +91 73861 94449</p>
               </div>
             </div>
-
-            <div *ngFor="let seatBooth of boothDetails" class="form-row">
-              <div class="form-column">
-                <label for="categoryName">Category Name</label>
-                <input type="text" style="background-color:#e9ecef;" id="categoryName" name="categoryName" class="form-control" [value]="seatBooth.category" readonly>
-              </div>
-              <div class="form-column">
-                <label for="boothText">Booth Text</label>
-                <input type="text" style="background-color:#e9ecef;" id="boothText" name="boothText" class="form-control" [value]="seatBooth.booth" readonly>
-              </div>
-              <div class="form-column">
-                <label for="boothRate">Booth Rate</label>
-                <input type="text" id="boothRate" name="boothRate" class="form-control" [value]="seatBooth.rate" readonly>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div  style="display: flex;">
-                <input type="checkbox" id="terms" name="terms" required>
-                <label for="terms" style="margin-left: 8px;">I agree with the <a href="#">terms and conditions</a><span>*</span></label>
-              </div>
-            </div>
-
-            <p>For Any  Please Call Us at: +91 81066 95186 Or +91 73861 94449</p>
-
-            <div   style="float: right; ">
-            <div class="form-navigation">
-              <button class="nav-button submit-button">Previous</button>
-              <button type="submit" (click)="onSubmit(bookingForm)" class="nav-button submit-button gap">Submit</button>
-              <button type="submit" (click)="onPay(bookingForm)" id="pay-button" class="nav-button submit-button gap">Book</button>
+        
+            <div class="form-navigation" style="float: right;">
+              <button class="nav-button next-button" (click)="onSubmitnext(bookingForm)" [disabled]="bookingForm.invalid">Next</button>
             </div>
           </div>
-    </div>
+    
+      <div id="productDetails" class="tab-content" *ngIf="activeTab === 'productDetails'">
+        <div class="form-container">
+          <div class="form-row">
+            <div class="form-column">
+              <label>Booths <span>*</span></label>
+              <ng-select
+                [items]="allSeat"
+                bindLabel="name"
+                placeholder="Select Category"
+                appendTo="body"
+                [multiple]="true"
+                [(ngModel)]="formData.booth_ids"
+                [ngModelOptions]="{standalone: true}"
+                [clearable]="false"
+                [maxSelectedItems]="2" 
+                (change)="updateBooths()"
+               >
+              </ng-select>
+              <div *ngIf="formData.booth_ids.length > 2" class="error-message">
+                You can't select more than 2 booths.
+              </div>
+            </div>
+          </div>
+        
+          <div *ngFor="let seatBooth of boothDetails" class="form-row">
+            <div class="form-column">
+              <label for="categoryName">Category Name</label>
+              <input type="text" style="background-color:#e9ecef;" disabled id="categoryName" name="categoryName" class="form-control" [value]="seatBooth.category" readonly>
+            </div>
+            <div class="form-column">
+              <label for="boothText">Booth Text</label>
+              <input type="text" style="background-color:#e9ecef;" disabled id="boothText" name="boothText" class="form-control" [value]="seatBooth.booth" readonly>
+            </div>
+            <div class="form-column">
+              <label for="boothRate">Booth Rate</label>
+              <input type="text" style="background-color:#e9ecef;" disabled id="boothRate" name="boothRate" class="form-control" [value]="seatBooth.rate" readonly>
+            </div>
+          </div>
+        
+          <div class="form-row">
+            <div class="form-column">
+              <div class="checkbox-container">
+                <input
+                  type="checkbox"
+                  id="terms"
+                  [(ngModel)]="termsAccepted"
+                  name="terms"
+                  #terms="ngModel"
+                  required
+                />
+                <label for="terms">I agree with the <a href="#">terms and conditions</a><span>*</span></label>
+              </div>
+              <div *ngIf="terms.invalid && terms.touched" class="error-message">
+                You must agree with the terms and conditions.
+              </div>
+            </div>
+          </div>
+          <div class="form-column">
+          <p>For Any Queries Please Call Us at: +91 81066 95186 Or +91 73861 94449</p>
+          </div>
+        </div>
+        
+    <div class="form-navigation" style="float:right ; margin-bottom: 20px;">
+      <button class="nav-button submit-button" (click)="setActiveTab('customerDetails')">Previous</button>
+      <button type="submit" (click)="onSubmit(bookingForm)" [disabled]="bookingForm.invalid" class="nav-button submit-button gap">Submit</button>
+
+  </div> 
   </div>
-</div>
+
+
   </form>
 </div>
 </div>

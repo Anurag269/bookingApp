@@ -17,5 +17,8 @@ export class DataserviceService {
   postBoothDetails(formData: any): Observable<any> {
     return this.http.post<any>(environment.boothpostDetailes, formData);
   }
+  getSummeryData(): Observable<any> {
+    return this.http.get<any>(environment.summeryDetailes);
+  }
   
 }

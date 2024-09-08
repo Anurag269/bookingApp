@@ -11,10 +11,11 @@ import { PopupComponent } from './popup/popup.component';
 import { PopupService } from './popup.service';
 import {Subject, debounceTime, switchMap, timer, interval} from "rxjs";
 import {CommonModule, NgStyle} from "@angular/common";
+import {CdkDrag} from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, BookingLayoutComponent, MatToolbarModule, CommonModule,
+  imports: [RouterOutlet, BookingLayoutComponent, MatToolbarModule, CommonModule,CdkDrag,
     MatIconModule, DragDropModule, HttpClientModule, ModelComponent, PopupComponent, MatIconModule, NgStyle],
     providers: [DataserviceService],
   templateUrl: './app.component.html',
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit{
   title = 'bookinglayout';
   zoomLevel: number = 0.5;
   isDragging: boolean = false;
+  summeryItems:any
   startX: number = 0;
   isHighlighted: boolean = false;
   showSummaryTable: boolean = false;
@@ -36,7 +38,7 @@ export class AppComponent implements OnInit{
   zoomTimeout: any;
   private isInitialized = false;
   private zoomSubject = new Subject<number>();
-  constructor(private popupService: PopupService) {}
+  constructor(private popupService: PopupService,private dataService:DataserviceService) {}
 
   ngOnInit() {
     this.popupService.popupVisibility$.subscribe(seatBooth => {
@@ -45,7 +47,9 @@ export class AppComponent implements OnInit{
         this.isPopupVisible = true;
       }
     });
-    // Mark the initialization as complete
+    this.dataService.getSummeryData().subscribe((data:any)=>{
+     this.summeryItems=data
+    })
     this.isInitialized = true;
     this.zoomSubject.pipe(
       debounceTime(0.1),  // Adjust the debounce time as needed
@@ -109,7 +113,6 @@ export class AppComponent implements OnInit{
   }
 
 
-  // Function to toggle the highlight
   toggleHighlight(): void {
     this.isHighlighted = !this.isHighlighted;
   }
@@ -119,20 +122,20 @@ export class AppComponent implements OnInit{
   zoomdrDag(){
     this.zoomSubject.next(0.5);
   }
-  @HostListener('document:mousemove', ['$event'])
-  onMouseMove(event: MouseEvent): void {
-    if (this.isDragging) {
-      this.offsetX = event.clientX - this.startX;
-      this.offsetY = event.clientY - this.startY;
-      const container = document.querySelector('.zoom-content') as HTMLElement;
-      container.style.transform = `translate(${this.offsetX}px, ${this.offsetY}px) scale(${this.zoomLevel})`;
-    }
-  }
+  // @HostListener('document:mousemove', ['$event'])
+  // onMouseMove(event: MouseEvent): void {
+  //   if (this.isDragging) {
+  //     this.offsetX = event.clientX - this.startX;
+  //     this.offsetY = event.clientY - this.startY;
+  //     const container = document.querySelector('.zoom-content') as HTMLElement;
+  //     container.style.transform = `translate(${this.offsetX}px, ${this.offsetY}px) scale(${this.zoomLevel})`;
+  //   }
+  // }
 
-  @HostListener('document:mouseup')
-  onMouseUp(): void {
-    this.isDragging = false;
-  }
+  // @HostListener('document:mouseup')
+  // onMouseUp(): void {
+  //   this.isDragging = false;
+  // }
 
   showSummaryTableDetails(): void {
     this.showSummaryTable = true;

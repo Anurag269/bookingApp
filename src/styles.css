@@ -22,7 +22,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   display: flex;
   flex: 1;
   border: 1px solid black;
-  padding: 10px;
+  padding: 5px;
   border-radius: 5px;
 }
 
@@ -32,6 +32,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border-radius: 2px;
   background-color: lightgrey;
   margin: 2px;
+  height: 25px;
 }
 
 .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
