@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { BookingLayoutComponent } from './booking-layout/booking-layout.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -38,6 +38,8 @@ export class AppComponent implements OnInit{
   zoomTimeout: any;
   private isInitialized = false;
   private zoomSubject = new Subject<number>();
+  @ViewChild('zoomableContent') zoomableContent!: ElementRef;
+
   constructor(private popupService: PopupService,private dataService:DataserviceService) {}
 
   ngOnInit() {
@@ -51,21 +53,26 @@ export class AppComponent implements OnInit{
      this.summeryItems=data
     })
     this.isInitialized = true;
-    this.zoomSubject.pipe(
-      debounceTime(0.1),  // Adjust the debounce time as needed
-      switchMap(zoomLevel => {
-        return timer(0, 0.1).pipe(
-          switchMap(() => {
-            if (this.zoomLevel !== zoomLevel) {
-              this.zoomLevel = zoomLevel;
-              return interval(0);
-            } else {
-              return [];
-            }
-          })
-        );
-      })
-    ).subscribe();
+    this.zoomSubject.next(Math.min(this.zoomLevel, 2));
+    this.zoomSubject.subscribe((zoom) => {
+      this.zoomLevel = zoom;
+      this.applyZoom();
+    });
+    // this.zoomSubject.pipe(
+    //   debounceTime(0.1),  // Adjust the debounce time as needed
+    //   switchMap(zoomLevel => {
+    //     return timer(0, 0.1).pipe(
+    //       switchMap(() => {
+    //         if (this.zoomLevel !== zoomLevel) {
+    //           this.zoomLevel = zoomLevel;
+    //           return interval(0);
+    //         } else {
+    //           return [];
+    //         }
+    //       })
+    //     );
+    //   })
+    // ).subscribe();
   }
 
   get zoomTransform(): string {
@@ -73,12 +80,27 @@ export class AppComponent implements OnInit{
   }
 
   zoomIn(): void {
-    this.zoomSubject.next(Math.min(this.zoomLevel + 0.1, 2));
+    this.zoomSubject.next(Math.min(this.zoomLevel + 0.1, 2)); // Cap at max zoom level (2x)
   }
 
   zoomOut(): void {
-    this.zoomSubject.next(Math.max(this.zoomLevel - 0.1, 0.1));
+    this.zoomSubject.next(Math.max(this.zoomLevel - 0.1, 0.1)); // Minimum zoom level (0.1x)
   }
+
+  applyZoom(): void {
+    if (this.zoomableContent) {
+      // Apply CSS transform to scale the content
+      this.zoomableContent.nativeElement.style.transform = `scale(${this.zoomLevel})`;
+    }
+  }
+
+  // zoomIn(): void {
+  //   this.zoomSubject.next(Math.min(this.zoomLevel + 0.1, 2));
+  // }
+  //
+  // zoomOut(): void {
+  //   this.zoomSubject.next(Math.max(this.zoomLevel - 0.1, 0.1));
+  // }
 
   @HostListener('wheel', ['$event'])
   onMouseWheel(event: WheelEvent): void {
