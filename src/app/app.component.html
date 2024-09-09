@@ -15,19 +15,19 @@
   </div>
 
   <!-- Image and Content -->
-  <div style="flex: 2;">
-    <div cdkDrag class="drag-root drag-button">
-      <div class="zoom-content" [ngStyle]="{'transform': 'scale(' + zoomLevel + ')'}">
-        <div class="row" style="background-image: url('../assets/images/layout-fix.jpg'); background-size: cover; height: 1000px; width: 1300px;">
-          <div class="fixed-width-left" style="width:225px"></div>
-          <div class="fixed-width-middle" style="width:618px">
-            <app-booking-layout></app-booking-layout>
+    <div style="flex: 2;" #zoomableContent>
+      <div cdkDrag class="drag-root drag-button">
+        <div class="zoom-content">
+          <div class="row" style="background-image: url('../assets/images/layout-fix.jpg'); background-size: cover; height: 1000px; width: 1300px;">
+            <div class="fixed-width-left" style="width:225px"></div>
+            <div class="fixed-width-middle" style="width:618px">
+              <app-booking-layout></app-booking-layout>
+            </div>
+            <div class="col-md-4 col-4 fixed-width-right"></div>
           </div>
-          <div class="col-md-4 col-4 fixed-width-right"></div>
         </div>
       </div>
     </div>
-  </div>
 </div>
 <div class="sticky-footer">
   <ng-container *ngIf="!showSummaryTable; else showDetails">
