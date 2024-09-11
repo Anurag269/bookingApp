@@ -168,9 +168,16 @@
   cursor: grabbing;
 }
 
+.bgImg {
+  background: url('../assets/images/layout-fix.jpg');
+  background-size: cover;
+  height: 1000px;
+  width: 1300px;
+}
+
 .zoom-content {
   position: relative;
-  transition: transform 0s ease;
+  transition: transform 0.5s ease;
 }
 
 .container-fullscreen {

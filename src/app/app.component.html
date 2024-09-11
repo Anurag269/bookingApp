@@ -17,8 +17,8 @@
   <!-- Image and Content -->
     <div style="flex: 2;" #zoomableContent>
       <div cdkDrag class="drag-root drag-button">
-        <div class="zoom-content">
-          <div class="row" style="background-image: url('../assets/images/layout-fix.jpg'); background-size: cover; height: 1000px; width: 1300px;">
+        <div class="zoom-content"  [style.transform]="zoomTransform">
+          <div class="row bgImg">
             <div class="fixed-width-left" style="width:225px"></div>
             <div class="fixed-width-middle" style="width:618px">
               <app-booking-layout></app-booking-layout>

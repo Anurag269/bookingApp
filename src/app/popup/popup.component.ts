@@ -33,7 +33,7 @@ export class PopupComponent implements OnInit{
   selectedBooth: string = '';
   selectedBoothId:any
   allSeat :any;
-  formCompleted: boolean = false;  
+  formCompleted: boolean = false;
   // showProductDetailes:boolean=false
 constructor(private dataService:DataserviceService,private paymentService:PaymentService){
   this.formData?.booth_ids.push(this.seatBooth?.booth);
@@ -109,7 +109,23 @@ onSubmit(form: NgForm) {
     if (form.invalid) {
       return;
     }
-this.dataService.postBoothDetails(postData).subscribe((data)=>{
+    const formData = new FormData();
+
+// Type assertion to `any` to bypass the error
+    Object.keys(postData).forEach((key) => {
+      const value = (postData as any)[key];
+
+      if (Array.isArray(value)) {
+        // If the property is an array, append each element
+        value.forEach((item: any) => {
+          formData.append(`${key}`, item);
+        });
+      } else {
+        // Otherwise, append the property as it is
+        formData.append(key, value);
+      }
+    });
+this.dataService.postBoothDetails(formData).subscribe((data)=>{
   console.log(data)
   this.onPay(postData.booth_ids)
 })
@@ -202,7 +218,7 @@ this.isShowBookingView =false;
   }
 
 
-  
+
   prevTab() {
     // Logic to navigate to the previous tab
   }
@@ -227,7 +243,7 @@ this.isShowBookingView =false;
       this.termsAccepted = !this.termsAccepted;
     }
   }
-  
+
   onBook(){
 this.isShowBookingView=true
 // this.isVisible=false
