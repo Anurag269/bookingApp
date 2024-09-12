@@ -110,7 +110,7 @@ export class AppComponent implements OnInit{
     this.isPopupVisible = false;
   }
   zoomdrDag(){
-    this.zoomSubject.next(0.5);
+    this.zoomSubject.next(0.4);
   }
   // @HostListener('document:mousemove', ['$event'])
   // onMouseMove(event: MouseEvent): void {
