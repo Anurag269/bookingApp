@@ -1,6 +1,10 @@
 <div *ngIf="popoverVisible"
 class="popover"
-[ngStyle]="{ 'top.px': popoverPosition.top, 'left.px': popoverPosition.left }">
+     [ngStyle]="{
+    'top.px': popoverPosition.top,
+    'left.px': popoverPosition.left,
+    'transform': 'scale(' + zoomLevel*3 + ')'
+  }">
 <p>{{ popoverData?.size }}| {{popoverData?.booth}} |{{popoverData?.booth}} | {{popoverData?.category}}|{{popoverData?.booking}}   </p>
 </div>
 <!-- Left Grid --><div>

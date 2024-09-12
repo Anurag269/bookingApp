@@ -62,6 +62,7 @@ export class BookingLayoutComponent implements OnInit {
   @ViewChildren('boothButton') buttons!: QueryList<ElementRef>;
   filteredBoothNumbers: string[] = [];
   @Input() seatData: any;
+  @Input() zoomLevel:any;
   constructor(
     private dataService: DataserviceService,
     private renderer: Renderer2,
