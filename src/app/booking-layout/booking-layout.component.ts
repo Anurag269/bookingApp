@@ -63,6 +63,23 @@ export class BookingLayoutComponent implements OnInit {
   filteredBoothNumbers: string[] = [];
   @Input() seatData: any;
   @Input() zoomLevel:any;
+  zoomedSeat: any = null; // Variable to track which seat is zoomed
+
+  // Method to zoom the clicked grid/seat
+  zoomGrid(seat: any): void {
+    // Check if a seat is already zoomed, if yes, reset
+    if (this.zoomedSeat === seat) {
+      this.zoomedSeat = null;
+    } else {
+      // Zoom the clicked seat
+      this.zoomedSeat = seat;
+    }
+  }
+
+  // Check if the current seat is zoomed for applying the zoom class
+  isZoomed(seat: any): boolean {
+    return this.zoomedSeat === seat;
+  }
   constructor(
     private dataService: DataserviceService,
     private renderer: Renderer2,
@@ -190,7 +207,31 @@ export class BookingLayoutComponent implements OnInit {
   }
   getSeatClass() {}
   openPopup(seatBooth: any) {
+    // this.zoomInGrid(seatBooth);
     this.popupService.showPopup(seatBooth);
+  }
+
+  zoomInGrid(seat: any): void {
+    const seatElement = document.getElementById(`seat-${seat.id}`);
+
+    if (this.zoomedSeat === seat) {
+      // Reset zoom on the seat
+      this.zoomedSeat = null;
+      if (seatElement) {
+        this.renderer.setStyle(seatElement, 'transform', 'scale(1)');
+        this.renderer.setStyle(seatElement, 'z-index', '1');
+        this.renderer.setStyle(seatElement, 'position', 'initial');
+        this.renderer.setStyle(seatElement, 'border', 'none');
+      }
+    } else {
+      // Zoom in on the clicked seat
+      this.zoomedSeat = seat;
+      if (seatElement) {
+        this.renderer.setStyle(seatElement, 'transform', 'scale(2)');
+        this.renderer.setStyle(seatElement, 'z-index', '100');
+        this.renderer.setStyle(seatElement, 'position', 'relative');
+      }
+    }
   }
 
   onButtonClick(booth: any): void {

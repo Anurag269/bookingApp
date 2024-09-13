@@ -16,7 +16,7 @@
 
   <!-- Image and Content -->
     <div style="flex: 2;" #zoomableContent>
-      <div cdkDrag class="drag-root drag-button">
+      <div cdkDrag class="drag-root drag-button" #dragRoot>
         <div class="zoom-content"  [style.transform]="zoomTransform">
           <div class="row bgImg">
             <div class="fixed-width-left" style="width:225px"></div>
@@ -58,8 +58,8 @@
             </thead>
             <tbody id="categoryTableLegndsBody" >
               <ng-container *ngFor="let item of summeryItems">
-                <tr>
-                  <td>{{ item.category }}</td>
+                <tr class="highlight-on-hover">
+                  <td [matTooltip]="item.category">{{ item.category }}</td>
                   <td>{{ item.booked }}</td>
                   <td>{{ item.available }}</td>
                   <td>{{ item.total }}</td>

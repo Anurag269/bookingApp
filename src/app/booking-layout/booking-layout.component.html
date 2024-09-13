@@ -7,7 +7,8 @@ class="popover"
   }">
 <p>{{ popoverData?.size }}| {{popoverData?.booth}} |{{popoverData?.booth}} | {{popoverData?.category}}|{{popoverData?.booking}}   </p>
 </div>
-<!-- Left Grid --><div>
+<!-- Left Grid -->
+<div>
   <div class="row" style="margin:10px 10px 20px 10px; ">
   <div class="seat-grid" style="margin-top: 15px;">
     <button class="seat"  (click)="toggleModal()" *ngFor="let seat of seats">{{ seat.label }}</button>

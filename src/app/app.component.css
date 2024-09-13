@@ -148,6 +148,7 @@
 .zoom-controls button:hover {
 /* color: #6a6d6f; */
 }
+
 .inbutton{
   width:40px;
   border-radius: 5px 5px 0px 0px;
@@ -208,4 +209,12 @@
   margin-right: .25rem !important;
   margin-left: .25rem !important;
   float: right;
+}
+
+.highlight-on-hover td {
+  background-color: white;
+}
+
+.highlight-on-hover:hover td {
+  background-color: lightgrey;
 }

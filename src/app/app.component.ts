@@ -12,11 +12,12 @@ import { PopupService } from './popup.service';
 import {Subject, debounceTime, switchMap, timer, interval} from "rxjs";
 import {CommonModule, NgStyle} from "@angular/common";
 import {CdkDrag} from '@angular/cdk/drag-drop';
+import {MatTooltip} from "@angular/material/tooltip";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, BookingLayoutComponent, MatToolbarModule, CommonModule,CdkDrag,
-    MatIconModule, DragDropModule, HttpClientModule, ModelComponent, PopupComponent, MatIconModule, NgStyle],
+  imports: [RouterOutlet, BookingLayoutComponent, MatToolbarModule, CommonModule, CdkDrag,
+    MatIconModule, DragDropModule, HttpClientModule, ModelComponent, PopupComponent, MatIconModule, NgStyle, MatTooltip],
     providers: [DataserviceService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -39,6 +40,7 @@ export class AppComponent implements OnInit{
   private isInitialized = false;
   private zoomSubject = new Subject<number>();
   @ViewChild('zoomableContent') zoomableContent!: ElementRef;
+  @ViewChild('dragRoot') dragRoot: ElementRef | undefined;
 
   constructor(private popupService: PopupService,private dataService:DataserviceService) {}
 
@@ -110,7 +112,20 @@ export class AppComponent implements OnInit{
     this.isPopupVisible = false;
   }
   zoomdrDag(){
+    // const dragElement = this.zoomableContent?.nativeElement;
+    // // Reset the transform style to its original position
+    // if (dragElement) {
+    //   dragElement.style.transform = 'none'; // Resets the transform to initial state
+    // }
     this.zoomSubject.next(0.4);
+
+    // Reset drag position manually by resetting transform
+    if (this.dragRoot) {
+      const dragEl = this.dragRoot.nativeElement;
+      dragEl.style.transform = 'none'; // Reset transform to original position
+      dragEl.style.left = '0px'; // Reset left position (if moved)
+      dragEl.style.top = '0px'; // Reset top position (if moved)
+    }
   }
   // @HostListener('document:mousemove', ['$event'])
   // onMouseMove(event: MouseEvent): void {
