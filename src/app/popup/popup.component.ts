@@ -103,7 +103,7 @@ onSubmit(form: NgForm) {
     this.isShowBookingView = true;
     const postData = {
       ...this.formData,
-      booth_ids: this.formData?.booth_ids  // Send the number[] array here
+      booth_ids: this.boothDetails.map((booth: { id: number; }) => booth.id)
     };
 
     if (form.invalid) {
@@ -114,8 +114,9 @@ onSubmit(form: NgForm) {
 // Type assertion to `any` to bypass the error
     Object.keys(postData).forEach((key) => {
       const value = (postData as any)[key];
-
+      console.log(key, value)
       if (Array.isArray(value)) {
+        console.log('herer')
         // If the property is an array, append each element
         value.forEach((item: any) => {
           formData.append(`${key}`, item);
@@ -125,9 +126,9 @@ onSubmit(form: NgForm) {
         formData.append(key, value);
       }
     });
+    console.log('formData',formData)
 this.dataService.postBoothDetails(formData).subscribe((data)=>{
-  console.log(data)
-  this.onPay(postData.booth_ids)
+  this.onPay(data)
 })
     // Debugging: Check final postData before submission
     console.log('PostData:', postData);
@@ -158,53 +159,40 @@ this.isShowBookingView =false;
 // this.formData.
   }
 
-  onPay(id:any) {
-    // console.log()
-    // Fetch the order details from the backend
-    this.paymentService.createOrder(id).subscribe(
-      data => {
-        if (data.error) {
-          alert(data.error);
-          return;
-        }
+  onPay(data: any) {
+    // Set up the Razorpay options
+    const options = {
+      "key": data.api_key,  // Enter the Key ID generated from the Dashboard
+      "amount": data.amount,  // Amount in paise
+      "currency": "INR",
+      "order_id": data.order_id,  // Order ID from Razorpay
+      "handler": (response:any) => {
+        alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
 
-        // Set up the Razorpay options
-        const options = {
-          "key": data.api_key,  // Enter the Key ID generated from the Dashboard
-          "amount": data.amount,  // Amount in paise
-          "currency": "INR",
-          "order_id": data.order_id,  // Order ID from Razorpay
-          "handler": (response:any) => {
-            alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
-
-            // Trigger the update_payment API with the payment ID
-            this.paymentService.updatePayment(response.razorpay_payment_id).subscribe(
-              updateData => {
-                if (updateData.error) {
-                  alert('Error updating payment: ' + updateData.error);
-                } else {
-                  alert('Payment details updated successfully');
-                  console.log(updateData);  // Log or handle the updated payment details
-                }
-              },
-              updateError => {
-                alert('Error updating payment: ' + updateError.message);
-              }
-            );
+        // Trigger the update_payment API with the payment ID
+        this.paymentService.updatePayment(response.razorpay_payment_id).subscribe(
+          updateData => {
+            if (updateData.error) {
+              alert('Error updating payment: ' + updateData.error);
+            } else {
+              alert('Payment details updated successfully');
+              console.log(updateData);  // Log or handle the updated payment details
+              window.location.reload()
+            }
           },
-        };
-
-        // Initialize Razorpay Checkout
-        const rzp1 = new Razorpay(options);
-
-        // Open the Razorpay payment modal
-        rzp1.open();
+          updateError => {
+            alert('Error updating payment: ' + updateError.message);
+          }
+        );
       },
-      error => {
-        console.error('Error:', error);
-      }
-    );
-  }
+    };
+
+    // Initialize Razorpay Checkout
+    const rzp1 = new Razorpay(options);
+
+    // Open the Razorpay payment modal
+    rzp1.open();
+}
 
 
   setActiveTab(tabName: string) {
