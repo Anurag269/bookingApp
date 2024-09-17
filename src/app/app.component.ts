@@ -65,7 +65,7 @@ export class AppComponent implements OnInit{
   }
 
   zoomIn(): void {
-    this.zoomSubject.next(Math.min(this.zoomLevel + 0.1, 2)); // Cap at max zoom level (2x)
+    this.zoomSubject.next(Math.min(this.zoomLevel + 0.1, 6)); // Cap at max zoom level (6x)
   }
 
   zoomOut(): void {
@@ -76,7 +76,7 @@ export class AppComponent implements OnInit{
   onMouseWheel(event: WheelEvent): void {
     event.preventDefault();
     const zoomAmount = event.deltaY > 0 ? -0.1 : 0.1;
-    this.zoomSubject.next(Math.max(0.1, Math.min(this.zoomLevel + zoomAmount, 2)));
+    this.zoomSubject.next(Math.max(0.1, Math.min(this.zoomLevel + zoomAmount, 6)));
   }
 
   startDrag(event: MouseEvent): void {

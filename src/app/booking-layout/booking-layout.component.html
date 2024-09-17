@@ -5,7 +5,7 @@
 <!--    'left.px': popoverPosition.left,-->
 <!--    'transform': 'scale(' + zoomLevel*3 + ')'-->
 <!--  }">-->
-<!--<p>{{ popoverData?.size }}| {{popoverData?.booth}} |{{popoverData?.booth}} | {{popoverData?.category}}|{{popoverData?.booking}}   </p>-->
+<!--<p>{{ popoverData?.size }}| {{popoverData?.booth}} |{{popoverData?.booth}} | {{popoverData?.category}}|{{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking }}   </p>-->
 <!--</div>-->
 <!-- Left Grid -->
 <div>
@@ -15,7 +15,8 @@
   </div>
 
   <div class="seat-gridsec" style="padding-left:50px; margin-top:10px">
-    <button class="rightrowseat" *ngFor="let seat of firstRowBooths" (click)="openPopup(seat.booth)">
+    <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+            matTooltipPosition="above" [ngClass]="getBoothClass(getBoothByBoothNumber(seat.booth))" (mouseenter)="showPopover(getBoothByBoothNumber(seat.booth), $event)" (mouseleave)="hidePopover()" *ngFor="let seat of firstRowBooths" (click)="openPopup(getBoothByBoothNumber(seat.booth))">
       {{ seat.booth }}
     </button>
   </div>
@@ -26,88 +27,88 @@
     <!-- Left Grid with 4 columns divided into two groups -->
     <div class="left-row" style="">
       <div class="group-grid">
-        <button class="seat" *ngFor="let seat of Secseats"  (click)="openPopup(seat.label)">{{ seat.label }}</button>
+        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above" [ngClass]="getBoothClass(getBoothByBoothNumber(seat.label))" (mouseenter)="showPopover(getBoothByBoothNumber(seat.label), $event)" (mouseleave)="hidePopover()" *ngFor="let seat of Secseats"  (click)="openPopup(getBoothByBoothNumber(seat.label))">{{ seat.label }}</button>
       </div>
       <div class="group-grid" >
-        <button class="rightrowseat" *ngFor="let seat of Secseats">{{ seat.label }}</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above" [ngClass]="getBoothClass(getBoothByBoothNumber(seat.label))" (mouseenter)="showPopover(getBoothByBoothNumber(seat.label), $event)" (mouseleave)="hidePopover()" *ngFor="let seat of Secseats" (click)="openPopup(getBoothByBoothNumber(seat.label))">{{ seat.label }}</button>
       </div>
     </div>
 
     <!-- Right Grid with 3 Columns and Even Spacing -->
     <div class="right-row" style="margin-right: 50px; margin-top:-15px">
       <div class=" seat-grid-seq  small-grid-virtic">
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above" [ngClass]="getBoothClass(getBoothByBoothNumber('K29'))" (mouseenter)="showPopover(getBoothByBoothNumber('K29'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K29'))">K29</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K28'))"(mouseenter)="showPopover(getBoothByBoothNumber('K28'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K28'))">K28</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K30'))"(mouseenter)="showPopover(getBoothByBoothNumber('K30'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K30'))">K30</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K27'))"(mouseenter)="showPopover(getBoothByBoothNumber('K27'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K27'))">K27</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K31'))"(mouseenter)="showPopover(getBoothByBoothNumber('K31'), $event)"(mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K31'))">K31</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K26'))"(mouseenter)="showPopover(getBoothByBoothNumber('K26'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K26'))">K26</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K32'))"(mouseenter)="showPopover(getBoothByBoothNumber('K32'), $event)"(mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K32'))">K32</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K25'))"(mouseenter)="showPopover(getBoothByBoothNumber('K25'), $event)"(mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K25'))">K25</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above" [ngClass]="getBoothClass(getBoothByBoothNumber('K29'))" (mouseenter)="showPopover(getBoothByBoothNumber('K29'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K29'))">K29</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K28'))" (mouseenter)="showPopover(getBoothByBoothNumber('K28'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K28'))">K28</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K30'))" (mouseenter)="showPopover(getBoothByBoothNumber('K30'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K30'))">K30</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K27'))" (mouseenter)="showPopover(getBoothByBoothNumber('K27'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K27'))">K27</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K31'))" (mouseenter)="showPopover(getBoothByBoothNumber('K31'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K31'))">K31</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K26'))" (mouseenter)="showPopover(getBoothByBoothNumber('K26'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K26'))">K26</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K32'))" (mouseenter)="showPopover(getBoothByBoothNumber('K32'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K32'))">K32</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K25'))" (mouseenter)="showPopover(getBoothByBoothNumber('K25'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K25'))">K25</button>
       </div>
       <div class="seat-grid-seq small-grid-virtic">
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K21'))"(mouseenter)="showPopover(getBoothByBoothNumber('K21'), $event)"(mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K21'))">K21</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K20'))" (mouseenter)="showPopover(getBoothByBoothNumber('K20'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K20'))">K20</button>
-        <button class="rightrowseat" matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-        matTooltipPosition="above"   [ngClass]="getBoothClass(getBoothByBoothNumber('K22'))" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('K22'), $event)"(mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K22'))">K22</button>
-        <button class="rightrowseat" matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-        matTooltipPosition="above" [ngClass]="getBoothClass(getBoothByBoothNumber('K19'))" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('K19'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K19'))">K19</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K23'))" (mouseenter)="showPopover(getBoothByBoothNumber('K23'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K23'))">K23</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K18'))"(mouseenter)="showPopover(getBoothByBoothNumber('K18'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K18'))">K18</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K24'))" (mouseenter)="showPopover(getBoothByBoothNumber('K24'), $event)"(mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K24'))">K24</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K17'))"(mouseenter)="showPopover(getBoothByBoothNumber('K17'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K17'))">K17</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K21'))" (mouseenter)="showPopover(getBoothByBoothNumber('K21'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K21'))">K21</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K20'))" (mouseenter)="showPopover(getBoothByBoothNumber('K20'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K20'))">K20</button>
+        <button class="rightrowseat"  [ngClass]="getBoothClass(getBoothByBoothNumber('K22'))" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('K22'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K22'))">K22</button>
+        <button class="rightrowseat" [ngClass]="getBoothClass(getBoothByBoothNumber('K19'))" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('K19'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K19'))">K19</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K23'))" (mouseenter)="showPopover(getBoothByBoothNumber('K23'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K23'))">K23</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K18'))" (mouseenter)="showPopover(getBoothByBoothNumber('K18'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K18'))">K18</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K24'))" (mouseenter)="showPopover(getBoothByBoothNumber('K24'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K24'))">K24</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K17'))" (mouseenter)="showPopover(getBoothByBoothNumber('K17'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K17'))">K17</button>
       </div>
       <div class="seat-grid-seq small-grid-virtic">
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K13'))" (mouseenter)="showPopover(getBoothByBoothNumber('K13'), $event)"(mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K13'))">K13</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K12'))"(mouseenter)="showPopover(getBoothByBoothNumber('K12'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K12'))">K12</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K14'))" (mouseenter)="showPopover(getBoothByBoothNumber('K14'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K14'))">K14</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K11'))" (mouseenter)="showPopover(getBoothByBoothNumber('K11'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K11'))">K11</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K15'))" (mouseenter)="showPopover(getBoothByBoothNumber('K15'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K15'))">K15</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K10'))" (mouseenter)="showPopover(getBoothByBoothNumber('K10'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K10'))">K10</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K16'))"(mouseenter)="showPopover(getBoothByBoothNumber('K16'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K16'))">K16</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K9'))" (mouseenter)="showPopover(getBoothByBoothNumber('K9'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K9'))">K9</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K13'))" (mouseenter)="showPopover(getBoothByBoothNumber('K13'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K13'))">K13</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K12'))" (mouseenter)="showPopover(getBoothByBoothNumber('K12'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K12'))">K12</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K14'))" (mouseenter)="showPopover(getBoothByBoothNumber('K14'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K14'))">K14</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K11'))" (mouseenter)="showPopover(getBoothByBoothNumber('K11'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K11'))">K11</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K15'))" (mouseenter)="showPopover(getBoothByBoothNumber('K15'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K15'))">K15</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K10'))" (mouseenter)="showPopover(getBoothByBoothNumber('K10'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K10'))">K10</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K16'))" (mouseenter)="showPopover(getBoothByBoothNumber('K16'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K16'))">K16</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K9'))" (mouseenter)="showPopover(getBoothByBoothNumber('K9'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K9'))">K9</button>
       </div>
       <div class="seat-grid-seq small-grid-virtic">
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K5'))" (mouseenter)="showPopover(getBoothByBoothNumber('K5'), $event)"(mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K5'))">K5</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K4'))"(mouseenter)="showPopover(getBoothByBoothNumber('K4'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K4'))">K4</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K6'))"(mouseenter)="showPopover(getBoothByBoothNumber('K6'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K6'))">K6</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K3'))"(mouseenter)="showPopover(getBoothByBoothNumber('K3'), $event)"(mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K3'))">K3</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K7'))" (mouseenter)="showPopover(getBoothByBoothNumber('K7'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K7'))">K7</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K2'))"(mouseenter)="showPopover(getBoothByBoothNumber('K2'), $event)"(mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K2'))">K2</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K8'))"(mouseenter)="showPopover(getBoothByBoothNumber('K8'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K8'))">K8</button>
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K1'))"(mouseenter)="showPopover(getBoothByBoothNumber('K1'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('K1'))">K1</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K5'))" (mouseenter)="showPopover(getBoothByBoothNumber('K5'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K5'))">K5</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K4'))" (mouseenter)="showPopover(getBoothByBoothNumber('K4'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K4'))">K4</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K6'))" (mouseenter)="showPopover(getBoothByBoothNumber('K6'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K6'))">K6</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K3'))" (mouseenter)="showPopover(getBoothByBoothNumber('K3'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K3'))">K3</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K7'))" (mouseenter)="showPopover(getBoothByBoothNumber('K7'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K7'))">K7</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K2'))" (mouseenter)="showPopover(getBoothByBoothNumber('K2'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K2'))">K2</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K8'))" (mouseenter)="showPopover(getBoothByBoothNumber('K8'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K8'))">K8</button>
+        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('K1'))" (mouseenter)="showPopover(getBoothByBoothNumber('K1'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('K1'))">K1</button>
       </div>
     </div>
   </div>
@@ -117,53 +118,53 @@
     <!-- Left Grid -->
     <div class="center-wrapper">
       <div class="thirdrownew-seat-grid-left">
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C29'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('C29'))">C29</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C30'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('C30'))">C30</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C31'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('C31'))">C31</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C32'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('C32'))">C32</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C33'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('C33'))">C33</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C34'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('C34'))">C34</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C28'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('C28'))">C28</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C27'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('C27'))">C27</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C26'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('C26'))">C26</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C25'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('C25'))">C25</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"   (mouseenter)="showPopover(getBoothByBoothNumber('C24'), $event)"(mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C24'))">C24</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C23'), $event)"(mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C23'))">C23</button>
+        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C29'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C29'))">C29</button>
+        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C30'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C30'))">C30</button>
+        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C31'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C31'))">C31</button>
+        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C32'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C32'))">C32</button>
+        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C33'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C33'))">C33</button>
+        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C34'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C34'))">C34</button>
+        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C28'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C28'))">C28</button>
+        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C27'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C27'))">C27</button>
+        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C26'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C26'))">C26</button>
+        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C25'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C25'))">C25</button>
+        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"   (mouseenter)="showPopover(getBoothByBoothNumber('C24'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C24'))">C24</button>
+        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C23'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C23'))">C23</button>
       </div>
     <!-- Right Grid -->
     <div class="thirdrownew-seat-grid-right" style="margin-right: 100px ; ">
-      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN1'))" (mouseenter)="showPopover(getBoothByBoothNumber('IN1'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('IN1'))">IN1</button>
-      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN2'))" (mouseenter)="showPopover(getBoothByBoothNumber('IN2'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('IN2'))">IN2</button>
-      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN3'))" (mouseenter)="showPopover(getBoothByBoothNumber('IN3'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('IN3'))">IN3</button>
-      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN4'))"  (mouseenter)="showPopover(getBoothByBoothNumber('IN4'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('IN4'))">IN4</button>
-      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN5'))"  (mouseenter)="showPopover(getBoothByBoothNumber('IN5'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('IN5'))">IN5</button>
-      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN6'))"  (mouseenter)="showPopover(getBoothByBoothNumber('IN6'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('IN6'))">IN6</button>
-      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('E20'))"  (mouseenter)="showPopover(getBoothByBoothNumber('E20'), $event)"(mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E20'))">E20</button>
-      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('E19'))" (mouseenter)="showPopover(getBoothByBoothNumber('E19'), $event)"(mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E19'))">E19</button>
-      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('E18'))" (mouseenter)="showPopover(getBoothByBoothNumber('E18'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E18'))">E18</button>
-      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('E17'))"(mouseenter)="showPopover(getBoothByBoothNumber('E17'), $event)"(mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E17'))">E17</button>
+      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN1'))" (mouseenter)="showPopover(getBoothByBoothNumber('IN1'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('IN1'))">IN1</button>
+      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN2'))" (mouseenter)="showPopover(getBoothByBoothNumber('IN2'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('IN2'))">IN2</button>
+      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN3'))" (mouseenter)="showPopover(getBoothByBoothNumber('IN3'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('IN3'))">IN3</button>
+      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN4'))"  (mouseenter)="showPopover(getBoothByBoothNumber('IN4'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('IN4'))">IN4</button>
+      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN5'))"  (mouseenter)="showPopover(getBoothByBoothNumber('IN5'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('IN5'))">IN5</button>
+      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN6'))"  (mouseenter)="showPopover(getBoothByBoothNumber('IN6'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('IN6'))">IN6</button>
+      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('E20'))"  (mouseenter)="showPopover(getBoothByBoothNumber('E20'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E20'))">E20</button>
+      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('E19'))" (mouseenter)="showPopover(getBoothByBoothNumber('E19'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E19'))">E19</button>
+      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('E18'))" (mouseenter)="showPopover(getBoothByBoothNumber('E18'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E18'))">E18</button>
+      <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('E17'))" (mouseenter)="showPopover(getBoothByBoothNumber('E17'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E17'))">E17</button>
     </div>
   </div>
   </div>
@@ -182,30 +183,30 @@
     <!-- Right Grid -->
 
     <div class="thirdRow-seat-grid-left" style="margin-right: 90px">
-      <button class="seat" [ngClass]="getBoothClass(getBoothByBoothNumber('E11'))"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E11'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E11'))">E11</button>
-      <button class="seat" [ngClass]="getBoothClass(getBoothByBoothNumber('E12'))"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E12'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E12'))">E12</button>
-      <button class="seat" [ngClass]="getBoothClass(getBoothByBoothNumber('E13'))"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E13'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E13'))">E13</button>
-      <button class="seat" [ngClass]="getBoothClass(getBoothByBoothNumber('E14'))"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
+      <button class="seat" [ngClass]="getBoothClass(getBoothByBoothNumber('E11'))"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E11'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E11'))">E11</button>
+      <button class="seat" [ngClass]="getBoothClass(getBoothByBoothNumber('E12'))"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E12'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E12'))">E12</button>
+      <button class="seat" [ngClass]="getBoothClass(getBoothByBoothNumber('E13'))"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E13'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E13'))">E13</button>
+      <button class="seat" [ngClass]="getBoothClass(getBoothByBoothNumber('E14'))"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
                 matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E14'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E14'))">E14</button>
-      <button class="seat"  [ngClass]="getBoothClass(getBoothByBoothNumber('E15'))"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E15'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E15'))">E15</button>
-      <button class="seat" [ngClass]="getBoothClass(getBoothByBoothNumber('E16'))"   #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E16'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E16'))">E16</button>
-      <button class="seat" [ngClass]="getBoothClass(getBoothByBoothNumber('E10'))"   #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E10'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E10'))">E10</button>
-      <button class="seat"  [ngClass]="getBoothClass(getBoothByBoothNumber('E9'))"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E9'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E9'))">E9</button>
-      <button class="seat" [ngClass]="getBoothClass(getBoothByBoothNumber('E8'))"   #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E8'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E8'))">E8</button>
-      <button class="seat"   [ngClass]="getBoothClass(getBoothByBoothNumber('E7'))" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E7'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E7'))">E7</button>
-      <button class="seat"  [ngClass]="getBoothClass(getBoothByBoothNumber('E6'))"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E6'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E6'))">E6</button>
-      <button class="seat"  [ngClass]="getBoothClass(getBoothByBoothNumber('E5'))"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E5'), $event)"(mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E5'))">E5</button>
+      <button class="seat"  [ngClass]="getBoothClass(getBoothByBoothNumber('E15'))"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E15'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E15'))">E15</button>
+      <button class="seat" [ngClass]="getBoothClass(getBoothByBoothNumber('E16'))"   #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E16'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E16'))">E16</button>
+      <button class="seat" [ngClass]="getBoothClass(getBoothByBoothNumber('E10'))"   #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E10'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E10'))">E10</button>
+      <button class="seat"  [ngClass]="getBoothClass(getBoothByBoothNumber('E9'))"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E9'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E9'))">E9</button>
+      <button class="seat" [ngClass]="getBoothClass(getBoothByBoothNumber('E8'))"   #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E8'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E8'))">E8</button>
+      <button class="seat"   [ngClass]="getBoothClass(getBoothByBoothNumber('E7'))" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E7'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E7'))">E7</button>
+      <button class="seat"  [ngClass]="getBoothClass(getBoothByBoothNumber('E6'))"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E6'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E6'))">E6</button>
+      <button class="seat"  [ngClass]="getBoothClass(getBoothByBoothNumber('E5'))"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('E5'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E5'))">E5</button>
 
     </div>
   </div>
@@ -229,35 +230,35 @@
 
     <div class="fourRow-seat-grid-left" style="margin-right: 90px">
         <!-- <button class="seat" [ngClass]="{'booked-seat': seat.booking !== null, 'available-seat': seat.booking === null}"  *ngFor="let seat of  newCombinedInE">{{ seat.booth }}</button> -->
-        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
+        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
                 matTooltipPosition="above"    [ngClass]="getBoothClass(getBoothByBoothNumber('E3'))"  (mouseenter)="showPopover(getBoothByBoothNumber('E3'), $event)"
-        (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E3'))">E3</button>
-        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('E4'))"  (mouseenter)="showPopover(getBoothByBoothNumber('E4'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E4'))">E4</button>
-        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN7'))"   (mouseenter)="showPopover(getBoothByBoothNumber('IN7'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('IN7'))">IN7</button>
-        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN8'))" (mouseenter)="showPopover(getBoothByBoothNumber('IN8'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('IN8'))">IN8</button>
-        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN9'))"(mouseenter)="showPopover(getBoothByBoothNumber('IN9'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('IN9'))">IN9</button>
-        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN10'))"(mouseenter)="showPopover(getBoothByBoothNumber('IN10'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('IN10'))">IN10</button>
-        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN11'))"(mouseenter)="showPopover(getBoothByBoothNumber('IN11'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('IN11'))">IN11</button>
-        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('E2'))"(mouseenter)="showPopover(getBoothByBoothNumber('E2'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E2'))">E2</button>
-        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"   [ngClass]="getBoothClass(getBoothByBoothNumber('E1'))"(mouseenter)="showPopover(getBoothByBoothNumber('E1'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('E1'))">E1</button>
-        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN16'))"(mouseenter)="showPopover(getBoothByBoothNumber('IN16'), $event)" (mouseleave)="hidePopover()" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('IN16'))">IN16</button>
-        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN15'))"(mouseenter)="showPopover(getBoothByBoothNumber('IN15'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('IN15'))">IN15</button>
-        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN14'))"(mouseenter)="showPopover(getBoothByBoothNumber('IN14'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('IN14'))">IN14</button>
-        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN13'))"(mouseenter)="showPopover(getBoothByBoothNumber('IN13'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('IN13'))">IN13</button>
-        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN12'))"(mouseenter)="showPopover(getBoothByBoothNumber('IN12'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('IN12'))">IN12</button>
+        (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E3'))">E3</button>
+        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('E4'))"  (mouseenter)="showPopover(getBoothByBoothNumber('E4'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E4'))">E4</button>
+        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN7'))"   (mouseenter)="showPopover(getBoothByBoothNumber('IN7'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('IN7'))">IN7</button>
+        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN8'))" (mouseenter)="showPopover(getBoothByBoothNumber('IN8'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('IN8'))">IN8</button>
+        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN9'))" (mouseenter)="showPopover(getBoothByBoothNumber('IN9'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('IN9'))">IN9</button>
+        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN10'))" (mouseenter)="showPopover(getBoothByBoothNumber('IN10'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('IN10'))">IN10</button>
+        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN11'))" (mouseenter)="showPopover(getBoothByBoothNumber('IN11'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('IN11'))">IN11</button>
+        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('E2'))" (mouseenter)="showPopover(getBoothByBoothNumber('E2'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E2'))">E2</button>
+        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"   [ngClass]="getBoothClass(getBoothByBoothNumber('E1'))" (mouseenter)="showPopover(getBoothByBoothNumber('E1'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('E1'))">E1</button>
+        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN16'))" (mouseenter)="showPopover(getBoothByBoothNumber('IN16'), $event)" (mouseleave)="hidePopover()" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('IN16'))">IN16</button>
+        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN15'))" (mouseenter)="showPopover(getBoothByBoothNumber('IN15'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('IN15'))">IN15</button>
+        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN14'))" (mouseenter)="showPopover(getBoothByBoothNumber('IN14'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('IN14'))">IN14</button>
+        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN13'))" (mouseenter)="showPopover(getBoothByBoothNumber('IN13'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('IN13'))">IN13</button>
+        <button class="seat"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('IN12'))" (mouseenter)="showPopover(getBoothByBoothNumber('IN12'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('IN12'))">IN12</button>
         <!-- <button class="seat" [ngClass]="{'booked-seat': seat.booking !== null, 'available-seat': seat.booking === null}"  *ngFor="let seat of  newCombinedInE">{{ seat.booth }}</button>  -->
       </div>
   </div>
@@ -283,16 +284,16 @@
     <!-- Right Grid -->
 
     <div class="fiveRow-seat-grid-left"  style="margin-right: 70px">
-      <button class="newseatnew" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('CP3'))" (mouseenter)="showPopover(getBoothByBoothNumber('CP3'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('CP3'))">CP3</button>
-      <button class="newseatnew" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
+      <button class="newseatnew" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('CP3'))" (mouseenter)="showPopover(getBoothByBoothNumber('CP3'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('CP3'))">CP3</button>
+      <button class="newseatnew" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
                 matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('CP4'))" (mouseenter)="showPopover(getBoothByBoothNumber('CP4'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('CP4'))">CP4</button>
-      <button class="newseatnew" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('CP5'))" (mouseenter)="showPopover(getBoothByBoothNumber('CP5'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('CP5'))">CP5</button>
-      <button class="newseatnew" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('CP2'))"(mouseenter)="showPopover(getBoothByBoothNumber('CP2'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('CP2'))">CP2</button>
-      <button class="newseatnew" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('CP1'))"(mouseenter)="showPopover(getBoothByBoothNumber('CP1'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('CP1'))" >CP1</button>
+      <button class="newseatnew" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('CP5'))" (mouseenter)="showPopover(getBoothByBoothNumber('CP5'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('CP5'))">CP5</button>
+      <button class="newseatnew" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('CP2'))" (mouseenter)="showPopover(getBoothByBoothNumber('CP2'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('CP2'))">CP2</button>
+      <button class="newseatnew" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('CP1'))" (mouseenter)="showPopover(getBoothByBoothNumber('CP1'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('CP1'))" >CP1</button>
 
     </div>
     </div>
@@ -306,27 +307,27 @@
        <div class="gridbox sevbox-3">6x4</div>
       </div>
          <div class="newgrid-container">
-          <button class="grid-item" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
+          <button class="grid-item" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
                 matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('S5'))" (mouseenter)="showPopover(getBoothByBoothNumber('S5'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('S5'))">S5</button>
-          <button class="grid-item"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('S6'))" (mouseenter)="showPopover(getBoothByBoothNumber('S6'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('S6'))">S6</button>
-          <button class="grid-item"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('S4'))" (mouseenter)="showPopover(getBoothByBoothNumber('S4'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('S4'))" >S4</button>
-          <button class="grid-item"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('S3'))"(mouseenter)="showPopover(getBoothByBoothNumber('S3'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('S3'))" >S3</button>
+          <button class="grid-item"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('S6'))" (mouseenter)="showPopover(getBoothByBoothNumber('S6'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('S6'))">S6</button>
+          <button class="grid-item"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('S4'))" (mouseenter)="showPopover(getBoothByBoothNumber('S4'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('S4'))" >S4</button>
+          <button class="grid-item"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('S3'))" (mouseenter)="showPopover(getBoothByBoothNumber('S3'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('S3'))" >S3</button>
       </div>
       <div class="newgrid-container">
-        <div class="grid-item" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('S7'))"(mouseenter)="showPopover(getBoothByBoothNumber('S7'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('S7'))">S7</div>
-        <div class="grid-item"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
+        <div class="grid-item" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('S7'))" (mouseenter)="showPopover(getBoothByBoothNumber('S7'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('S7'))">S7</div>
+        <div class="grid-item"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
                 matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('S8'))" (mouseenter)="showPopover(getBoothByBoothNumber('S8'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('S8'))">S8</div>
-        <div class="grid-item"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
+        <div class="grid-item"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
                 matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('S2'))" (mouseenter)="showPopover(getBoothByBoothNumber('S2'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('S2'))">S2</div>
-        <div class="grid-item" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('S1'))" (mouseenter)="showPopover(getBoothByBoothNumber('S1'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('S1'))">S1</div>
+        <div class="grid-item" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('S1'))" (mouseenter)="showPopover(getBoothByBoothNumber('S1'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('S1'))">S1</div>
     </div>
     <div class="onegrid-container" style="margin-right: 70px">
-      <button #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
+      <button #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
                 matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('D1'), $event)" (mouseleave)="hidePopover()" [ngClass]="getBoothClass(getBoothByBoothNumber('D1'))" (click)="openPopup(getBoothByBoothNumber('D1'))" class="newgrid-item  lastseats">D1</button>
   </div>
       </div>
@@ -360,20 +361,20 @@
         </div>
         <div class="lastonegrid-container-middel">
           <!-- <button class="grid-item  lastseats"  *ngFor="let seat of boothsStartingWithB" >{{ seat.booth}}</button> -->
-          <button class="grid-item  lastseats" style=" background-color: pink;" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
+          <button class="grid-item  lastseats" style=" background-color: pink;" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
                 matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('B4'))" (mouseenter)="showPopover(getBoothByBoothNumber('B4'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('B4'))" >B4</button>
-          <button class="grid-item  lastseats"  style=" background-color: pink;" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('B3'))"(mouseenter)="showPopover(getBoothByBoothNumber('B3'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('B3'))">B3</button>
-          <button class="grid-item  lastseats" style=" background-color: pink;"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('B2'))" (mouseenter)="showPopover(getBoothByBoothNumber('B2'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('B2'))">B2</button>
-          <button class="grid-item  lastseats" style=" background-color: pink;"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
-                matTooltipPosition="above"   [ngClass]="getBoothClass(getBoothByBoothNumber('B1'))" (mouseenter)="showPopover(getBoothByBoothNumber('1'), $event)" (mouseleave)="hidePopover()"(click)="openPopup(getBoothByBoothNumber('B1'))">B1</button>
+          <button class="grid-item  lastseats"  style=" background-color: pink;" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('B3'))" (mouseenter)="showPopover(getBoothByBoothNumber('B3'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('B3'))">B3</button>
+          <button class="grid-item  lastseats" style=" background-color: pink;"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('B2'))" (mouseenter)="showPopover(getBoothByBoothNumber('B2'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('B2'))">B2</button>
+          <button class="grid-item  lastseats" style=" background-color: pink;"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+                matTooltipPosition="above"   [ngClass]="getBoothClass(getBoothByBoothNumber('B1'))" (mouseenter)="showPopover(getBoothByBoothNumber('B1'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('B1'))">B1</button>
         </div>
 
       <div class="lastonegrid-container-last" style="margin-right: 45px;">
-        <button class="grid-item  lastseats" style="background-color: blueviolet;"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
+        <button class="grid-item  lastseats" style="background-color: blueviolet;"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
                 matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('G2'))" (mouseenter)="showPopover(getBoothByBoothNumber('G2'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('G2'))">G2</button>
-        <button class="grid-item  lastseats" style="background-color: blueviolet;"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking }}"
+        <button class="grid-item  lastseats" style="background-color: blueviolet;"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
                 matTooltipPosition="above"  [ngClass]="getBoothClass(getBoothByBoothNumber('G1'))" (mouseenter)="showPopover(getBoothByBoothNumber('G1'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('G1'))">G1</button>
         <!-- <button class="grid-item" style="background-color: blueviolet;">G1</button> -->
       </div>
