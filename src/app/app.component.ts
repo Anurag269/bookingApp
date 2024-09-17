@@ -150,5 +150,3 @@ export class AppComponent implements OnInit{
     this.showSummaryTable = false;
   }
 }
-
-

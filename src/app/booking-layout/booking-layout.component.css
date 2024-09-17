@@ -674,4 +674,10 @@ align-self:end;
   z-index: 1;
   margin-top: -10px; /* Adjust as needed to align with the center of the line */
 }
-
+::ng-deep.mat-mdc-tooltip {
+  transform: scale(4);
+  font-size: 120px !important;
+  height: 70px !important;
+  min-width: 240px !important;
+  padding: 10px !important;
+}

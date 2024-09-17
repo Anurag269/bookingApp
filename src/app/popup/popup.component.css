@@ -40,6 +40,49 @@
   width: 100%;
   height: 37px;
 }
+::ng-deep.ng-select .ng-select-container .ng-value-container {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+::ng-deep.ng-value {
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 2px;
+  background-color: lightgrey;
+  margin: 2px;
+}
+::ng-deep.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  background: white;
+}
+::ng-deep.ng-dropdown-panel .ng-dropdown-panel-items .ng-option-marked {
+  background: #007bff !important;
+  color: white;
+}
+::ng-deep.ng-dropdown-panel .ng-dropdown-panel-items .ng-option-selected {
+  background: lightgrey;
+}
+::ng-deep.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+  white-space: nowrap;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  justify-content: center;
+  align-items: center;
+}
+::ng-deep.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon {
+  cursor: pointer;
+  padding-right: 5px;
+  border-right: 1px black solid;
+}
+::ng-deep.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-label {
+  padding-left: 5px;
+}
 .dropdown option {
   padding: 10px;
 }
@@ -231,7 +274,7 @@ input:not(:placeholder-shown) ~ label {
   }
 
   .popup-header {
-    background-color: blue;
+    background-color: #007bff;
     color: white;
     padding: 10px;
     border-radius: 4px 4px 0 0; /* Optional: rounded corners on the header */
@@ -243,7 +286,7 @@ input:not(:placeholder-shown) ~ label {
     margin-top: 10px;
     display: block;
     width: 30%;
-    background-color: blue;
+    background-color: #007bff;
     padding: 10px;
     border: none;
     cursor: pointer;
@@ -251,7 +294,7 @@ input:not(:placeholder-shown) ~ label {
   }
 
   .popup button:hover {
-    background-color: blue;
+    background-color: #007bff;
   }
   .modal {
     display: flex;
@@ -329,6 +372,9 @@ input:not(:placeholder-shown) ~ label {
     background-color: white;
     font-weight: bold;
     border-bottom: 3px solid #007bff;
+    border-top: none;
+    border-left: none;
+    border-right: none;
   }
 
   .tab-content {
@@ -440,7 +486,7 @@ input:not(:placeholder-shown) ~ label {
   /* .nav-button.previous-button {
     background-color: #6c757d;
   } */
-/* 
+/*
   .nav-button.previous-button:hover {
     background-color: #5a6268;
   } */
@@ -489,15 +535,14 @@ input:not(:placeholder-shown) ~ label {
     display: flex;
     align-items: center; /* Aligns items vertically in the center */
   }
-  
+
   .checkbox-container input[type="checkbox"] {
     margin-right: 10px; /* Adjust spacing between checkbox and label text */
   }
-  
+
   .checkbox-container label {
     margin: 0; /* Remove any default margin from label */
     line-height: 1.5; /* Adjust line-height for better vertical alignment */
   }
-  
 
-  
+
