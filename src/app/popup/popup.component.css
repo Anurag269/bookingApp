@@ -545,4 +545,52 @@ input:not(:placeholder-shown) ~ label {
     line-height: 1.5; /* Adjust line-height for better vertical alignment */
   }
 
+@media (max-width: 768px) {
+  .modal {
+    overflow: auto;
+  }
+  .modal-tabs {
+    flex-direction: column;
+    margin: 10px 0;
+    width: 98%;
+  }
+
+  .tab-button {
+    margin: 5px 0;
+    width: 100%;
+  }
+  .modal-content {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    width: 98%;
+    height: 70%;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  .modal-mobile-style {
+    padding-bottom: 40px;
+    border: #e9ecef 1px solid;
+    margin: 0px 10px 10px 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    width: 98%;
+  }
+
+  .form-row {
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+    gap: 10px;
+    flex-direction: column;
+  }
+}
 
