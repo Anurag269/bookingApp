@@ -6,7 +6,7 @@ import { DataserviceService } from '../dataservice.service';
 import { ModelComponent } from '../model/model.component';
 import { PopupComponent } from '../popup/popup.component';
 import { PopupService } from '../popup.service';
-
+import {MatTooltip} from "@angular/material/tooltip";
 
 interface Seat {
   number: number;
@@ -22,6 +22,7 @@ interface Seat {
     MatButton,
     ModelComponent,
     PopupComponent,
+    MatTooltip,
   ],
   providers: [DataserviceService],
   templateUrl: './booking-layout.component.html',
@@ -191,9 +192,6 @@ export class BookingLayoutComponent implements OnInit {
     const booth = this.BookingData?.find(
       (booth: any) => booth.booth === boothNumber
     );
-    if (!booth) {
-      console.error('Booth not found for booth number:', boothNumber);
-    }
     return booth;
   }
 
@@ -207,6 +205,21 @@ export class BookingLayoutComponent implements OnInit {
   }
   getSeatClass() {}
   openPopup(seatBooth: any) {
+    // Get the specific button (C29) by using querySelector or by targeting with an event
+    const button = document.querySelector("button:nth-child(1)");
+
+// Get the coordinates of the button
+    const rect = button?.getBoundingClientRect();
+    console.log("Button C29 Coordinates:", rect);
+
+// Zoom into that specific point (C29)
+    const zoomElement = document.querySelector("body"); // Element you want to zoom in on
+if (zoomElement && rect) {
+  // Apply zoom using CSS transformation and translate to the button's coordinates
+  zoomElement.style.transformOrigin = `${rect.left + rect.width / 2}px ${rect.top + rect.height / 2}px`;
+  zoomElement.style.transform = "scale(1)"; // Change the scale to zoom in more or less
+  zoomElement.style.transition = "transform 0.5s ease";
+}
     // this.zoomInGrid(seatBooth);
     this.popupService.showPopup(seatBooth);
   }

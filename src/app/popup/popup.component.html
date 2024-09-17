@@ -1,5 +1,5 @@
 <div class="popup" *ngIf="isVisible">
-  <div class="popup-row popup-header" style="background-color: blue; display: flex; justify-content: space-between;">
+  <div class="popup-row popup-header" style="background-color: #007bff; display: flex; justify-content: space-between;">
     <span>Properties</span>
     <i class="fas fa-fw fa-times" style="cursor: pointer" (click)="closePopup()"></i>
   </div>
@@ -102,7 +102,7 @@
     <div class="modal-content" style="height: auto !important;">
       <div class="modal-header">
         <h2>New Booth Booking</h2>
-        <i class="fas fa-fw fa-times" (click)="bookclose()" ></i>
+        <i class="fas fa-fw fa-times" style="cursor: pointer" (click)="bookclose()" ></i>
       </div>
       <div style="padding:10px;">
 
@@ -116,7 +116,7 @@
             class="tab-button"
             [ngClass]="{active: activeTab === 'productDetails', disabled: !formCompleted}"
             [disabled]="!formCompleted"
-            (click)="setActiveTab('productDetails')">Product Details
+            (click)="setActiveTab('productDetails', bookingForm)">Product Details
           </button>
         </div>
 
@@ -234,7 +234,7 @@
                   #terms="ngModel"
                   required
                 />
-                <label for="terms">I agree with the <a href="#">terms and conditions</a><span>*</span></label>
+                <label for="terms">I agree with the <a href="https://expomapping.com/igdc/public/uploads/terms/Privacy%20Policy.pdf" target="_blank">terms and conditions</a><span>*</span></label>
               </div>
               <div *ngIf="terms.invalid && terms.touched" class="error-message">
                 You must agree with the terms and conditions.

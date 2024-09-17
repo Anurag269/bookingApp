@@ -63,11 +63,8 @@ ngOnInit(): void {
 this.allSeat = data.data.filter((item:any) => item.booking === null)
       .map((item:any) => item.booth );
       const newArray =data.data.find((item:any)=>item.booth === this.formData?.booth_ids)
-      console.log(newArray)
       this.selectedboothids=data.data;
       this.updateBooths();
-// this.allSeat = data.data.filter((item: any) => item.booking === null);
-console.log(this.allSeat,'check all the ')
     }
   )
 }
@@ -83,7 +80,7 @@ onSubmitnext(bookingForm:any){
   this.formData.booth_ids=[this.seatBooth?.booth];
   this.updateBooths();
 }else{
-  console.log('errpr');
+  console.log('error');
 }
 }
 
@@ -130,8 +127,6 @@ onSubmit(form: NgForm) {
 this.dataService.postBoothDetails(formData).subscribe((data)=>{
   this.onPay(data)
 })
-    // Debugging: Check final postData before submission
-    console.log('PostData:', postData);
   }
 }
 
@@ -146,9 +141,6 @@ remove(option: string): void {
   if (index >= 0) {
     this.selectedOptions.splice(index, 1);
   }
-}
-toggleSelection(booth:any,ninw:any){
-console.log(booth,ninw)
 }
   closePopup() {
     this.isVisible = false;
@@ -195,13 +187,14 @@ this.isShowBookingView =false;
 }
 
 
-  setActiveTab(tabName: string) {
+  setActiveTab(tabName: string, bookingForm?: any) {
     if (tabName === 'customerDetails') {
       this.activeTab = 'customerDetails';
       return;
     }
     if (tabName === 'productDetails' && this.formCompleted) {
       this.activeTab = 'productDetails';
+      this.onSubmitnext(bookingForm);
     }
   }
 
@@ -232,11 +225,9 @@ this.isShowBookingView =false;
     }
   }
 
-  onBook(){
-this.isShowBookingView=true
-// this.isVisible=false
+  onBook() {
+    this.isShowBookingView = true;
+    this.formData.booth_ids = [this.seatBooth?.booth];
+    this.updateBooths();
   }
-  // onSubmit(){
-
-  // }
 }
