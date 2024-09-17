@@ -54,8 +54,8 @@
 
 .seat-gridsec {
   display: grid;
-  grid-template-columns: repeat(13, 9px); /* Fixed width for each column */
-  grid-auto-rows: 9px; /* Fixed height for each row */
+  grid-template-columns: repeat(13, 10.5px); /* Fixed width for each column */
+  grid-auto-rows: 10.5px; /* Fixed height for each row */
 /* Spacing between grid items */
   width: calc(13 * 5px + 12 * 15px); /* Total width of the grid */
   margin-right: 20px; /* Fixed space between the two grids */

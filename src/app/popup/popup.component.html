@@ -35,7 +35,7 @@
         <ng-container *ngIf="seatBooth.booking !== null">
           <tr>
             <th>Blocked by</th>
-            <td>{{ seatBooth.blockedBy || 'N/A' }}</td>
+            <td>{{ seatBooth?.booking?.company_name || 'N/A' }}</td>
           </tr>
         </ng-container>
       </tbody>
