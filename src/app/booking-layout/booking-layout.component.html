@@ -11,7 +11,9 @@
 <div>
   <div class="row" style="margin:10px 10px 20px 10px; ">
   <div class="seat-grid" style="margin-top: 15px;">
-    <button class="seat"  (click)="toggleModal()" *ngFor="let seat of seats">{{ seat.label }}</button>
+    <button class="seat" style="background-color: #6c757d !important;"  *ngFor="let seat of seats">
+<!--      {{ seat.label }}-->
+    </button>
   </div>
 
   <div class="seat-gridsec" style="padding-left:50px; margin-top:10px">
@@ -27,12 +29,14 @@
     <!-- Left Grid with 4 columns divided into two groups -->
     <div class="left-row" style="">
       <div class="group-grid">
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
-                matTooltipPosition="above" [ngClass]="getBoothClass(getBoothByBoothNumber(seat.label))" (mouseenter)="showPopover(getBoothByBoothNumber(seat.label), $event)" (mouseleave)="hidePopover()" *ngFor="let seat of Secseats"  (click)="openPopup(getBoothByBoothNumber(seat.label))">{{ seat.label }}</button>
+        <button class="seat" #boothButton style="background-color: #6c757d !important;" *ngFor="let seat of Secseats">
+<!--          {{ seat.label }}-->
+        </button>
       </div>
       <div class="group-grid" >
-        <button class="rightrowseat" style="font-size: 6px !important;"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
-                matTooltipPosition="above" [ngClass]="getBoothClass(getBoothByBoothNumber(seat.label))" (mouseenter)="showPopover(getBoothByBoothNumber(seat.label), $event)" (mouseleave)="hidePopover()" *ngFor="let seat of Secseats" (click)="openPopup(getBoothByBoothNumber(seat.label))">{{ seat.label }}</button>
+        <button class="rightrowseat" style="font-size: 6px !important;background-color: #6c757d !important;"  #boothButton  *ngFor="let seat of Secseats" >
+<!--          {{ seat.label }}-->
+        </button>
       </div>
     </div>
 
@@ -118,30 +122,42 @@
     <!-- Left Grid -->
     <div class="center-wrapper">
       <div class="thirdrownew-seat-grid-left">
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C29'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C29'))">C29</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C30'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C30'))">C30</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C31'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C31'))">C31</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C32'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C32'))">C32</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C33'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C33'))">C33</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C34'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C34'))">C34</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C28'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C28'))">C28</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C27'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C27'))">C27</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C26'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C26'))">C26</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C25'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C25'))">C25</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
-                matTooltipPosition="above"   (mouseenter)="showPopover(getBoothByBoothNumber('C24'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C24'))">C24</button>
-        <button class="seat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
-                matTooltipPosition="above"  (mouseenter)="showPopover(getBoothByBoothNumber('C23'), $event)" (mouseleave)="hidePopover()" (click)="openPopup(getBoothByBoothNumber('C23'))">C23</button>
+        <button style="background-color: #6c757d !important;" class="seat" #boothButton >
+<!--          C29-->
+        </button>
+        <button style="background-color: #6c757d !important;" class="seat" #boothButton >
+<!--        C30-->
+        </button>
+        <button style="background-color: #6c757d !important;" class="seat" #boothButton >
+          <!--        C31-->
+        </button>
+        <button style="background-color: #6c757d !important;" class="seat" #boothButton >
+          <!--        C32-->
+        </button>
+        <button style="background-color: #6c757d !important;" class="seat" #boothButton >
+          <!--        C33-->
+        </button>
+        <button style="background-color: #6c757d !important;" class="seat" #boothButton >
+          <!--        C34-->
+        </button>
+        <button style="background-color: #6c757d !important;" class="seat" #boothButton >
+          <!--        C28-->
+        </button>
+        <button style="background-color: #6c757d !important;" class="seat" #boothButton >
+          <!--        C27-->
+        </button>
+        <button style="background-color: #6c757d !important;" class="seat" #boothButton >
+          <!--        C26-->
+        </button>
+        <button style="background-color: #6c757d !important;" class="seat" #boothButton >
+          <!--        C25-->
+        </button>
+        <button style="background-color: #6c757d !important;" class="seat" #boothButton >
+          <!--        C24-->
+        </button>
+        <button style="background-color: #6c757d !important;" class="seat" #boothButton >
+          <!--        C23-->
+        </button>
       </div>
     <!-- Right Grid -->
     <div class="thirdrownew-seat-grid-right" style="margin-right: 100px ; ">
@@ -173,7 +189,9 @@
     <div class="center-wrapper">
 
       <div class="thirdRow-seat-grid-left">
-        <button class="seat" *ngFor="let seat of  seatsthird">{{ seat.label }}</button>
+        <button style="background-color: #6c757d !important;" class="seat" *ngFor="let seat of  seatsthird">
+<!--          {{ seat.label }}-->
+        </button>
       </div>
 
 
@@ -217,11 +235,13 @@
     <div class="center-wrapper">
 
       <div class="mixed">
-        <div class="bbox merron-box">
-          {{ text }}
+        <div style="background-color: #6c757d !important;" class="bbox merron-box">
+<!--          {{ text }}-->
           </div>
           <div class="thirRow-seat-grid-left">
-        <button class="seat" *ngFor="let seat of thiseats">{{ seat.label }}</button>
+        <button style="background-color: #6c757d !important;" class="seat" *ngFor="let seat of thiseats">
+<!--          {{ seat.label }}-->
+        </button>
       </div>
   </div>
 
@@ -269,12 +289,13 @@
     <div class="center-wrapper">
 
         <div class="grid-container">
-            <!-- First Column (Single Box) -->
-            <div class= "gridbox box-1">Box 1</div>
+            <!-- First Column (Single Box) Box 1 -->
+            <div style="background-color: #6c757d !important;" class= "gridbox box-1"></div>
 
             <!-- Second Column (Two Boxes) -->
-            <div class="gridbox box-2">Box 2</div>
-            <div class="gridbox box-3">Box 3</div>
+<!--          removed Box 2 & 3-->
+            <div style="background-color: #6c757d !important;" class="gridbox box-2"></div>
+            <div style="background-color: #6c757d !important;" class="gridbox box-3"></div>
 
           </div>
 
@@ -302,9 +323,12 @@
     <div class="row"  style="margin: 20px 50px 10px 10px;">
         <!-- Left Grid with 4 columns divided into two groups -->
       <div class="sevnRow">
-       <div class="gridbox sevbox-1">4x4</div>
-       <div class="gridbox sevbox-2">6x4</div>
-       <div class="gridbox sevbox-3">6x4</div>
+<!--        removed 4x4-->
+       <div style="background-color: #6c757d !important;" class="gridbox sevbox-1"></div>
+<!--        removed 6x4-->
+       <div style="background-color: #6c757d !important;" class="gridbox sevbox-2"></div>
+        <!--        removed 6x4-->
+       <div style="background-color: #6c757d !important;" class="gridbox sevbox-3"></div>
       </div>
          <div class="newgrid-container">
           <button class="grid-item" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
@@ -356,8 +380,9 @@
         <div class="row"  style="margin: 20px 50px 10px 10px;">
           <!-- Left Grid with 4 columns divided into two groups -->
         <div class="lastonegrid-container">
-          <div class="lastonegrid">Item 1</div>
-          <div class="lastonegrid">Item 1</div>
+          <div class="lastonegrid" style="background-color: #6c757d"></div>
+<!--          removed Item 1-->
+          <div class="lastonegrid" style="background-color: #6c757d"></div>
         </div>
         <div class="lastonegrid-container-middel">
           <!-- <button class="grid-item  lastseats"  *ngFor="let seat of boothsStartingWithB" >{{ seat.booth}}</button> -->

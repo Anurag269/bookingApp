@@ -101,7 +101,7 @@ export class BookingLayoutComponent implements OnInit {
     { label: 'B2', columnStart: 3, rowStart: 2 },
     // Add more seats here with their grid positions
   ];
-  text = 'Unreal';
+  text = '8X8';
   seatsthirdright = [
     { label: 'A1', columnStart: 1, rowStart: 1 },
     { label: 'A2', columnStart: 2, rowStart: 1 },
@@ -154,7 +154,7 @@ export class BookingLayoutComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.BookingData.forEach((booth: any) => {
+    this.BookingData?.forEach((booth: any) => {
       const button = this.buttons?.find(
         (btn) => btn.nativeElement.innerText === booth.booth
       );

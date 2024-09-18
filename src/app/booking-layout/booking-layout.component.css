@@ -54,7 +54,7 @@
 
 .seat-gridsec {
   display: grid;
-  grid-template-columns: repeat(13, 12px); /* Fixed width for each column */
+  grid-template-columns: repeat(13, 13.8px); /* Fixed width for each column */
   grid-auto-rows: 10.5px; /* Fixed height for each row */
 /* Spacing between grid items */
   width: calc(13 * 5px + 12 * 15px); /* Total width of the grid */
@@ -108,8 +108,8 @@ button.seat, button.rightrowseat {
 }
 
 .small-grid-virtic {
-  grid-template-columns: repeat(2, 11px);
-  grid-template-rows: repeat(4,11px);;/* Keeping the row height the same */
+  grid-template-columns: repeat(2, 14px);
+  grid-template-rows: repeat(4,11px);/* Keeping the row height the same */
 }
 /* Ensure the content remains fixed-width on mobile screens */
 @media (max-width: 2000px) {
@@ -238,7 +238,7 @@ height: 40px;
   width: 10.5px;
 }
 ::ng-deep.mat-mdc-tooltip-trigger.rightrowseat-top.not-booked {
-  width: 10.5px !important;
+  width: 12.5px !important;
 }
 .green-box {
   width:60px; /* Adjust the width as needed */
