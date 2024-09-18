@@ -15,7 +15,7 @@
   </div>
 
   <div class="seat-gridsec" style="padding-left:50px; margin-top:10px">
-    <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+    <button class="rightrowseat-top" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
             matTooltipPosition="above" [ngClass]="getBoothClass(getBoothByBoothNumber(seat.booth))" (mouseenter)="showPopover(getBoothByBoothNumber(seat.booth), $event)" (mouseleave)="hidePopover()" *ngFor="let seat of firstRowBooths" (click)="openPopup(getBoothByBoothNumber(seat.booth))">
       {{ seat.booth }}
     </button>
@@ -31,7 +31,7 @@
                 matTooltipPosition="above" [ngClass]="getBoothClass(getBoothByBoothNumber(seat.label))" (mouseenter)="showPopover(getBoothByBoothNumber(seat.label), $event)" (mouseleave)="hidePopover()" *ngFor="let seat of Secseats"  (click)="openPopup(getBoothByBoothNumber(seat.label))">{{ seat.label }}</button>
       </div>
       <div class="group-grid" >
-        <button class="rightrowseat" #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
+        <button class="rightrowseat" style="font-size: 6px !important;"  #boothButton matTooltip="{{ popoverData?.size }} | {{popoverData?.booth}} | {{popoverData?.category}} | {{popoverData?.booking?.company_name ? popoverData?.booking?.company_name :  popoverData?.booking  }}"
                 matTooltipPosition="above" [ngClass]="getBoothClass(getBoothByBoothNumber(seat.label))" (mouseenter)="showPopover(getBoothByBoothNumber(seat.label), $event)" (mouseleave)="hidePopover()" *ngFor="let seat of Secseats" (click)="openPopup(getBoothByBoothNumber(seat.label))">{{ seat.label }}</button>
       </div>
     </div>
@@ -178,7 +178,7 @@
 
 
         <div class="bbox green-box">
-        {{ text }}
+        Unreal
         </div>
     <!-- Right Grid -->
 
@@ -221,7 +221,7 @@
           {{ text }}
           </div>
           <div class="thirRow-seat-grid-left">
-        <button class="seat" *ngFor="let seat of   thiseats">{{ seat.label }}</button>
+        <button class="seat" *ngFor="let seat of thiseats">{{ seat.label }}</button>
       </div>
   </div>
 
@@ -279,7 +279,7 @@
           </div>
 
         <div class="bbox green-box" >
-        {{ text }}
+        Title Sponsor
         </div>
     <!-- Right Grid -->
 

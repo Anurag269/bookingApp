@@ -54,11 +54,11 @@
 
 .seat-gridsec {
   display: grid;
-  grid-template-columns: repeat(13, 10.5px); /* Fixed width for each column */
+  grid-template-columns: repeat(13, 12px); /* Fixed width for each column */
   grid-auto-rows: 10.5px; /* Fixed height for each row */
 /* Spacing between grid items */
   width: calc(13 * 5px + 12 * 15px); /* Total width of the grid */
-  margin-right: 20px; /* Fixed space between the two grids */
+  margin-right: 50px; /* Fixed space between the two grids */
 }
 .seat-grid-seq {
   display: grid;
@@ -225,7 +225,20 @@ height: 40px;
   justify-content: center;
   border: 0.5px solid transparent; /* Set to transparent */
   box-shadow: 0 0 0 0.5px black;
-
+}
+.rightrowseat-top{
+  background-color: #6c757d;
+  color: black;
+  font-size: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.5px solid transparent; /* Set to transparent */
+  box-shadow: 0 0 0 0.5px black;
+  width: 10.5px;
+}
+::ng-deep.mat-mdc-tooltip-trigger.rightrowseat-top.not-booked {
+  width: 10.5px !important;
 }
 .green-box {
   width:60px; /* Adjust the width as needed */
@@ -338,6 +351,7 @@ grid-template-rows: repeat(1,3fr);
   background-color: #58230a;
   border: 0.5px solid transparent; /* Set to transparent */
   box-shadow: 0 0 0 0.5px black;
+  align-content: center;
 }
 
 .fiveRow-seat-grid-left{
@@ -676,8 +690,13 @@ align-self:end;
 }
 ::ng-deep.mat-mdc-tooltip {
   transform: scale(4);
-  font-size: 120px !important;
+  font-size: 220px !important;
   height: 70px !important;
   min-width: 240px !important;
   padding: 10px !important;
+}
+
+::ng-deep button:focus {
+  outline: none; /* Disable the focus outline */
+  border: none !important; /* Ensure no border is applied */
 }
