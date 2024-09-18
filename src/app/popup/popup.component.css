@@ -101,7 +101,7 @@
   /* padding: 10px; */
   width: 100%;
   max-width: 300px;
-  border: 1px solid #ccc;
+  border: 2px solid black;
   height: 40px;
   border-radius: 4px;
   background-color: #fff;
@@ -121,6 +121,25 @@
 .dropdown:focus {
   outline: none;
   border-color: #007bff;
+}
+
+::ng-deep.ng-dropdown-panel .scroll-host {
+  overflow: hidden;
+  overflow-y: auto;
+  position: relative;
+  display: block;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+::ng-deep:focus.tab-button.active{
+  background-color: #007bff;
+  color: white;
+  border: none !important;
+}
+::ng-deep .tab-button:focus {
+  outline: none; /* Disable the focus outline */
+  border: none !important; /* Ensure no border is applied */
 }
 
 .dropdown option {
@@ -398,6 +417,7 @@ input:not(:placeholder-shown) ~ label {
 .tab-button.active {
     background-color: #007bff;
     color: white;
+  border: none !important;
 }
 
 
