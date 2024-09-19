@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, Inject, OnInit, PLATFORM_ID, ViewChild} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { BookingLayoutComponent } from './booking-layout/booking-layout.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -10,7 +10,7 @@ import { ModelComponent } from './model/model.component';
 import { PopupComponent } from './popup/popup.component';
 import { PopupService } from './popup.service';
 import {Subject, debounceTime, switchMap, timer, interval} from "rxjs";
-import {CommonModule, NgStyle} from "@angular/common";
+import {CommonModule, isPlatformBrowser, NgStyle} from "@angular/common";
 import {CdkDrag} from '@angular/cdk/drag-drop';
 import {MatTooltip} from "@angular/material/tooltip";
 import {HotToastService} from "@ngxpert/hot-toast";
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit{
   @ViewChild('zoomableContent') zoomableContent!: ElementRef;
   @ViewChild('dragRoot') dragRoot: ElementRef | undefined;
 
-  constructor(private popupService: PopupService,private dataService:DataserviceService, private toast: HotToastService) {}
+  constructor(private popupService: PopupService,private dataService:DataserviceService, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit() {
     this.popupService.popupVisibility$.subscribe(seatBooth => {
@@ -128,14 +128,16 @@ export class AppComponent implements OnInit{
       dragEl.style.left = '0px'; // Reset left position (if moved)
       dragEl.style.top = '0px'; // Reset top position (if moved)
       // Check if the screen width is below a certain threshold (mobile view)
-      const isMobile = window?.innerWidth <= 768; // You can adjust the width value as needed
+      if (isPlatformBrowser(this.platformId)) {
+        const isMobile = window?.innerWidth <= 768; // You can adjust the width value as needed
 
-      if (isMobile) {
-        this.zoomSubject.next(0.3);
-        dragEl.style.position= 'relative';
-        // Apply different behavior for mobile view, allowing more dragging to the left
-        dragEl.style.left = '-420px'; // Allow more leftward drag (adjust value as needed)
+        if (isMobile) {
+          this.zoomSubject.next(0.3);
+          dragEl.style.position = 'relative';
+          // Apply different behavior for mobile view, allowing more dragging to the left
+          dragEl.style.left = '-420px'; // Allow more leftward drag (adjust value as needed)
 
+        }
       }
     }
   }
