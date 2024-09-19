@@ -9,14 +9,13 @@ import {MatChipsModule} from '@angular/material/chips';
 import { PaymentService } from '../payment.service';
 import { HttpClientModule } from '@angular/common/http';
 import {NgSelectComponent, NgSelectModule} from '@ng-select/ng-select';
-import {ToastComponent} from "../toast/toast.component";
-import {ToastService} from "../toast.service";
+import {HotToastService} from "@ngxpert/hot-toast";
 declare var Razorpay: any;
 @Component({
   selector: 'app-popup',
   standalone: true,
   imports: [CommonModule, FormsModule,
-    MatIconModule, MatSelectModule, MatChipsModule, MatFormFieldModule, MatChipsModule, HttpClientModule, NgSelectComponent, ToastComponent],
+    MatIconModule, MatSelectModule, MatChipsModule, MatFormFieldModule, MatChipsModule, HttpClientModule, NgSelectComponent],
     providers:[DataserviceService,PaymentService,   NgSelectModule,],
   templateUrl: './popup.component.html',
   styleUrl: './popup.component.css'
@@ -37,7 +36,7 @@ export class PopupComponent implements OnInit{
   allSeat :any;
   formCompleted: boolean = false;
   // showProductDetailes:boolean=false
-constructor(private dataService:DataserviceService,private paymentService:PaymentService, private toastService: ToastService){
+constructor(private dataService:DataserviceService,private paymentService:PaymentService, private toast: HotToastService){
   this.formData?.booth_ids.push(this.seatBooth?.booth);
 }
 
@@ -161,20 +160,30 @@ this.isShowBookingView =false;
       "currency": "INR",
       "order_id": data.order_id,  // Order ID from Razorpay
       "handler": (response:any) => {
-        this.toastService.showToast('Payment successful! Payment ID: ' + response.razorpay_payment_id, 'success');
+        this.toast.success('Payment successful! Payment ID: ' + response.razorpay_payment_id, {
+          duration: 5000});
         // Trigger the update_payment API with the payment ID
         this.paymentService.updatePayment(response.razorpay_payment_id).subscribe(
           updateData => {
             if (updateData.error) {
-              this.toastService.showToast('Error updating payment: ' + updateData.error, 'warning');
+              this.toast.error('Error updating payment: ' + updateData.error, {
+                duration: 3000,
+                position: 'top-right'
+              });
             } else {
-              this.toastService.showToast('Payment details updated successfully', 'success');
+              this.toast.error('Payment details updated successfully', {
+                duration: 3000,
+                position: 'top-right'
+              });
               console.log(updateData);  // Log or handle the updated payment details
               window.location.reload()
             }
           },
           updateError => {
-            this.toastService.showToast('Error updating payment: ' + updateError.message, 'warning');
+            this.toast.error('Error updating payment: ' + updateError.message,{
+              duration: 3000,
+              position: 'top-right'
+            });
           }
         );
       },
@@ -192,7 +201,10 @@ this.isShowBookingView =false;
   }
 
   showWarning() {
-    this.toastService.showToast('Warning: Check this out!', 'warning');
+    this.toast.error('Warning: Check this out!', {
+      duration: 3000,
+      position: 'top-right'
+    });
   }
 
 

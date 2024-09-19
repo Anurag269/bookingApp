@@ -11,6 +11,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatChipsModule} from '@angular/material/chips'
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import {provideHotToastConfig} from "@ngxpert/hot-toast";
 
 @NgModule({
   declarations: [],
@@ -25,7 +26,7 @@ import {FormsModule} from "@angular/forms";
     CommonModule,
     FormsModule
   ],
-  providers: [],
+  providers: [provideHotToastConfig()],
   bootstrap: [],
 })
 export class AppModule {}
