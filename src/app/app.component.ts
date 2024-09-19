@@ -13,6 +13,7 @@ import {Subject, debounceTime, switchMap, timer, interval} from "rxjs";
 import {CommonModule, NgStyle} from "@angular/common";
 import {CdkDrag} from '@angular/cdk/drag-drop';
 import {MatTooltip} from "@angular/material/tooltip";
+import {HotToastService} from "@ngxpert/hot-toast";
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -42,7 +43,7 @@ export class AppComponent implements OnInit{
   @ViewChild('zoomableContent') zoomableContent!: ElementRef;
   @ViewChild('dragRoot') dragRoot: ElementRef | undefined;
 
-  constructor(private popupService: PopupService,private dataService:DataserviceService) {}
+  constructor(private popupService: PopupService,private dataService:DataserviceService, private toast: HotToastService) {}
 
   ngOnInit() {
     this.popupService.popupVisibility$.subscribe(seatBooth => {
@@ -127,7 +128,7 @@ export class AppComponent implements OnInit{
       dragEl.style.left = '0px'; // Reset left position (if moved)
       dragEl.style.top = '0px'; // Reset top position (if moved)
       // Check if the screen width is below a certain threshold (mobile view)
-      const isMobile = window.innerWidth <= 768; // You can adjust the width value as needed
+      const isMobile = window?.innerWidth <= 768; // You can adjust the width value as needed
 
       if (isMobile) {
         this.zoomSubject.next(0.3);
