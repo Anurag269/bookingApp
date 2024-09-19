@@ -9,12 +9,14 @@ import {MatChipsModule} from '@angular/material/chips';
 import { PaymentService } from '../payment.service';
 import { HttpClientModule } from '@angular/common/http';
 import {NgSelectComponent, NgSelectModule} from '@ng-select/ng-select';
+import {ToastComponent} from "../toast/toast.component";
+import {ToastService} from "../toast.service";
 declare var Razorpay: any;
 @Component({
   selector: 'app-popup',
   standalone: true,
   imports: [CommonModule, FormsModule,
-    MatIconModule, MatSelectModule, MatChipsModule, MatFormFieldModule, MatChipsModule, HttpClientModule, NgSelectComponent],
+    MatIconModule, MatSelectModule, MatChipsModule, MatFormFieldModule, MatChipsModule, HttpClientModule, NgSelectComponent, ToastComponent],
     providers:[DataserviceService,PaymentService,   NgSelectModule,],
   templateUrl: './popup.component.html',
   styleUrl: './popup.component.css'
@@ -35,7 +37,7 @@ export class PopupComponent implements OnInit{
   allSeat :any;
   formCompleted: boolean = false;
   // showProductDetailes:boolean=false
-constructor(private dataService:DataserviceService,private paymentService:PaymentService){
+constructor(private dataService:DataserviceService,private paymentService:PaymentService, private toastService: ToastService){
   this.formData?.booth_ids.push(this.seatBooth?.booth);
 }
 
@@ -159,21 +161,20 @@ this.isShowBookingView =false;
       "currency": "INR",
       "order_id": data.order_id,  // Order ID from Razorpay
       "handler": (response:any) => {
-        alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
-
+        this.toastService.showToast('Payment successful! Payment ID: ' + response.razorpay_payment_id, 'success');
         // Trigger the update_payment API with the payment ID
         this.paymentService.updatePayment(response.razorpay_payment_id).subscribe(
           updateData => {
             if (updateData.error) {
-              alert('Error updating payment: ' + updateData.error);
+              this.toastService.showToast('Error updating payment: ' + updateData.error, 'warning');
             } else {
-              alert('Payment details updated successfully');
+              this.toastService.showToast('Payment details updated successfully', 'success');
               console.log(updateData);  // Log or handle the updated payment details
               window.location.reload()
             }
           },
           updateError => {
-            alert('Error updating payment: ' + updateError.message);
+            this.toastService.showToast('Error updating payment: ' + updateError.message, 'warning');
           }
         );
       },
@@ -185,6 +186,14 @@ this.isShowBookingView =false;
     // Open the Razorpay payment modal
     rzp1.open();
 }
+
+  showSuccess() {
+
+  }
+
+  showWarning() {
+    this.toastService.showToast('Warning: Check this out!', 'warning');
+  }
 
 
   setActiveTab(tabName: string, bookingForm?: any) {

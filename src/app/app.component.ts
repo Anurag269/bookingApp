@@ -52,7 +52,8 @@ export class AppComponent implements OnInit{
       }
     });
     this.dataService.getSummeryData().subscribe((data:any)=>{
-     this.summeryItems=data
+     this.summeryItems=data;
+     this.zoomdrDag();
     })
     this.isInitialized = true;
     this.zoomSubject.subscribe((zoom) => {
@@ -125,6 +126,16 @@ export class AppComponent implements OnInit{
       dragEl.style.transform = 'none'; // Reset transform to original position
       dragEl.style.left = '0px'; // Reset left position (if moved)
       dragEl.style.top = '0px'; // Reset top position (if moved)
+      // Check if the screen width is below a certain threshold (mobile view)
+      const isMobile = window.innerWidth <= 768; // You can adjust the width value as needed
+
+      if (isMobile) {
+        this.zoomSubject.next(0.3);
+        dragEl.style.position= 'relative';
+        // Apply different behavior for mobile view, allowing more dragging to the left
+        dragEl.style.left = '-420px'; // Allow more leftward drag (adjust value as needed)
+
+      }
     }
   }
   // @HostListener('document:mousemove', ['$event'])
