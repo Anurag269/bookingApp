@@ -219,7 +219,7 @@ height: 40px;
 .rightrowseat{
   background-color: #6c757d;
   color: black;
-  font-size: 2px;
+  font-size: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -229,7 +229,7 @@ height: 40px;
 .rightrowseat-top{
   background-color: #6c757d;
   color: black;
-  font-size: 2px;
+  font-size: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -567,11 +567,11 @@ grid-template-rows: repeat(1,3fr);
 }
 
 .booked-by-admin {
-  background-color: rgb(147, 142, 142); /* Example color for admin bookings */
+  background-color: rgb(147, 142, 142) !important; /* Example color for admin bookings */
 }
 
 .booked-by-user {
-  background-color: rgb(188, 46, 10); /* Example color for user bookings */
+  background-color: rgb(188, 46, 10) !important; /* Example color for user bookings */
 }
 .newgrid-item{
   background-color:rgb(237, 105, 28); /* Example background color */

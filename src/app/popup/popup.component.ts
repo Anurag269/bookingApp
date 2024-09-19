@@ -161,7 +161,9 @@ this.isShowBookingView =false;
       "order_id": data.order_id,  // Order ID from Razorpay
       "handler": (response:any) => {
         this.toast.success('Payment successful! Payment ID: ' + response.razorpay_payment_id, {
-          duration: 5000});
+          duration: 3000,
+          position: 'top-right',
+        });
         // Trigger the update_payment API with the payment ID
         this.paymentService.updatePayment(response.razorpay_payment_id).subscribe(
           updateData => {
@@ -173,7 +175,7 @@ this.isShowBookingView =false;
             } else {
               this.toast.error('Payment details updated successfully', {
                 duration: 3000,
-                position: 'top-right'
+                position: 'top-right',
               });
               console.log(updateData);  // Log or handle the updated payment details
               window.location.reload()
