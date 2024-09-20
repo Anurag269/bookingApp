@@ -13,12 +13,13 @@ import {Subject, debounceTime, switchMap, timer, interval} from "rxjs";
 import {CommonModule, isPlatformBrowser, NgStyle} from "@angular/common";
 import {CdkDrag} from '@angular/cdk/drag-drop';
 import {MatTooltip} from "@angular/material/tooltip";
-import {HotToastService} from "@ngxpert/hot-toast";
+import {AppModule} from "./app.module";
+import {PinchZoomModule} from "@mtnair/ngx-pinch-zoom";
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, BookingLayoutComponent, MatToolbarModule, CommonModule, CdkDrag,
-    MatIconModule, DragDropModule, HttpClientModule, ModelComponent, PopupComponent, MatIconModule, NgStyle, MatTooltip],
+    MatIconModule, DragDropModule, HttpClientModule, ModelComponent, PopupComponent, MatIconModule, NgStyle, MatTooltip, PinchZoomModule],
     providers: [DataserviceService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

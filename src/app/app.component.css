@@ -215,6 +215,6 @@
   background-color: white;
 }
 
-.highlight-on-hover:hover td {
-  background-color: lightgrey;
+.table-hover .table-dark:hover {
+  background-color: #343a40;
 }
