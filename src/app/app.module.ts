@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
@@ -12,6 +12,7 @@ import {MatChipsModule} from '@angular/material/chips'
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {provideHotToastConfig} from "@ngxpert/hot-toast";
+import {provideHttpClient, withFetch} from "@angular/common/http";
 
 @NgModule({
   declarations: [],
@@ -26,7 +27,9 @@ import {provideHotToastConfig} from "@ngxpert/hot-toast";
     CommonModule,
     FormsModule
   ],
-  providers: [provideHotToastConfig()],
+  providers: [provideHotToastConfig(),
+    provideHttpClient(withFetch())],
   bootstrap: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
