@@ -1,0 +1,38 @@
+/* Set the entire page background to black */
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.full-screen-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full height of the viewport */
+  background-image: url('/assets/images/login-bg.jpg'); /* Replace with your image path */
+  background-size: cover; /* Make sure the image covers the entire container */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  background-color: black; /* Fallback color in case the image doesn't load */
+}
+
+/* Center the login card */
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Logo styling */
+.logo-img {
+  width: 100px;
+  height: auto;
+}
+
+/* Ensure form elements are styled consistently */
+.form-group label {
+  font-weight: bold;
+}

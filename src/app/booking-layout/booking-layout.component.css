@@ -10,7 +10,7 @@
   position: absolute;
   width: 30%; /* 30% width of the container */
   height: 100px;
-  background-color: #4caf50;
+  background-color: #fff307;
 }
 
 .left-box {
@@ -117,6 +117,14 @@ button.seat, button.rightrowseat {
     width: 500px; /* Keep the row fixed at 1000px */
     overflow-x: auto; /* Allow horizontal scrolling if the screen is too narrow */
   }
+  /*.seat-gridsec {*/
+  /*  display: grid;*/
+  /*  grid-template-columns: repeat(13, 13.8px); !* Fixed width for each column *!*/
+  /*  grid-auto-rows: 10.5px; !* Fixed height for each row *!*/
+  /*  !* Spacing between grid items *!*/
+  /*  width: calc(13 * 5px + 12 * 15px); !* Total width of the grid *!*/
+  /*  margin-right: 50px; !* Fixed space between the two grids *!*/
+  /*}*/
 }
 
 .center-wrapper {
@@ -135,7 +143,7 @@ button.seat, button.rightrowseat {
   grid-template-rows: repeat(2,minmax(20px, 0.8fr));
 }
 .colorseat{
-  background-color: #6c757d;
+  background-color: #fff307;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -144,7 +152,7 @@ button.seat, button.rightrowseat {
   font-size: 5px;
 }
 .regular-booked-seat {
-  background-color: #ccffcc; /* Example color for regular booked seats */
+  background-color: #fff307; /* Example color for regular booked seats */
 }
 .thirdrownew-seat-grid-right{
   display: grid;
@@ -217,7 +225,7 @@ height: 40px;
 }
 
 .rightrowseat{
-  background-color: #6c757d;
+  background-color: #fff307;
   color: black;
   font-size: 5px;
   display: flex;
@@ -227,7 +235,7 @@ height: 40px;
   box-shadow: 0 0 0 0.5px black;
 }
 .rightrowseat-top{
-  background-color: #6c757d;
+  background-color: #fff307;
   color: black;
   font-size: 5px;
   display: flex;
@@ -243,7 +251,7 @@ height: 40px;
 .green-box {
   width:60px; /* Adjust the width as needed */
   height: 60px; /* Adjust the height as needed */
-  background-color: green;
+  background-color: #fff307;
   border: 0.5px solid transparent; /* Set to transparent */
   box-shadow: 0 0 0 0.5px black;
   margin-top: -20px;
@@ -278,7 +286,7 @@ grid-template-rows: repeat(1,3fr);
 .box-1 {
   grid-column: 1; /* Position in the first column */
   grid-row: 1 / span 2; /* Span across two rows */
-  background-color: red;
+  background-color: #fff307;
 }
 
 /* Second column, first row */
@@ -299,17 +307,17 @@ grid-template-rows: repeat(1,3fr);
   height: 40px;
 }
 .sevbox-1{
-  background-color: pink;
+  background-color: #fff307;
   width:45px;
   border:1px solid black;
 }
 .sevbox-2{
-  background-color: rgb(81, 10, 22);
+  background-color: #fff307;
   width:52px;
   border:1px solid black;
 }
 .sevbox-3{
-  background-color: rgb(81, 10, 22);
+  background-color: #fff307;
   width:52px;
   border:1px solid black;
 }
@@ -348,7 +356,7 @@ grid-template-rows: repeat(1,3fr);
   display: grid;
   grid-template-columns: repeat(2,28px );
   grid-template-rows: repeat(1,10px);
-  background-color: #58230a;
+  background-color: #fff307;
   border: 0.5px solid transparent; /* Set to transparent */
   box-shadow: 0 0 0 0.5px black;
   align-content: center;
@@ -363,7 +371,7 @@ grid-template-rows: repeat(1,3fr);
   gap: 0;
 }
 .newseatnew{
-  background-color:#bc0e82;
+  background-color:#fff307;
   font-size: 5px;
   color:#000;
   border: 0.5px solid transparent; /* Transparent border to avoid visual overlap */
@@ -391,13 +399,13 @@ grid-template-rows: repeat(1,3fr);
 }
 
 .box-new {
-  background-color: #66bb66;
+  background-color: #fff307;
   padding: 20px;
   border: 1px solid #dee2e6;
   text-align: center;
 }
 .forthRow-middel-seat-grid{
-  color: #4caf50;
+  color: #fff307;
   height:40px;
   width:80px;
 }
@@ -533,7 +541,7 @@ grid-template-rows: repeat(1,3fr);
 
 }
 .lastonegrid{
-  background-color:rgb(94, 28, 237);
+  background-color:#fff307;
   border: 0.5px solid transparent; /* Set to transparent */
   box-shadow: 0 0 0 0.5px black; /* Example border */
   text-align: center;
@@ -546,7 +554,7 @@ grid-template-rows: repeat(1,3fr);
 }
 
 .grid-item {
-  background-color:lightblue; /* Example background color */
+  background-color:#fff307; /* Example background color */
   border: 0.5px solid transparent; /* Set to transparent */
   box-shadow: 0 0 0 0.5px black; /* Example border */
   padding: 10px;
@@ -574,7 +582,7 @@ grid-template-rows: repeat(1,3fr);
   background-color: rgb(188, 46, 10) !important; /* Example color for user bookings */
 }
 .newgrid-item{
-  background-color:rgb(237, 105, 28); /* Example background color */
+  background-color:#fff307; /* Example background color */
   border: 0.5px solid transparent; /* Set to transparent */
   box-shadow: 0 0 0 0.5px black; /* Example border */
   padding: 20px;
@@ -604,7 +612,7 @@ align-self:end;
   grid-template-columns: 4fr 4fr; /* 2 columns with 4fr each */
 }
 .nthgrid-item {
-  background-color: #ccc; /* Example background color */
+  background-color: #fff307; /* Example background color */
   border: 0.5px solid transparent; /* Set to transparent */
   box-shadow: 0 0 0 0.5px black; /* Example border */
   padding: 20px;

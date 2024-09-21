@@ -1,0 +1,104 @@
+
+<mat-toolbar *ngIf="!isLoginVisible" class="custom-toolbar">
+  <mat-toolbar-row>
+    <img src="../assets/images/icon.jpeg" alt="Logo" style="height: 60px;width:80px; margin-right: 16px;">
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div *ngIf="!isLoginVisible" class="container-fullscreen rounded-container" style="display: flex;">
+  <!-- Zoom Controls -->
+  <div class="zoom-controls" style="margin-right: 20px;">
+    <button class="inbutton" (click)="zoomIn()">+</button>
+    <button class="outbutton" (click)="zoomOut()">-</button>
+    <button class="drag-button newdrag" (click)="zoomdrDag()"cdkDrag>
+      <i class="fas fa-fw fa-arrows-alt"></i>
+    </button>
+  </div>
+
+  <!-- Image and Content -->
+  <div style="flex: 2;" #zoomableContent>
+    <div cdkDrag class="drag-root drag-button" #dragRoot>
+      <div class="zoom-content"  [style.transform]="zoomTransform">
+        <div class="row bgImg">
+          <div class="fixed-width-left" style="width:225px"></div>
+          <div class="fixed-width-middle" style="width:618px">
+            <app-booking-layout [zoomLevel]="zoomLevel"></app-booking-layout>
+          </div>
+          <div class="col-md-4 col-4 fixed-width-right"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!isLoginVisible" class="sticky-footer">
+  <ng-container *ngIf="!showSummaryTable; else showDetails">
+    <button type="button" class="btn mx-1 btn-sm no_focus tableBtn" (click)="showSummaryTableDetails()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708z"/>
+        <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+      </svg>
+    </button>
+  </ng-container>
+  <ng-template #showDetails>
+    <button type="button" class="btn mx-1 btn-sm no_focus tableBtn" (click)="minimizeSummaryTableDetails()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+        <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+      </svg>
+    </button>
+    <div>
+      <table class="table table-bordered table-hover table-sm" id="categoryTable">
+        <thead class="table-dark">
+        <tr class="text-center">
+          <th>Category</th>
+          <th>Booked</th>
+
+          <th>Available</th>
+          <th>Total</th>
+        </tr>
+        </thead>
+        <tbody id="categoryTableLegndsBody" >
+        <ng-container *ngFor="let item of summeryItems">
+          <tr class="highlight-on-hover">
+            <td>{{ item.category }}</td>
+            <td>{{ item.booked }}</td>
+            <td>{{ item.available }}</td>
+            <td>{{ item.total }}</td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </ng-template>
+</div>
+
+<div *ngIf="!isLoginVisible" class="sticky-top-right">
+  <ng-container *ngIf="!showLoginkey; else hideLoginKey">
+    <button type="button" class="btn mx-1 btn-sm no_focus tableBtn" (click)="showLogin()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708"/>
+        <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708"/>
+      </svg>
+    </button>
+  </ng-container>
+  <ng-template #hideLoginKey>
+    <div class="row">
+      <button type="button" class="btn mx-1 btn-sm no_focus tableBtn" (click)="hideLogin()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+          <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+        </svg>
+      </button>
+      <div class="card shadow-lg" id="displayCard" style="display: block;">
+        <div class="card-body p-0">
+          <div class="list-group">
+            <a style="cursor: pointer" class="list-group-item list-group-item-action" aria-current="true" (click)="toggleLogin()">
+              <strong>Login</strong>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+<app-popup [isVisible]="isPopupVisible" [seatBooth]="selectedSeatBooth" (close)="closePopup()"></app-popup>
