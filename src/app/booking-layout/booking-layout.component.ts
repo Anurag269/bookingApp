@@ -7,6 +7,7 @@ import { ModelComponent } from '../model/model.component';
 import { PopupComponent } from '../popup/popup.component';
 import { PopupService } from '../popup.service';
 import {MatTooltip} from "@angular/material/tooltip";
+import {ReloadService} from "../reload.service";
 
 interface Seat {
   number: number;
@@ -84,7 +85,8 @@ export class BookingLayoutComponent implements OnInit {
   constructor(
     private dataService: DataserviceService,
     private renderer: Renderer2,
-    private popupService: PopupService
+    private popupService: PopupService,
+    private reloadService: ReloadService
   ) {}
   seatsthird = [
     { label: 'A1', columnStart: 1, rowStart: 1 },
@@ -142,14 +144,18 @@ export class BookingLayoutComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.dataService.getSeatsData().subscribe((data) => {
-      this.BookingData = data.data;
-      this.filteredBoothNumbers = this.extractAndReverseBoothNumbers(
-        this.BookingData
-      );
-      this.extractWithEIn(this.BookingData);
+    this.reloadService.reload$.subscribe(() => {
+      this.loadBookingData();
+    });
+    this.loadBookingData();
+  }
 
-      this.greenSeatrow;
+  loadBookingData() {
+      this.dataService.getSeatsData().subscribe((data) => {
+      this.BookingData = data.data;
+      this.filteredBoothNumbers = this.extractAndReverseBoothNumbers(this.BookingData);
+      this.extractWithEIn(this.BookingData);
+      this.ngAfterViewInit(); // Manually call if needed
     });
   }
 

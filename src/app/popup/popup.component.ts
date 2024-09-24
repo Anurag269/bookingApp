@@ -10,6 +10,8 @@ import { PaymentService } from '../payment.service';
 import { HttpClientModule } from '@angular/common/http';
 import {NgSelectComponent, NgSelectModule} from '@ng-select/ng-select';
 import {HotToastService} from "@ngxpert/hot-toast";
+import {Router} from "@angular/router";
+import {ReloadService} from "../reload.service";
 declare var Razorpay: any;
 @Component({
   selector: 'app-popup',
@@ -36,7 +38,7 @@ export class PopupComponent implements OnInit{
   allSeat :any;
   formCompleted: boolean = false;
   // showProductDetailes:boolean=false
-constructor(protected dataService:DataserviceService, private paymentService:PaymentService, private toast: HotToastService){
+constructor(protected dataService:DataserviceService, private paymentService:PaymentService, private toast: HotToastService, private reloadService: ReloadService){
   this.formData?.booth_ids.push(this.seatBooth?.booth);
 }
 
@@ -162,11 +164,12 @@ this.dataService.postBoothDetails(formData).subscribe((data)=>{
       });
       this.dataService.blockBooth(formData).subscribe({
         next: (res) => {
-          this.toast.success('Blocked Successfully', {
+          this.toast.success(res?.success, {
             duration: 3000,
             position: 'top-right',
           });
-          window.location.reload();
+            this.closePopup();
+            this.bookclose();
         },
         error: (err) => {
           this.toast.error('Unable to Block, Please Retry', {
@@ -174,6 +177,8 @@ this.dataService.postBoothDetails(formData).subscribe((data)=>{
             position: 'top-right',
           });
         }
+      }).add(() => {
+        this.reloadService.triggerReload();
       });
     }
   }
@@ -219,13 +224,13 @@ this.isShowBookingView =false;
                 duration: 3000,
                 position: 'top-right'
               });
+              this.closePopup();
+              this.bookclose();
             } else {
               this.toast.error('Payment details updated successfully', {
                 duration: 3000,
                 position: 'top-right',
               });
-              console.log(updateData);  // Log or handle the updated payment details
-              window.location.reload();
             }
           },
           updateError => {
@@ -234,7 +239,9 @@ this.isShowBookingView =false;
               position: 'top-right'
             });
           }
-        );
+        ).add(() => {
+          this.reloadService.triggerReload();
+        });
       },
     };
 
