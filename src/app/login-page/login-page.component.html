@@ -1,0 +1,36 @@
+<div class="full-screen-container">
+  <div class="card login-card">
+    <!-- Logo at the top of the card -->
+    <div class="text-center mb-3">
+      <img src="../assets/images/icon.jpeg" alt="Logo" class="logo-img" />
+    </div>
+
+    <!-- Login form -->
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="form-group mb-3">
+        <label for="username">Username</label>
+        <input type="text" id="username" class="form-control" formControlName="username" placeholder="Enter username" />
+        <!-- Validation message for username -->
+        <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="text-danger">
+          <div *ngIf="loginForm.get('username')?.errors?.required">Username is required</div>
+<!--          <div *ngIf="loginForm.get('username')?.errors?.username">Please enter a valid email address</div>-->
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="password">Password</label>
+        <input type="password" id="password" class="form-control" formControlName="password" placeholder="Enter password" />
+
+        <!-- Validation message for password -->
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+          <div *ngIf="loginForm.get('password')?.errors?.required">Password is required</div>
+          <div *ngIf="loginForm.get('password')?.errors?.minlength">Password must be at least 6 characters long</div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid">
+        Login
+      </button>
+    </form>
+  </div>
+</div>
