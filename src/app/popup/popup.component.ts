@@ -36,7 +36,7 @@ export class PopupComponent implements OnInit{
   allSeat :any;
   formCompleted: boolean = false;
   // showProductDetailes:boolean=false
-constructor(private dataService:DataserviceService,private paymentService:PaymentService, private toast: HotToastService){
+constructor(protected dataService:DataserviceService, private paymentService:PaymentService, private toast: HotToastService){
   this.formData?.booth_ids.push(this.seatBooth?.booth);
 }
 
@@ -114,7 +114,6 @@ onSubmit(form: NgForm) {
       const value = (postData as any)[key];
       console.log(key, value)
       if (Array.isArray(value)) {
-        console.log('herer')
         // If the property is an array, append each element
         value.forEach((item: any) => {
           formData.append(`${key}`, item);
@@ -124,12 +123,59 @@ onSubmit(form: NgForm) {
         formData.append(key, value);
       }
     });
-    console.log('formData',formData)
 this.dataService.postBoothDetails(formData).subscribe((data)=>{
   this.onPay(data)
 })
   }
 }
+
+  onBlock(form: NgForm) {
+    if (form.valid) {
+      if (!this.termsAccepted) {
+        this.termsTouched = true; // Trigger the terms validation message
+        return;
+      }
+      this.isShowBookingView = true;
+      const postData = {
+        ...this.formData,
+        booth_ids: this.boothDetails.map((booth: { id: number; }) => booth.id)
+      };
+
+      if (form.invalid) {
+        return;
+      }
+      const formData = new FormData();
+
+// Type assertion to `any` to bypass the error
+      Object.keys(postData).forEach((key) => {
+        const value = (postData as any)[key];
+        console.log(key, value)
+        if (Array.isArray(value)) {
+          // If the property is an array, append each element
+          value.forEach((item: any) => {
+            formData.append(`${key}`, item);
+          });
+        } else {
+          // Otherwise, append the property as it is
+          formData.append(key, value);
+        }
+      });
+      this.dataService.blockBooth(formData).subscribe({
+        next: (res) => {
+          this.toast.success('Blocked Successfully', {
+            duration: 3000,
+            position: 'top-right',
+          });
+        },
+        error: (err) => {
+          this.toast.error('Unable to Block, Please Retry', {
+            duration: 3000,
+            position: 'top-right',
+          });
+        }
+      });
+    }
+  }
 
   updateBooths(): void {
     this.boothDetails = this.selectedboothids.filter((b: any) => {

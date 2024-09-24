@@ -13,6 +13,7 @@ import {ModelComponent} from "../model/model.component";
 import {PopupComponent} from "../popup/popup.component";
 import {MatTooltip} from "@angular/material/tooltip";
 import {LoginPageComponent} from "../login-page/login-page.component";
+import {HotToastService} from "@ngxpert/hot-toast";
 
 @Component({
   selector: 'app-main-model',
@@ -42,7 +43,7 @@ export class MainModelComponent implements OnInit {
   @ViewChild('dragRoot') dragRoot: ElementRef | undefined;
   showLoginkey = false;
 
-  constructor(private popupService: PopupService,private dataService:DataserviceService, @Inject(PLATFORM_ID) private platformId: Object, private router: Router) {}
+  constructor(private popupService: PopupService, protected dataService:DataserviceService, @Inject(PLATFORM_ID) private platformId: Object, private router: Router,private toast: HotToastService) {}
 
   ngOnInit() {
     this.popupService.popupVisibility$.subscribe(seatBooth => {
@@ -177,5 +178,41 @@ export class MainModelComponent implements OnInit {
   toggleLogin(): void {
     this.isLoginVisible = true;
     this.router.navigate(['/login']);
+  }
+
+  userLogout(): void {
+    this.dataService.userLogout().subscribe({
+      next: () => {
+        this.toast.success('Logged Out Successfully', {
+          duration: 3000,
+          position: 'top-right'
+        });
+        this.dataService.clearSessionId();
+        this.router.navigate(['']);
+      },
+      error: (err) => {
+        this.toast.error('Error logging out.', {
+          duration: 3000,
+          position: 'top-right'
+        });
+      }
+    })
+  }
+
+  getBookingDetails() {
+    this.dataService.downloadBoothDetails().subscribe({
+      next: () => {
+        this.toast.success('Booth Details Downloaded successfully.', {
+          duration: 3000,
+          position: 'top-right'
+        });
+      },
+      error: (err) => {
+        this.toast.error('Unable to download Booth Details', {
+          duration: 3000,
+          position: 'top-right'
+        });
+      }
+    })
   }
 }

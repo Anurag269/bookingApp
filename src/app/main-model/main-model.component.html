@@ -2,6 +2,11 @@
 <mat-toolbar *ngIf="!isLoginVisible" class="custom-toolbar">
   <mat-toolbar-row>
     <img src="../assets/images/icon.jpeg" alt="Logo" style="height: 60px;width:80px; margin-right: 16px;">
+    <div *ngIf="dataService.getSessionId()" class="d-none d-md-block position-absolute top-50 end-4 translate-middle-y" role="search" style="z-index:2">
+      <a class="btn btn-secondary me-3" type="button" (click)="getBookingDetails()">
+        <i class="fas fa-fw fa-file-download" aria-hidden="true"></i>
+      </a>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -74,27 +79,34 @@
 
 <div *ngIf="!isLoginVisible" class="sticky-top-right">
   <ng-container *ngIf="!showLoginkey; else hideLoginKey">
-    <button type="button" class="btn mx-1 btn-sm no_focus tableBtn" (click)="showLogin()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708"/>
-        <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708"/>
-      </svg>
-    </button>
-  </ng-container>
-  <ng-template #hideLoginKey>
-    <div class="row">
-      <button type="button" class="btn mx-1 btn-sm no_focus tableBtn" (click)="hideLogin()">
+      <button type="button" class="btn mx-1 btn-sm no_focus tableBtn" (click)="showLogin()">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
           <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
         </svg>
       </button>
+  </ng-container>
+  <ng-template #hideLoginKey>
+    <div class="row">
+      <button type="button" class="btn mx-1 btn-sm no_focus tableBtn" (click)="hideLogin()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708"/>
+          <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708"/>
+        </svg>
+      </button>
       <div class="card shadow-lg" id="displayCard" style="display: block;">
         <div class="card-body p-0">
           <div class="list-group">
+            <div *ngIf="!dataService.getSessionId(); else logout">
             <a style="cursor: pointer" class="list-group-item list-group-item-action" aria-current="true" (click)="toggleLogin()">
               <strong>Login</strong>
             </a>
+            </div>
+            <ng-template #logout>
+              <a style="cursor: pointer" class="list-group-item list-group-item-action" aria-current="true" (click)="userLogout()">
+                <strong>Logout</strong>
+              </a>
+            </ng-template>
           </div>
         </div>
       </div>

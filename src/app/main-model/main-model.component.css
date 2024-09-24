@@ -266,3 +266,12 @@ mat-toolbar-row {
   color: #495057;
   text-align: inherit;
 }
+
+.end-4 {
+  right: 4% !important;
+}
+@media (min-width: 768px) {
+  .d-md-block {
+    display: block !important;
+  }
+}

@@ -122,7 +122,7 @@
         </div>
 
       <div class="modal-mobile-style" style=" padding-bottom: 40px; border: #e9ecef 1px solid; margin: 0px 10px 10px 10px;">
-        <form #bookingForm="ngForm" (ngSubmit)="onSubmit(bookingForm)">
+        <form #bookingForm="ngForm">
           <div id="customerDetails" class="tab-content" *ngIf="activeTab === 'customerDetails'">
             <div class="form-container">
               <div class="form-row">
@@ -249,8 +249,8 @@
 
     <div class="form-navigation" style="float:right ; margin-bottom: 20px;">
       <button class="nav-button submit-button" (click)="setActiveTab('customerDetails')">Previous</button>
-      <button type="submit" [disabled]="bookingForm.invalid" class="nav-button submit-button gap">Submit</button>
-
+      <button type="submit" (click)="onSubmit(bookingForm)" *ngIf="!dataService.getSessionId()" [disabled]="bookingForm.invalid" class="nav-button submit-button gap">Submit</button>
+      <button type="submit" (click)="onBlock(bookingForm)" *ngIf="dataService.getSessionId()" [disabled]="bookingForm.invalid" class="nav-button submit-button gap">Block</button>
   </div>
   </div>
 
