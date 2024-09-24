@@ -14,6 +14,7 @@ import {PopupComponent} from "../popup/popup.component";
 import {MatTooltip} from "@angular/material/tooltip";
 import {LoginPageComponent} from "../login-page/login-page.component";
 import {HotToastService} from "@ngxpert/hot-toast";
+import { saveAs } from "file-saver";
 
 @Component({
   selector: 'app-main-model',
@@ -201,7 +202,8 @@ export class MainModelComponent implements OnInit {
 
   getBookingDetails() {
     this.dataService.downloadBoothDetails().subscribe({
-      next: () => {
+      next: (res) => {
+        saveAs(res, 'Booth_Details')
         this.toast.success('Booth Details Downloaded successfully.', {
           duration: 3000,
           position: 'top-right'
