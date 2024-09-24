@@ -1,7 +1,8 @@
 
 <mat-toolbar *ngIf="!isLoginVisible" class="custom-toolbar">
   <mat-toolbar-row>
-    <img src="../assets/images/icon.jpeg" alt="Logo" style="height: 60px;width:80px; margin-right: 16px;">
+    <img src="../assets/images/icon.png" alt="Logo" style="height: 60px;margin-right: 16px;">
+    <img src="../assets/images/VFX_Summit_2024_white-01.png" alt="Logo" style="height: 60px;margin-right: 16px;">
     <div *ngIf="dataService.getSessionId()" class="d-none d-md-block position-absolute top-50 end-4 translate-middle-y" role="search" style="z-index:2">
       <a class="btn btn-secondary me-3" type="button" (click)="getBookingDetails()">
         <i class="fas fa-fw fa-file-download" aria-hidden="true"></i>
