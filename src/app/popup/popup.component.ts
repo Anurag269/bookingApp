@@ -224,10 +224,8 @@ this.isShowBookingView =false;
                 duration: 3000,
                 position: 'top-right'
               });
-              this.closePopup();
-              this.bookclose();
             } else {
-              this.toast.error('Payment details updated successfully', {
+              this.toast.success('Booth booked successfully', {
                 duration: 3000,
                 position: 'top-right',
               });
@@ -240,7 +238,7 @@ this.isShowBookingView =false;
             });
           }
         ).add(() => {
-          this.reloadService.triggerReload();
+          window.location.reload();
         });
       },
     };
