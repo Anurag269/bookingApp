@@ -168,11 +168,37 @@ export class BookingLayoutComponent implements OnInit {
 
   getBoothClass(booth: any): { [klass: string]: boolean } {
     return {
-      'booked-by-admin': booth?.booking?.admin,
-      'booked-by-user': booth?.booking && !booth.booking.admin,
+      'booked-by-admin': booth?.booking?.admin || booth?.status == 'Blocked',
+      'booked-by-user': booth?.booking && !booth.booking.admin && !(booth?.status == 'Blocked'),
       'not-booked': !booth?.booking,
     };
   }
+
+  getTooltip(): string {
+    const parts = [];
+
+    if (this.popoverData?.size) {
+      parts.push(this.popoverData.size);
+    }
+    if (this.popoverData?.booth) {
+      parts.push(this.popoverData.booth);
+    }
+    if (this.popoverData?.category) {
+      parts.push(this.popoverData.category);
+    }
+    if (this.popoverData?.booking?.company_name) {
+      parts.push(this.popoverData.booking.company_name);
+    } else if (this.popoverData?.booking) {
+      parts.push(this.popoverData.booking);
+    }
+    if (this.popoverData?.status) {
+      parts.push(this.popoverData.status);
+    }
+
+    return parts.join(' | ');
+  }
+
+
   selectSeat(seat: Seat): void {
     if (!seat.occupied) {
       seat.selected = !seat.selected;

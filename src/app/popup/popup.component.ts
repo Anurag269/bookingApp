@@ -166,6 +166,7 @@ this.dataService.postBoothDetails(formData).subscribe((data)=>{
             duration: 3000,
             position: 'top-right',
           });
+          window.location.reload();
         },
         error: (err) => {
           this.toast.error('Unable to Block, Please Retry', {
@@ -224,7 +225,7 @@ this.isShowBookingView =false;
                 position: 'top-right',
               });
               console.log(updateData);  // Log or handle the updated payment details
-              window.location.reload()
+              window.location.reload();
             }
           },
           updateError => {

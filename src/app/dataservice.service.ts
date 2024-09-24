@@ -41,9 +41,10 @@ export class DataserviceService {
       withCredentials: true
     });
   }
-  downloadBoothDetails(): Observable<any> {
-    return this.http.get<any>(environment.downloadBoothDetails, {
-      withCredentials: true
+  downloadBoothDetails(): Observable<Blob> {
+    return this.http.get<Blob>(environment.downloadBoothDetails, {
+      withCredentials: true,
+      responseType: 'blob' as 'json'
     });
   }
 
