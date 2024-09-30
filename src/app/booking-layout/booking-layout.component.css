@@ -186,7 +186,7 @@ height: 40px;
 }
 .fourRow-seat-grid-left{
   display: grid;
-  grid-template-columns: repeat(7,28px); /* Increased column width from 1fr to 2fr */
+  grid-template-columns: repeat(6,28px); /* Increased column width from 1fr to 2fr */
   grid-template-rows: repeat(2,minmax(20px, 0.8fr));
 }
 .fourthRow-seat-grid-left{
